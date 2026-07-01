@@ -1,0 +1,191 @@
+/* === Shop & Inventory Styles === */
+
+.shop-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+/* === Shop Tabs === */
+.shop-tabs {
+  display: flex;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--border-radius);
+  overflow-x: auto;
+}
+
+.shop-tab {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 6px;
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.shop-tab:hover {
+  color: var(--text-primary);
+  background: rgba(255, 215, 0, 0.08);
+  border-color: rgba(255, 215, 0, 0.2);
+}
+
+.shop-tab-active {
+  color: var(--text-gold) !important;
+  background: rgba(255, 215, 0, 0.12) !important;
+  border-color: var(--text-gold) !important;
+  font-weight: bold;
+}
+
+.shop-tab-count {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.shop-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.shop-item-card {
+  padding: var(--spacing-md);
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  transition: border-color 0.2s;
+}
+
+.shop-item-card:hover {
+  border-color: var(--border-glow);
+}
+
+/* Legendary item card — golden border + subtle glow */
+.shop-item-legendary {
+  border-color: rgba(255, 215, 0, 0.3) !important;
+  background: linear-gradient(135deg,
+    rgba(255, 215, 0, 0.06),
+    var(--bg-card)
+  ) !important;
+}
+
+.shop-item-legendary:hover {
+  border-color: var(--text-gold) !important;
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.15);
+}
+
+.shop-item-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.shop-item-icon {
+  font-size: 1.3rem;
+}
+
+.shop-item-name {
+  font-weight: bold;
+  font-family: var(--font-display);
+  font-size: 1rem;
+}
+
+.shop-item-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.shop-item-stats {
+  font-size: 0.8rem;
+  color: var(--text-gold);
+  margin-bottom: var(--spacing-sm);
+}
+
+.shop-stat {
+  margin-right: var(--spacing-md);
+}
+
+.shop-item-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+
+.shop-item-price {
+  font-weight: bold;
+  color: var(--text-gold);
+  font-family: var(--font-mono);
+}
+
+.shop-lock {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.shop-equipped {
+  font-size: 0.8rem;
+  color: var(--correct);
+}
+
+.shop-owned {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.shop-boss-only {
+  font-size: 0.85rem;
+  color: var(--text-gold);
+  font-weight: bold;
+}
+
+.shop-stat-negative {
+  color: var(--wrong) !important;
+}
+
+/* === Inventory Screen === */
+.inventory-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.equip-slot-row {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.9rem;
+}
+
+.equip-slot-row:last-child {
+  border-bottom: none;
+}
+
+.inv-item-row {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.9rem;
+  gap: var(--spacing-xs);
+}
+
+.inv-item-row:last-child {
+  border-bottom: none;
+}
+
+.inv-item-row .btn {
+  margin-left: auto;
+}

@@ -1,0 +1,21 @@
+# === 开发原材料（课本照片、OCR数据，游戏不需要）===
+单词库/
+
+# === Claude Code 本地配置 ===
+.claude/
+
+# === 操作系统文件 ===
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# === 编辑器 ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# === 临时文件 ===
+*.tmp
+*.log

@@ -1,0 +1,1499 @@
+// === Screen Renderer ===
+// Dispatches to individual screen rendering functions and handles DOM updates.
+
+import { gameState } from './state.js';
+import { createMonsterFromWord, createBossFromUnit, scaleMonsterToPlayer, getNextBossWord } from './monster.js';
+import { BattleController, BATTLE_STATE } from './battle.js';
+import { UNITS, WORDS } from '../data/words-wy-7a.js';
+import { EQUIPMENT_CATALOG } from '../data/equipment.js';
+import {
+  createElement, createButton, createPanel, createScreenTitle,
+  createProgressBar, createStatRow, createGoldDisplay,
+  clearElement, getScreenContainer, showToast
+} from './ui.js';
+import { renderAvatar, renderAvatarLarge } from './avatar.js';
+import { audio } from './audio.js';
+import { speech } from './speech.js';
+import { exportSave, importSave, getSaveSummary, CURRENT_SAVE_VERSION } from './saveManager.js';
+import { Player } from './player.js';
+
+// Track current battle controller for rendering updates
+let currentBattle = null;
+let battleUpdateInterval = null;
+
+/**
+ * Main render dispatch.
+ */
+export function renderScreen(screenName, context = {}) {
+  const container = getScreenContainer();
+  if (!container) return;
+
+  // Clean up any existing battle
+  if (currentBattle) {
+    currentBattle.destroy();
+    currentBattle = null;
+  }
+  if (battleUpdateInterval) {
+    clearInterval(battleUpdateInterval);
+    battleUpdateInterval = null;
+  }
+
+  clearElement(container);
+  container.className = `screen-${screenName}`;
+
+  // Screen transition sound (skip for title and main menu)
+  if (screenName !== 'title' && screenName !== 'mainMenu') {
+    audio.transition();
+  }
+
+  switch (screenName) {
+    case 'title':
+      renderTitleScreen(container);
+      break;
+    case 'mainMenu':
+      renderMainMenu(container);
+      break;
+    case 'dungeon':
+      renderDungeonMap(container);
+      break;
+    case 'unitOverview':
+      renderUnitOverview(container, context);
+      break;
+    case 'battle':
+      renderBattleScreen(container, context);
+      break;
+    case 'bossBattle':
+      renderBossBattleScreen(container, context);
+      break;
+    case 'victory':
+      renderVictoryScreen(container, context);
+      break;
+    case 'defeat':
+      renderDefeatScreen(container, context);
+      break;
+    case 'character':
+      renderCharacterScreen(container);
+      break;
+    case 'shop':
+      renderShopScreen(container);
+      break;
+    case 'inventory':
+      renderInventoryScreen(container);
+      break;
+    default:
+      renderTitleScreen(container);
+  }
+}
+
+// ==================== TITLE SCREEN ====================
+
+function renderTitleScreen(container) {
+  const hasSave = gameState.hasSave();
+
+  const html = `
+    <div class="title-screen">
+      <div class="title-logo">
+        <div class="title-icon">⚔️</div>
+        <h1 class="title-main">英语单词大冒险</h1>
+        <p class="title-sub">ENGLISH WORD QUEST RPG</p>
+      </div>
+
+      <div class="title-actions">
+        <button id="btn-new-game" class="btn btn-primary btn-lg btn-block">
+          🆕 开始新的冒险
+        </button>
+        <button id="btn-continue" class="btn btn-lg btn-block" ${hasSave ? '' : 'disabled'}>
+          ▶️ 继续游戏
+        </button>
+      </div>
+
+      <div class="title-name-input" id="name-input-area" style="display:none;">
+        <p>请输入你的冒险者名字：</p>
+        <input type="text" id="input-player-name" class="input-rpg" maxlength="10" placeholder="输入名字..."
+          autocomplete="off">
+        <div style="margin-top: 12px;">
+          <button id="btn-confirm-name" class="btn btn-primary">确认开始</button>
+          <button id="btn-cancel-name" class="btn">取消</button>
+        </div>
+      </div>
+
+      <div class="title-footer">
+        <p>v1.0 | 外研版七年级上册 | 适合初一学生</p>
+        <p class="title-hint">按 Enter 确认 · 支持键盘操作</p>
+      </div>
+    </div>
+  `;
+
+  container.innerHTML = html;
+
+  // Event bindings
+  const btnNew = document.getElementById('btn-new-game');
+  const btnContinue = document.getElementById('btn-continue');
+  const nameArea = document.getElementById('name-input-area');
+  const inputName = document.getElementById('input-player-name');
+  const btnConfirm = document.getElementById('btn-confirm-name');
+  const btnCancel = document.getElementById('btn-cancel-name');
+
+  btnNew.addEventListener('click', () => {
+    nameArea.style.display = 'block';
+    inputName.focus();
+    btnNew.style.display = 'none';
+    btnContinue.style.display = 'none';
+  });
+
+  btnContinue.addEventListener('click', () => {
+    audio.init(); // Initialize audio on first user gesture
+    speech.init(); // Initialize speech synthesis
+    if (gameState.loadGame()) {
+      renderScreen('mainMenu');
+      showToast('欢迎回来，' + gameState.player.name + '！', 'success');
+    } else {
+      showToast('没有找到存档，请开始新游戏', 'error');
+    }
+  });
+
+  btnConfirm.addEventListener('click', () => {
+    const name = inputName.value.trim() || '小冒险家';
+    audio.init(); // Initialize audio on first user gesture
+    speech.init(); // Initialize speech synthesis
+    gameState.newGame(name);
+    audio.newGame();
+    renderScreen('mainMenu');
+    showToast(`欢迎，${name}！你的冒险开始了！`, 'success');
+  });
+
+  btnCancel.addEventListener('click', () => {
+    nameArea.style.display = 'none';
+    btnNew.style.display = '';
+    btnContinue.style.display = '';
+  });
+
+  inputName.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') btnConfirm.click();
+    if (e.key === 'Escape') btnCancel.click();
+  });
+}
+
+// ==================== MAIN MENU ====================
+
+function renderMainMenu(container) {
+  const p = gameState.player;
+  if (!p) {
+    renderScreen('title');
+    return;
+  }
+
+  const hpPercent = Math.round((p.hp / p.maxHp) * 100);
+
+  const html = `
+    <div class="menu-screen">
+      ${createScreenTitle('冒险者大厅', '选择一个行动').outerHTML}
+
+      <div class="panel player-summary with-avatar">
+        <div class="player-summary-left">
+          ${renderAvatar(p)}
+        </div>
+        <div class="player-summary-right">
+          <div class="player-header">
+            <span class="player-level">Lv.${p.level}</span>
+            <span class="player-name-display">${p.name}</span>
+            <span class="player-gold">💰 ${p.gold}</span>
+          </div>
+          <div class="player-hp-row">
+            <span>❤️</span>
+            <div class="progress-bar" style="flex:1;">
+              <div class="progress-bar-fill hp" style="width:${hpPercent}%;"></div>
+              <div class="progress-bar-label">${p.hp}/${p.maxHp}</div>
+            </div>
+          </div>
+          <div class="player-quick-stats">
+            <span>⚔️ATK:${p.attack}</span>
+            <span>🛡️DEF:${p.defense}</span>
+            <span>⚡SPD:${p.speed}</span>
+            <span>💥CRIT:${Math.round(p.criticalChance * 100)}%</span>
+          </div>
+          <div class="player-progress-text">
+            掌握单词: ${p.wordsMastered.length}/${WORDS.length} | Boss击败: ${p.bossDefeated.length}
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-grid">
+        <button id="btn-dungeon" class="menu-btn">
+          <span class="menu-btn-icon">🏰</span>
+          <span class="menu-btn-label">地牢探险</span>
+          <span class="menu-btn-desc">挑战单词怪物</span>
+        </button>
+        <button id="btn-shop" class="menu-btn">
+          <span class="menu-btn-icon">🛒</span>
+          <span class="menu-btn-label">装备商店</span>
+          <span class="menu-btn-desc">购买武器防具</span>
+        </button>
+        <button id="btn-character" class="menu-btn">
+          <span class="menu-btn-icon">👤</span>
+          <span class="menu-btn-label">角色属性</span>
+          <span class="menu-btn-desc">查看详细信息</span>
+        </button>
+        <button id="btn-inventory" class="menu-btn">
+          <span class="menu-btn-icon">🎒</span>
+          <span class="menu-btn-label">背包道具</span>
+          <span class="menu-btn-desc">管理装备</span>
+        </button>
+      </div>
+
+      <div class="menu-bottom">
+        <button id="btn-rest" class="btn btn-success btn-block">
+          💤 休息回血（恢复 50% HP，10分钟冷却）
+        </button>
+        <div class="sound-control">
+          <button id="btn-mute" class="btn btn-sm ${audio.muted ? 'btn-danger' : ''}">
+            ${audio.muted ? '🔇 静音中' : '🔊 音效'}
+          </button>
+          <label class="volume-label">
+            音量
+            <input type="range" id="volume-slider" min="0" max="100" value="${Math.round(audio.volume * 100)}"
+              style="width: 100px; vertical-align: middle;" />
+          </label>
+        </div>
+
+        <div class="save-control">
+          <button id="btn-export-save" class="btn btn-sm">
+            📥 导出存档
+          </button>
+          <button id="btn-import-save" class="btn btn-sm">
+            📤 导入存档
+          </button>
+          <button id="btn-delete-save" class="btn btn-sm btn-danger">
+            🗑️ 删除存档
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  container.innerHTML = html;
+
+  document.getElementById('btn-dungeon').addEventListener('click', () => renderScreen('dungeon'));
+  document.getElementById('btn-shop').addEventListener('click', () => renderScreen('shop'));
+  document.getElementById('btn-character').addEventListener('click', () => renderScreen('character'));
+  document.getElementById('btn-inventory').addEventListener('click', () => renderScreen('inventory'));
+  document.getElementById('btn-rest').addEventListener('click', () => {
+    const healed = p.restHp(0.5);
+    gameState.saveGame();
+    showToast(`休息完毕！恢复了 ${healed} 点 HP`, 'success');
+    renderScreen('mainMenu');
+  });
+
+  // Sound controls
+  const btnMute = document.getElementById('btn-mute');
+  const volumeSlider = document.getElementById('volume-slider');
+
+  if (btnMute) {
+    btnMute.addEventListener('click', () => {
+      const muted = audio.toggleMute();
+      btnMute.textContent = muted ? '🔇 静音中' : '🔊 音效';
+      btnMute.className = 'btn btn-sm ' + (muted ? 'btn-danger' : '');
+      audio.click();
+    });
+  }
+
+  if (volumeSlider) {
+    volumeSlider.addEventListener('input', () => {
+      audio.setVolume(parseInt(volumeSlider.value) / 100);
+    });
+  }
+
+  // Save management buttons
+  const btnExport = document.getElementById('btn-export-save');
+  const btnImport = document.getElementById('btn-import-save');
+  const btnDelete = document.getElementById('btn-delete-save');
+
+  if (btnExport) {
+    btnExport.addEventListener('click', () => {
+      try {
+        const result = exportSave(gameState);
+        audio.buy();
+        showToast(`存档已导出：${result.filename}`, 'success');
+      } catch (e) {
+        showToast(`导出失败：${e.message}`, 'error');
+      }
+    });
+  }
+
+  if (btnImport) {
+    btnImport.addEventListener('click', async () => {
+      try {
+        const data = await importSave();
+        if (!data) {
+          // User cancelled file selection
+          return;
+        }
+
+        // Show preview and confirm
+        const summary = getSaveSummary(data);
+        const confirmed = confirm(
+          `📤 确认导入存档\n\n` +
+          `角色：${summary.name}\n` +
+          `等级：Lv.${summary.level}\n` +
+          `金币：💰 ${summary.gold}\n` +
+          `掌握单词：${summary.wordsMastered} 个\n` +
+          `存档时间：${summary.savedAt}\n\n` +
+          `⚠️ 当前游戏进度将被覆盖！\n\n` +
+          `点击「确定」继续导入，点击「取消」放弃。`
+        );
+
+        if (!confirmed) {
+          showToast('已取消导入。', 'info');
+          return;
+        }
+
+        // Create new player from imported data
+        const player = new Player(data.player.name);
+        player.deserialize(data.player);
+
+        // If imported data is from an older version, migrate it
+        if (data.saveVersion < CURRENT_SAVE_VERSION) {
+          // Migration happens through state's loadGame mechanism
+          // For direct import, we save the data first, then load via state
+        }
+
+        gameState.player = player;
+        gameState.settings = { ...gameState.settings, ...data.settings };
+        gameState.saveGame();
+        audio.buy();
+        showToast(
+          `存档导入成功！欢迎回来，${summary.name} Lv.${summary.level}`,
+          'success'
+        );
+        renderScreen('mainMenu');
+      } catch (e) {
+        audio.error();
+        showToast(`导入失败：${e.message}`, 'error');
+      }
+    });
+  }
+
+  if (btnDelete) {
+    btnDelete.addEventListener('click', () => {
+      const confirmed = confirm(
+        '🗑️ 确定要删除存档吗？\n\n' +
+        '⚠️ 此操作不可撤销！\n' +
+        '⚠️ 所有游戏进度将永久丢失！\n\n' +
+        '建议先「导出存档」备份后再删除。\n\n' +
+        '点击「确定」继续删除，点击「取消」放弃。'
+      );
+
+      if (!confirmed) {
+        showToast('已取消删除。', 'info');
+        return;
+      }
+
+      // Double confirm
+      const doubleConfirm = confirm(
+        '⚠️ 最后确认\n\n' +
+        `角色：${p.name} Lv.${p.level}\n` +
+        `掌握单词：${p.wordsMastered.length} 个\n` +
+        `游戏时间：${p.stats.totalBattles} 场战斗\n\n` +
+        '真的要删除吗？'
+      );
+
+      if (!doubleConfirm) {
+        showToast('已取消删除。', 'info');
+        return;
+      }
+
+      gameState.deleteSave();
+      audio.defeat();
+      showToast('存档已删除。', 'info');
+      renderScreen('title');
+    });
+  }
+}
+
+// ==================== DUNGEON MAP ====================
+
+function renderDungeonMap(container) {
+  const p = gameState.player;
+
+  const html = `
+    <div class="dungeon-screen">
+      <h2 class="screen-title">🗺️ 地牢地图 — 外研版七年级上册</h2>
+      <div class="dungeon-units" id="dungeon-units"></div>
+      <div style="margin-top: 16px; text-align: center; color: var(--text-secondary); font-size: 0.85rem;">
+        单词掌握: ${p.wordsMastered.length}/${WORDS.length} | 已完成: ${p.completedUnits.length}/${UNITS.length} 个单元
+      </div>
+      <div style="margin-top: 24px; text-align: center;">
+        <button id="btn-back-menu" class="btn">返回主菜单</button>
+      </div>
+    </div>
+  `;
+
+  container.innerHTML = html;
+
+  const unitsContainer = document.getElementById('dungeon-units');
+
+  UNITS.forEach((unit, index) => {
+    const isCompleted = p.completedUnits.includes(unit.id);
+    const isUnlocked = p.unlockedUnits.includes(unit.id);
+    const isCurrent = p.currentUnit === unit.id;
+
+    let statusIcon = '🔒';
+    let statusClass = 'locked';
+    if (isCompleted) {
+      statusIcon = '✅';
+      statusClass = 'completed';
+    } else if (isCurrent) {
+      statusIcon = '⚔️';
+      statusClass = 'current';
+    } else if (isUnlocked) {
+      statusIcon = '🟡';
+      statusClass = 'unlocked';
+    }
+
+    const unitWords = WORDS.filter(w => w.unitId === unit.id);
+    const completedWords = unitWords.filter(w => p.wordsMastered.includes(w.id)).length;
+
+    const card = createElement('div', {
+      className: `dungeon-unit-card ${statusClass}`,
+      dataset: { unitId: unit.id }
+    });
+
+    card.innerHTML = `
+      <div class="unit-status-icon">${statusIcon}</div>
+      <div class="unit-info">
+        <div class="unit-name">${unit.name}</div>
+        <div class="unit-desc">${unit.description || ''}</div>
+        <div class="unit-progress">
+          单词: ${completedWords}/${unitWords.length}
+          ${unit.bossName ? ` | 👑 Boss: ${unit.bossName}` : ''}
+        </div>
+      </div>
+    `;
+
+    if (isUnlocked) {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        gameState.dungeonContext = { unit, unitWords };
+        renderScreen('unitOverview', { unit, unitWords });
+      });
+    }
+
+    unitsContainer.appendChild(card);
+  });
+
+  document.getElementById('btn-back-menu').addEventListener('click', () => renderScreen('mainMenu'));
+}
+
+// ==================== UNIT OVERVIEW ====================
+
+function renderUnitOverview(container, { unit, unitWords }) {
+  const p = gameState.player;
+  const bossName = unit.bossName || '单元Boss';
+
+  const html = `
+    <div class="overview-screen">
+      <h2 class="screen-title">${unit.name}</h2>
+      <p class="screen-subtitle">怪物总数: ${unitWords.length} | Boss: ${bossName}</p>
+
+      <div class="word-monster-list" style="max-height: 300px; overflow-y: auto; margin-bottom: 20px;">
+        ${unitWords.map(w => {
+          const emoji = ['👾', '🟢', '💀', '👻', '🐉'][Math.min(4, w.difficulty - 1)] || '👾';
+          const stars = '⭐'.repeat(w.difficulty);
+          const isMastered = p.wordsMastered.includes(w.id);
+          return `
+            <div class="word-monster-item ${isMastered ? 'mastered' : ''}">
+              <span class="monster-emoji">${emoji}</span>
+              <span class="word-english">${w.english}</span>
+              <span class="word-chinese">${w.chinese}</span>
+              <span class="word-difficulty">${stars}</span>
+              ${isMastered ? '<span class="word-mastered-tag">✅ 已掌握</span>' : ''}
+            </div>
+          `;
+        }).join('')}
+        <div class="word-monster-item boss-item">
+          <span class="monster-emoji">👹</span>
+          <span class="word-english">BOSS</span>
+          <span class="word-chinese">${bossName}</span>
+          <span class="word-difficulty">💀</span>
+        </div>
+      </div>
+
+      <div style="text-align: center; display: flex; gap: 12px; justify-content: center;">
+        <button id="btn-start-battle" class="btn btn-primary btn-lg">⚔️ 开始战斗</button>
+        <button id="btn-back-dungeon" class="btn btn-lg">🗺️ 返回地图</button>
+      </div>
+    </div>
+  `;
+
+  container.innerHTML = html;
+
+  document.getElementById('btn-back-dungeon').addEventListener('click', () => renderScreen('dungeon'));
+  document.getElementById('btn-start-battle').addEventListener('click', () => {
+    startUnitBattle(unit, unitWords);
+  });
+}
+
+// ==================== START BATTLE ====================
+
+function startUnitBattle(unit, unitWords) {
+  const p = gameState.player;
+  // Filter out already mastered words for variety, but include all if none left
+  const remainingWords = unitWords.filter(w => !p.wordsMastered.includes(w.id));
+  const battleWords = remainingWords.length > 0 ? remainingWords : unitWords;
+
+  // Create monster queue from words
+  const monsterQueue = battleWords.map(w => {
+    const monster = createMonsterFromWord(w);
+    return scaleMonsterToPlayer(monster, p.level);
+  });
+
+  // Save battle context
+  gameState.battleContext = {
+    unitId: unit.id,
+    unit: unit,
+    monsterQueue: monsterQueue,
+    currentIndex: 0,
+    totalMonsters: monsterQueue.length,
+    bossDefeated: false,
+    perfectSoFar: true // Track if all answers have been correct
+  };
+
+  // Start first battle
+  const firstMonster = monsterQueue[0];
+  renderScreen('battle', { monster: firstMonster, unit: unit });
+}
+
+// ==================== BATTLE SCREEN (THE CORE) ====================
+
+function renderBattleScreen(container, { monster, unit }) {
+  const p = gameState.player;
+  const ctx = gameState.battleContext;
+  const timerSeconds = gameState.getTimerSeconds();
+
+  // Use AbortController to clean up event listeners when battle ends
+  const abortController = new AbortController();
+  const signal = abortController.signal;
+
+  // Create battle controller
+  const battle = new BattleController(p, monster, { timerSeconds });
+  currentBattle = battle;
+
+  const bossWord = monster.word;
+  const word = bossWord || (monster.wordPool ? monster.wordPool[0] : null);
+
+  if (!word) {
+    abortController.abort();
+    renderScreen('dungeon');
+    showToast('错误：没有找到单词数据', 'error');
+    return;
+  }
+
+  // If it's a boss, get first word from pool
+  if (monster.type === 'boss' && !monster.word) {
+    getNextBossWord(monster);
+  }
+
+  let displayWord = monster.word || word;
+  const currentIndex = (ctx?.currentIndex || 0) + 1;
+  const totalMonsters = ctx?.totalMonsters || 1;
+
+  const html = `
+    <div class="battle-screen">
+      <div class="battle-header">
+        <span>${unit ? unit.name : ''} — ${monster.type === 'boss' ? '👑 Boss 战' : `第 ${currentIndex}/${totalMonsters} 战`}</span>
+      </div>
+
+      <div class="battle-monster-area" id="monster-area">
+        <div class="monster-sprite" id="monster-sprite">${monster.emoji}</div>
+        <div class="monster-name">${monster.displayName}</div>
+        <div class="monster-english-name">${monster.englishName}</div>
+        <div class="monster-hp-bar" id="monster-hp-bar">
+          ${createProgressBar(monster.hp, monster.maxHp, 'hp').outerHTML}
+        </div>
+      </div>
+
+      <div class="battle-input-area">
+        <div class="battle-prompt">
+          请翻译以下中文:
+          <div class="battle-word-chinese" id="battle-word-display">
+            「 ${displayWord.chinese} 」
+            <button id="btn-speak" class="btn-speak" title="听发音 (-5 XP)">
+              🔊
+            </button>
+          </div>
+        </div>
+        <div class="battle-input-wrapper">
+          <input type="text" id="battle-input" class="input-rpg battle-input"
+            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+            maxlength="40" placeholder="输入英文单词...">
+        </div>
+        <div class="battle-hint">
+          按 Enter 攻击 | ⏱️ <span id="battle-timer">${timerSeconds}</span>s
+          <span class="hint-speak">| 💡 点🔊听发音</span>
+        </div>
+      </div>
+
+      <div class="battle-actions">
+        <button id="btn-attack" class="btn btn-primary">⚔️ 攻击 (Enter)</button>
+        <button id="btn-defend" class="btn">🛡️ 防御</button>
+        <button id="btn-flee" class="btn">🏃 逃跑</button>
+      </div>
+
+      <div class="battle-player-area">
+        <div class="player-hp-section">
+          <span>你的 HP:</span>
+          <div class="progress-bar" style="flex:1;">
+            <div class="progress-bar-fill hp"
+              style="width:${Math.round((p.hp / p.maxHp) * 100)}%;"></div>
+            <div class="progress-bar-label">${p.hp}/${p.maxHp}</div>
+          </div>
+        </div>
+        <div class="battle-streak">
+          连击: <span id="streak-count">x${battle.streakCount}</span>
+        </div>
+      </div>
+
+      <div class="battle-message" id="battle-message"></div>
+      <div class="floating-text-layer" id="floating-layer"></div>
+    </div>
+  `;
+
+  container.innerHTML = html;
+
+  const input = document.getElementById('battle-input');
+  const timerEl = document.getElementById('battle-timer');
+
+  // Auto focus input
+  setTimeout(() => input.focus(), 100);
+
+  // Start the battle
+  battle.start();
+
+  // Monster appear sound
+  if (monster.type === 'boss') {
+    audio.bossAppear();
+  } else {
+    audio.monsterAppear();
+  }
+
+  // --- Event Handlers ---
+
+  function handleSubmit() {
+    const answer = input.value.trim();
+    if (!answer) {
+      // Empty = wrong answer
+      const result = battle.submitAnswer('');
+      handleResolve(result);
+      return;
+    }
+    input.value = '';
+    input.disabled = true;
+    const result = battle.submitAnswer(answer);
+    handleResolve(result);
+  }
+
+  function handleResolve(result) {
+    if (!result) return;
+
+    const msgEl = document.getElementById('battle-message');
+    const floatingLayer = document.getElementById('floating-layer');
+    const streakEl = document.getElementById('streak-count');
+    const monsterSprite = document.getElementById('monster-sprite');
+
+    // Show message
+    if (msgEl) {
+      msgEl.textContent = result.message || '';
+      msgEl.className = `battle-message ${result.isCorrect ? 'correct' : 'wrong'}`;
+    }
+
+    // Sound effects
+    if (result.isCorrect) {
+      audio.correct();
+      if (result.isCritical) {
+        audio.critical();
+      } else {
+        audio.attackHit();
+      }
+      // Streak sounds
+      if (battle.streakCount >= 10) audio.streakGodlike();
+      else if (battle.streakCount >= 5) audio.streakFire();
+      else if (battle.streakCount >= 3) audio.streakHot();
+    } else if (result.isTimeout) {
+      audio.timeout();
+    } else {
+      audio.monsterAttack();
+    }
+
+    // Update monster HP bar
+    updateMonsterHpBar();
+
+    // Update player info
+    updatePlayerInfo();
+
+    // Update streak display
+    if (streakEl) {
+      streakEl.textContent = `x${battle.streakCount}`;
+      if (battle.streakCount >= 10) streakEl.className = 'streak-godlike';
+      else if (battle.streakCount >= 5) streakEl.className = 'streak-fire';
+      else if (battle.streakCount >= 3) streakEl.className = 'streak-hot';
+      else streakEl.className = '';
+    }
+
+    // Monster shake animation on hit
+    if (monsterSprite && result.isPlayer) {
+      monsterSprite.classList.add('shake');
+      setTimeout(() => monsterSprite.classList.remove('shake'), 400);
+    }
+
+    // Flash screen
+    const battleScreen = document.querySelector('.battle-screen');
+    if (battleScreen) {
+      if (result.isPlayer && result.isCritical) {
+        battleScreen.classList.add('flash-critical');
+        setTimeout(() => battleScreen.classList.remove('flash-critical'), 500);
+      } else if (result.isPlayer) {
+        battleScreen.classList.add('flash-correct');
+        setTimeout(() => battleScreen.classList.remove('flash-correct'), 300);
+      } else {
+        battleScreen.classList.add('flash-wrong');
+        setTimeout(() => battleScreen.classList.remove('flash-wrong'), 300);
+      }
+    }
+
+    // Floating damage number
+    if (floatingLayer) {
+      const dmgText = result.isPlayer
+        ? (result.isCritical ? `💥 ${result.damage}!` : `-${result.damage}`)
+        : `-${result.damage}`;
+      const dmgClass = result.isPlayer
+        ? (result.isCritical ? 'dmg-critical' : 'dmg-player')
+        : 'dmg-monster';
+      const floatEl = createElement('div', {
+        className: `floating-text ${dmgClass}`
+      }, dmgText);
+      floatingLayer.appendChild(floatEl);
+      setTimeout(() => {
+        if (floatEl.parentNode) floatEl.parentNode.removeChild(floatEl);
+      }, 1000);
+    }
+
+    // Check end state
+    if (battle.state === BATTLE_STATE.VICTORY) {
+      audio.monsterDeath();
+      setTimeout(() => handleVictory(), 600);
+    } else if (battle.state === BATTLE_STATE.DEFEAT) {
+      audio.defeat();
+      setTimeout(() => handleDefeat(), 600);
+    } else if (battle.state === BATTLE_STATE.FLED) {
+      setTimeout(() => {
+        renderScreen('dungeon');
+        showToast('你逃跑了！损失了一些金币。', 'warning');
+      }, 300);
+    } else {
+      // Next turn - re-enable input
+      // For boss battles, get the next word from the pool
+      if (monster.type === 'boss') {
+        const nextWord = getNextBossWord(monster);
+        if (nextWord) {
+          displayWord = nextWord;
+          const wordDisplay = document.getElementById('battle-word-display');
+          if (wordDisplay) {
+            wordDisplay.textContent = `「 ${nextWord.chinese} 」`;
+          }
+        }
+      }
+
+      setTimeout(() => {
+        input.disabled = false;
+        input.focus();
+      }, 500);
+    }
+
+    // Update timer
+    updateTimerDisplay();
+  }
+
+  function handleVictory() {
+    const rewards = battle.calculateRewards();
+    const wordId = displayWord.id;
+
+    // Record word attempt
+    p.recordWordAttempt(wordId, true);
+
+    // Award XP and gold
+    const levelUp = p.addXp(rewards.xp);
+    p.addGold(rewards.gold);
+    p.recordBattle(true);
+
+    // Check if perfect so far
+    if (ctx) {
+      ctx.currentIndex++;
+
+      // If boss was just defeated
+      if (monster.type === 'boss') {
+        ctx.bossDefeated = true;
+        p.defeatBoss(unit.id);
+        p.completeUnit(unit.id);
+
+        // Unlock next unit
+        const nextUnit = UNITS.find(u => u.order === unit.order + 1);
+        if (nextUnit) {
+          p.unlockUnit(nextUnit.id);
+        }
+      }
+    }
+
+    gameState.saveGame();
+
+    // Victory sound (delayed slightly for dramatic effect)
+    if (levelUp) {
+      setTimeout(() => audio.levelUp(), 400);
+    } else if (monster.type === 'boss') {
+      setTimeout(() => audio.bossVictory(), 300);
+    } else {
+      setTimeout(() => audio.victory(), 300);
+    }
+
+    abortController.abort();
+    renderScreen('victory', {
+      rewards,
+      levelUp,
+      word: displayWord,
+      monster: monster,
+      unit: unit,
+      isBoss: monster.type === 'boss'
+    });
+  }
+
+  function handleDefeat() {
+    const wordId = displayWord.id;
+    p.recordWordAttempt(wordId, false);
+
+    const penalty = battle.calculatePenalty();
+    p.recordBattle(false);
+
+    gameState.saveGame();
+
+    abortController.abort();
+    renderScreen('defeat', {
+      penalty,
+      word: displayWord,
+      unit: unit
+    });
+  }
+
+  function updateMonsterHpBar() {
+    const barContainer = document.getElementById('monster-hp-bar');
+    if (!barContainer) return;
+    barContainer.innerHTML = createProgressBar(battle.monster.hp, battle.monster.maxHp, 'hp').outerHTML;
+  }
+
+  function updatePlayerInfo() {
+    const hpSection = document.querySelector('.player-hp-section');
+    if (!hpSection) return;
+    const hpPercent = Math.round((p.hp / p.maxHp) * 100);
+    hpSection.innerHTML = `
+      <span>你的 HP:</span>
+      <div class="progress-bar" style="flex:1;">
+        <div class="progress-bar-fill hp" style="width:${hpPercent}%;"></div>
+        <div class="progress-bar-label">${p.hp}/${p.maxHp}</div>
+      </div>
+    `;
+  }
+
+  function updateTimerDisplay() {
+    if (timerEl) {
+      timerEl.textContent = battle.timeLeft;
+      if (battle.timeLeft <= 3) {
+        timerEl.style.color = 'var(--text-accent)';
+        timerEl.style.animation = 'pulse 0.5s infinite';
+      } else {
+        timerEl.style.color = '';
+        timerEl.style.animation = '';
+      }
+    }
+  }
+
+  // Input handler
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (battle.state === BATTLE_STATE.PLAYER_TURN) {
+        handleSubmit();
+      }
+    }
+  });
+
+  // Button handlers
+  document.getElementById('btn-attack').addEventListener('click', () => {
+    if (battle.state === BATTLE_STATE.PLAYER_TURN) {
+      input.focus();
+      handleSubmit();
+    }
+  });
+
+  document.getElementById('btn-speak').addEventListener('click', () => {
+    if (battle.state !== BATTLE_STATE.PLAYER_TURN) return;
+
+    const english = displayWord.english;
+    const xpCost = monster.type === 'boss' ? 10 : 5;
+
+    // Check if player has enough XP
+    if (p.xp < xpCost) {
+      showToast('XP 不足，无法使用语音提示', 'error');
+      audio.error();
+      return;
+    }
+
+    // Deduct XP
+    p.xp -= xpCost;
+    gameState.saveGame();
+
+    // Speak the word
+    speech.init();
+    speech.speak(english);
+
+    // Visual feedback on button
+    const btnSpeak = document.getElementById('btn-speak');
+    if (btnSpeak) {
+      btnSpeak.classList.add('speaking');
+      btnSpeak.textContent = '🔉';
+      setTimeout(() => {
+        btnSpeak.classList.remove('speaking');
+        btnSpeak.textContent = '🔊';
+      }, 1500);
+    }
+
+    audio.click();
+    showToast(`🔈 "${english}" | -${xpCost} XP`, 'info', 1500);
+  });
+
+  document.getElementById('btn-defend').addEventListener('click', () => {
+    if (battle.state === BATTLE_STATE.PLAYER_TURN) {
+      battle.defend();
+      audio.defend();
+      showToast('🛡️ 防御姿态！受到的伤害减半。', 'info', 1000);
+    }
+  });
+
+  document.getElementById('btn-flee').addEventListener('click', () => {
+    if (battle.state === BATTLE_STATE.PLAYER_TURN && monster.type !== 'boss') {
+      audio.flee();
+      const result = battle.tryFlee();
+      if (result.success) {
+        currentBattle = null;
+        abortController.abort();
+        renderScreen('dungeon');
+        showToast(`逃跑成功！损失了 ${result.penalty} 金币。`, 'warning');
+      } else {
+        showToast('逃跑失败！怪物趁机攻击了你！', 'error');
+        updateMonsterHpBar();
+        updatePlayerInfo();
+      }
+    } else if (monster.type === 'boss') {
+      showToast('Boss 战无法逃跑！勇敢面对吧！', 'warning');
+    }
+  });
+
+  // Listen for battle resolved from timer timeout (using signal from AbortController above)
+  document.addEventListener('battle:resolved', (e) => {
+    handleResolve(e.detail);
+  }, { signal });
+
+  // Listen for timer ticks
+  document.addEventListener('battle:timer', (e) => {
+    if (timerEl) {
+      timerEl.textContent = e.detail.timeLeft;
+      if (e.detail.timeLeft <= 3) {
+        timerEl.style.color = 'var(--text-accent)';
+        timerEl.style.animation = 'pulse 0.5s infinite';
+        audio.timerTick();
+      }
+    }
+  }, { signal });
+
+  // Keep focus on input when clicking anywhere in battle area
+  container.addEventListener('click', (e) => {
+    if (e.target.tagName !== 'BUTTON' && battle.state === BATTLE_STATE.PLAYER_TURN) {
+      input.focus();
+    }
+  });
+}
+
+// ==================== VICTORY SCREEN ====================
+
+function renderVictoryScreen(container, { rewards, levelUp, word, monster, unit, isBoss }) {
+  const p = gameState.player;
+  const ctx = gameState.battleContext;
+
+  const html = `
+    <div class="victory-screen">
+      <div class="victory-icon">🎉</div>
+      <h2 class="screen-title">${isBoss ? 'Boss 战胜利！' : '战斗胜利！'}</h2>
+
+      <div class="victory-rewards">
+        <div class="reward-item">
+          <span class="reward-label">⭐ XP 获得:</span>
+          <span class="reward-value">+${rewards.xp}</span>
+          ${rewards.streakBonus > 0 ? `<span class="reward-bonus">(连击加成 +${Math.round(rewards.streakBonus * 100)}%)</span>` : ''}
+        </div>
+        <div class="reward-item">
+          <span class="reward-label">💰 金币获得:</span>
+          <span class="reward-value">+${rewards.gold}</span>
+          ${rewards.streakGoldBonus > 0 ? `<span class="reward-bonus">(连击加成 +${rewards.streakGoldBonus})</span>` : ''}
+        </div>
+        ${levelUp ? `<div class="reward-item level-up-alert">🎊 升级了！现在是 Lv.${levelUp.newLevel}！</div>` : ''}
+      </div>
+
+      <div class="victory-word">
+        <span class="check-mark">✅</span>
+        <span class="word-text">"${word.english}"</span>
+        <span class="word-meaning">= ${word.chinese}</span>
+      </div>
+
+      <div class="victory-actions">
+        ${ctx && ctx.currentIndex < ctx.totalMonsters ? `
+          <button id="btn-next-battle" class="btn btn-primary btn-lg">⚔️ 继续战斗</button>
+        ` : (ctx && !ctx.bossDefeated && unit ? `
+          <button id="btn-boss-battle" class="btn btn-primary btn-lg">👑 挑战 Boss！</button>
+        ` : '')}
+        <button id="btn-back-dungeon" class="btn btn-lg">🗺️ 返回地图</button>
+      </div>
+
+      <div class="victory-progress">
+        单元进度: ${ctx ? `${ctx.currentIndex}/${ctx.totalMonsters}` : '已完成'}
+        ${rewards.maxStreak > 0 ? ` | 最大连击: ${rewards.maxStreak}` : ''}
+      </div>
+    </div>
+  `;
+
+  container.innerHTML = html;
+
+  document.getElementById('btn-back-dungeon').addEventListener('click', () => renderScreen('dungeon'));
+
+  const btnNext = document.getElementById('btn-next-battle');
+  if (btnNext) {
+    btnNext.addEventListener('click', () => {
+      const nextMonster = ctx.monsterQueue[ctx.currentIndex];
+      renderScreen('battle', { monster: nextMonster, unit: unit });
+    });
+  }
+
+  const btnBoss = document.getElementById('btn-boss-battle');
+  if (btnBoss) {
+    btnBoss.addEventListener('click', () => {
+      const unitWords = WORDS.filter(w => w.unitId === unit.id);
+      const boss = createBossFromUnit(unitWords, unit);
+      boss.hp = Math.max(50, boss.maxHp); // Ensure boss starts at full HP
+      renderScreen('battle', { monster: boss, unit: unit });
+    });
+  }
+}
+
+// ==================== DEFEAT SCREEN ====================
+
+function renderDefeatScreen(container, { penalty, word, unit }) {
+  const html = `
+    <div class="defeat-screen">
+      <div class="defeat-icon">💀</div>
+      <h2 class="screen-title">战斗失败...</h2>
+
+      <p class="defeat-message">你被击败了，损失了 <span class="gold-lost">${penalty} 金币</span></p>
+
+      <div class="defeat-word">
+        <span class="cross-mark">❌</span>
+        <span class="word-text">"${word.english}"</span>
+        <span class="word-meaning">= ${word.chinese}</span>
+      </div>
+      <p class="correct-answer-hint">正确答案: <strong>${word.english}</strong></p>
+
+      <div class="defeat-actions">
+        <button id="btn-rest" class="btn btn-success btn-lg">💤 休息回血</button>
+        <button id="btn-back-dungeon" class="btn btn-lg">🗺️ 返回地图</button>
+      </div>
+
+      <p class="defeat-gold-remaining">剩余金币: 💰 ${gameState.player.gold}</p>
+    </div>
+  `;
+
+  container.innerHTML = html;
+
+  document.getElementById('btn-rest').addEventListener('click', () => {
+    const p = gameState.player;
+    const healed = p.restHp(0.5);
+    gameState.saveGame();
+    showToast(`休息完毕！恢复了 ${healed} 点 HP`, 'success');
+    renderScreen('mainMenu');
+  });
+
+  document.getElementById('btn-back-dungeon').addEventListener('click', () => renderScreen('dungeon'));
+}
+
+// ==================== CHARACTER SCREEN ====================
+
+function renderCharacterScreen(container) {
+  const p = gameState.player;
+
+  const getEquipName = (slot) => {
+    const eqId = p.equipment[slot];
+    if (!eqId) return '无';
+    const eq = EQUIPMENT_CATALOG.find(e => e.id === eqId);
+    return eq ? `${eq.icon} ${eq.name} (${eq.rarity === 'common' ? '普通' : eq.rarity === 'rare' ? '稀有' : eq.rarity === 'epic' ? '史诗' : '传说'})` : '无';
+  };
+
+  const html = `
+    <div class="character-screen">
+      <h2 class="screen-title">👤 角色属性 — ${p.name}</h2>
+
+      <div class="character-avatar-area">
+        ${renderAvatarLarge(p)}
+      </div>
+
+      <div class="panel">
+        <div class="char-level-row">
+          <span>等级: ${p.level}</span>
+          <span>XP: ${p.xp}/${p.xpToNext}</span>
+        </div>
+        ${createProgressBar(p.xp, p.xpToNext, 'xp').outerHTML}
+
+        <div style="margin-top: 16px;">
+          <div style="margin-bottom: 8px;">❤️ HP: ${p.hp}/${p.maxHp}</div>
+          ${createProgressBar(p.hp, p.maxHp, 'hp').outerHTML}
+        </div>
+
+        <div style="margin-top: 16px;">
+          ${createStatRow('⚔️', '攻击力', p.attack, getEquipBonus('weapon', 'attack')).outerHTML}
+          ${createStatRow('🛡️', '防御力', p.defense, getEquipBonus('armor', 'defense')).outerHTML}
+          ${createStatRow('⚡', '速度', p.speed, getEquipBonus('accessory', 'speed')).outerHTML}
+          ${createStatRow('💥', '暴击率', Math.round(p.criticalChance * 100) + '%').outerHTML}
+          ${createStatRow('💰', '金币', p.gold).outerHTML}
+        </div>
+
+        <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-color);">
+          <div><strong>装备：</strong></div>
+          <div>🗡️ 武器: ${getEquipName('weapon')}</div>
+          <div>🛡️ 防具: ${getEquipName('armor')}</div>
+          <div>💍 饰品: ${getEquipName('accessory')}</div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top: 16px;">
+        <h3>📊 战斗统计</h3>
+        <div>总战斗: ${p.stats.totalBattles}</div>
+        <div>胜利: ${p.stats.battlesWon} | 失败: ${p.stats.battlesLost}</div>
+        <div>胜率: ${p.getWinRate()}%</div>
+        <div>暴击次数: ${p.stats.totalCriticalHits}</div>
+        <div>掌握单词: ${p.wordsMastered.length}/${WORDS.length}</div>
+        <div>Boss击败: ${p.bossDefeated.length}</div>
+      </div>
+
+      <div style="margin-top: 16px; text-align: center;">
+        <button id="btn-back-menu" class="btn">返回主菜单</button>
+      </div>
+    </div>
+  `;
+
+  container.innerHTML = html;
+  document.getElementById('btn-back-menu').addEventListener('click', () => renderScreen('mainMenu'));
+
+  function getEquipBonus(slot, stat) {
+    const eqId = p.equipment[slot];
+    if (!eqId) return null;
+    const eq = EQUIPMENT_CATALOG.find(e => e.id === eqId);
+    if (!eq || !eq.stats[stat]) return null;
+    return `+${eq.stats[stat]}`;
+  }
+}
+
+// ==================== SHOP SCREEN ====================
+
+// Shop tab definitions
+const SHOP_TABS = [
+  { id: 'all', label: '🌟 全部', filter: () => true },
+  { id: 'weapon', label: '🗡️ 攻击', filter: item => item.type === 'weapon' },
+  { id: 'armor', label: '🛡️ 防御', filter: item => item.type === 'armor' },
+  { id: 'accessory', label: '💍 辅助', filter: item => item.type === 'accessory' },
+];
+
+function renderShopScreen(container) {
+  const p = gameState.player;
+  // Use closure to track active tab for this shop session
+  if (!renderShopScreen._activeTab) renderShopScreen._activeTab = 'all';
+  const activeTab = renderShopScreen._activeTab;
+
+  // Count items per tab
+  const tabCounts = {};
+  SHOP_TABS.forEach(tab => {
+    tabCounts[tab.id] = EQUIPMENT_CATALOG.filter(tab.filter).length;
+  });
+
+  const html = `
+    <div class="shop-screen">
+      <h2 class="screen-title">🛒 装备商店</h2>
+      <div style="text-align: center; margin-bottom: 8px;">
+        ${createGoldDisplay(p.gold).outerHTML}
+      </div>
+
+      <div class="shop-tabs" id="shop-tabs">
+        ${SHOP_TABS.map(tab => `
+          <button class="shop-tab ${activeTab === tab.id ? 'shop-tab-active' : ''}"
+            data-tab="${tab.id}">
+            ${tab.label} <span class="shop-tab-count">(${tabCounts[tab.id]})</span>
+          </button>
+        `).join('')}
+      </div>
+
+      <div class="shop-items" id="shop-items"></div>
+
+      <div style="margin-top: 16px; text-align: center;">
+        <button id="btn-back-menu" class="btn">返回主菜单</button>
+      </div>
+    </div>
+  `;
+
+  container.innerHTML = html;
+
+  // Render shop items filtered by active tab
+  renderShopItems(p, activeTab);
+
+  // Tab click handlers
+  document.getElementById('shop-tabs').addEventListener('click', (e) => {
+    const tabBtn = e.target.closest('.shop-tab');
+    if (!tabBtn) return;
+    const tabId = tabBtn.dataset.tab;
+    if (tabId === activeTab) return;
+
+    renderShopScreen._activeTab = tabId;
+    audio.click();
+    renderScreen('shop');
+  });
+
+  document.getElementById('btn-back-menu').addEventListener('click', () => {
+    // Reset tab when leaving shop
+    renderShopScreen._activeTab = 'all';
+    renderScreen('mainMenu');
+  });
+}
+
+/**
+ * Render shop item cards filtered by tab.
+ */
+function renderShopItems(player, activeTab) {
+  const shopContainer = document.getElementById('shop-items');
+  if (!shopContainer) return;
+
+  const activeTabDef = SHOP_TABS.find(t => t.id === activeTab);
+  const filter = activeTabDef ? activeTabDef.filter : () => true;
+  const items = EQUIPMENT_CATALOG.filter(filter);
+
+  shopContainer.innerHTML = '';
+
+  if (items.length === 0) {
+    shopContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 24px;">该分类暂无装备。</p>';
+    return;
+  }
+
+  const rarityLabels = { common: '普通', rare: '稀有', epic: '史诗', legendary: '传说' };
+  const rarityColors = {
+    common: 'var(--rarity-common)',
+    rare: 'var(--rarity-rare)',
+    epic: 'var(--rarity-epic)',
+    legendary: 'var(--rarity-legendary)'
+  };
+
+  items.forEach(item => {
+    const isEquipped = Object.values(player.equipment).includes(item.id);
+    const isOwned = player.inventory.includes(item.id);
+    const canAfford = player.gold >= item.price;
+    const levelMet = player.level >= item.requiredLevel;
+    const isLegendary = item.rarity === 'legendary';
+    // Legendary items with price 0 are boss-only drops
+    const isBossOnly = isLegendary && item.price === 0;
+
+    const card = createElement('div', {
+      className: `shop-item-card${isLegendary ? ' shop-item-legendary' : ''}`
+    });
+    card.innerHTML = `
+      <div class="shop-item-header">
+        <span class="shop-item-icon">${item.icon}</span>
+        <span class="shop-item-name" style="color: ${rarityColors[item.rarity]}">${item.name}</span>
+        <span class="badge badge-${item.rarity}">${rarityLabels[item.rarity]}</span>
+      </div>
+      <div class="shop-item-desc">${item.description}</div>
+      <div class="shop-item-stats">
+        ${Object.entries(item.stats).filter(([_,v]) => v > 0).map(([k,v]) => {
+          const statNames = { attack: '攻击', defense: '防御', speed: '速度', maxHp: 'HP', maxMp: 'MP', criticalChance: '暴击率' };
+          const value = k === 'criticalChance' ? `+${Math.round(v * 100)}%` : `+${v}`;
+          return `<span class="shop-stat">${statNames[k] || k}: ${value}</span>`;
+        }).join(' ')}
+        ${Object.entries(item.stats).filter(([_,v]) => v < 0).map(([k,v]) => {
+          const statNames = { speed: '速度' };
+          return `<span class="shop-stat shop-stat-negative">${statNames[k] || k}: ${v}</span>`;
+        }).join(' ')}
+      </div>
+      <div class="shop-item-footer">
+        ${isBossOnly
+          ? '<span class="shop-boss-only">👑 Boss 专属掉落</span>'
+          : `<span class="shop-item-price">💰 ${item.price}</span>`
+        }
+        ${!levelMet ? `<span class="shop-lock">🔒 需要等级 ${item.requiredLevel}</span>` : ''}
+        ${isEquipped ? '<span class="shop-equipped">✅ 已装备</span>' : ''}
+        ${isOwned && !isEquipped ? '<span class="shop-owned">🎒 在背包中</span>' : ''}
+        ${!isEquipped && !isOwned && levelMet && !isBossOnly ? `
+          <button class="btn btn-sm btn-gold buy-btn" data-item-id="${item.id}"
+            ${!canAfford ? 'disabled' : ''}>
+            ${canAfford ? '购买' : '金币不足'}
+          </button>
+        ` : ''}
+      </div>
+    `;
+    shopContainer.appendChild(card);
+  });
+
+  // Buy button handlers
+  shopContainer.addEventListener('click', (e) => {
+    const buyBtn = e.target.closest('.buy-btn');
+    if (!buyBtn) return;
+    const itemId = buyBtn.dataset.itemId;
+    const item = EQUIPMENT_CATALOG.find(e => e.id === itemId);
+    if (!item) return;
+
+    if (player.spendGold(item.price)) {
+      player.addToInventory(item.id);
+      gameState.saveGame();
+      audio.buy();
+      showToast(`购买了 ${item.name}！`, 'success');
+      renderScreen('shop');
+    } else {
+      audio.error();
+      showToast('金币不足！', 'error');
+    }
+  });
+}
+
+// ==================== INVENTORY SCREEN ====================
+
+function renderInventoryScreen(container) {
+  const p = gameState.player;
+
+  const html = `
+    <div class="inventory-screen">
+      <h2 class="screen-title">🎒 背包道具</h2>
+
+      <div class="equipment-slots panel" style="margin-bottom: 16px;">
+        <h3 style="margin-bottom: 12px;">当前装备</h3>
+        <div id="equipped-items"></div>
+      </div>
+
+      <div class="inventory-items panel">
+        <h3 style="margin-bottom: 12px;">背包 (${p.inventory.length} 件)</h3>
+        <div id="inv-items"></div>
+        ${p.inventory.length === 0 ? '<p style="color: var(--text-muted); text-align: center;">背包是空的。去商店买些装备吧！</p>' : ''}
+      </div>
+
+      <div style="margin-top: 16px; text-align: center;">
+        <button id="btn-back-menu" class="btn">返回主菜单</button>
+      </div>
+    </div>
+  `;
+
+  container.innerHTML = html;
+
+  // Render equipped items
+  const equippedContainer = document.getElementById('equipped-items');
+  const slots = [
+    { key: 'weapon', icon: '🗡️', name: '武器' },
+    { key: 'armor', icon: '🛡️', name: '防具' },
+    { key: 'accessory', icon: '💍', name: '饰品' }
+  ];
+
+  slots.forEach(slot => {
+    const eqId = p.equipment[slot.key];
+    const eq = eqId ? EQUIPMENT_CATALOG.find(e => e.id === eqId) : null;
+
+    const row = createElement('div', { className: 'equip-slot-row' });
+    row.innerHTML = `
+      <span>${slot.icon} ${slot.name}:</span>
+      <span style="flex:1; margin: 0 12px;">
+        ${eq ? `${eq.icon} ${eq.name} <span class="badge badge-${eq.rarity}">${eq.rarity}</span>` : '<span style="color: var(--text-muted);">空</span>'}
+      </span>
+      ${eq ? `<button class="btn btn-sm unequip-btn" data-slot="${slot.key}">卸下</button>` : ''}
+    `;
+    equippedContainer.appendChild(row);
+  });
+
+  // Render inventory items
+  const invContainer = document.getElementById('inv-items');
+  p.inventory.forEach(itemId => {
+    const item = EQUIPMENT_CATALOG.find(e => e.id === itemId);
+    if (!item) return;
+
+    const row = createElement('div', { className: 'inv-item-row' });
+    row.innerHTML = `
+      <span>${item.icon} ${item.name}</span>
+      <span class="badge badge-${item.rarity}" style="margin: 0 8px;">${item.rarity}</span>
+      <span style="color: var(--text-secondary); font-size: 0.85rem;">${item.description}</span>
+    `;
+
+    if (item.requiredLevel <= p.level) {
+      const equipBtn = createElement('button', {
+        className: 'btn btn-sm btn-gold equip-btn',
+        dataset: { itemId: item.id }
+      }, '装备');
+      row.appendChild(equipBtn);
+    } else {
+      const lockSpan = createElement('span', {
+        style: 'color: var(--text-muted); font-size: 0.8rem;'
+      }, `🔒 需要 Lv.${item.requiredLevel}`);
+      row.appendChild(lockSpan);
+    }
+
+    invContainer.appendChild(row);
+  });
+
+  // Event handlers
+  container.addEventListener('click', (e) => {
+    const equipBtn = e.target.closest('.equip-btn');
+    const unequipBtn = e.target.closest('.unequip-btn');
+
+    if (equipBtn) {
+      const itemId = equipBtn.dataset.itemId;
+      const success = p.equipItem(itemId);
+      if (success !== false) {
+        gameState.saveGame();
+        // Play equip sound based on item type
+        const item = EQUIPMENT_CATALOG.find(e => e.id === itemId);
+        if (item) {
+          if (item.rarity === 'legendary') audio.equipLegendary();
+          else if (item.slot === 'weapon') audio.equipWeapon();
+          else if (item.slot === 'armor') audio.equipArmor();
+          else if (item.slot === 'accessory') audio.equipAccessory();
+        }
+        showToast('装备成功！', 'success');
+        renderScreen('inventory');
+      } else {
+        audio.error();
+        showToast('装备失败！', 'error');
+      }
+    }
+
+    if (unequipBtn) {
+      const slot = unequipBtn.dataset.slot;
+      if (p.unequipItem(slot)) {
+        gameState.saveGame();
+        audio.click();
+        showToast('已卸下装备。', 'info');
+        renderScreen('inventory');
+      }
+    }
+  });
+
+  document.getElementById('btn-back-menu').addEventListener('click', () => renderScreen('mainMenu'));
+}
+
+// ==================== BOSS BATTLE (uses same battle screen) ====================
+
+function renderBossBattleScreen(container, context) {
+  // Boss battles use the same battle screen but with boss-specific options
+  renderBattleScreen(container, context);
+}

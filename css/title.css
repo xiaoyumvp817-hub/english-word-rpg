@@ -1,0 +1,103 @@
+/* === Title Screen Styles === */
+
+.title-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: var(--spacing-xl);
+  text-align: center;
+}
+
+.title-logo {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.title-icon {
+  font-size: 4rem;
+  animation: floatIcon 2s ease-in-out infinite;
+  margin-bottom: var(--spacing-md);
+}
+
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.title-main {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--text-gold);
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.4), 0 2px 4px rgba(0,0,0,0.5);
+  margin-bottom: var(--spacing-sm);
+}
+
+.title-sub {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.title-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: var(--spacing-xl);
+}
+
+.title-name-input {
+  margin-bottom: var(--spacing-xl);
+  width: 100%;
+  max-width: 320px;
+}
+
+.title-name-input p {
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.title-name-input .btn {
+  margin: 0 var(--spacing-xs);
+}
+
+.title-footer {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.title-footer p {
+  margin-bottom: var(--spacing-xs);
+}
+
+.title-hint {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+/* === RPG Input === */
+.input-rpg {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  transition: border-color 0.2s;
+}
+
+.input-rpg:focus {
+  border-color: var(--text-gold);
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+.input-rpg::placeholder {
+  color: var(--text-muted);
+}
