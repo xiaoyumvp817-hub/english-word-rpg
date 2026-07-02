@@ -1,0 +1,133 @@
+/* === Dungeon Map & Unit Overview Styles === */
+
+.dungeon-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.dungeon-units {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+/* Unit Card */
+.dungeon-unit-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  transition: all 0.2s ease;
+}
+
+.dungeon-unit-card.current {
+  border-color: var(--text-gold);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
+}
+
+.dungeon-unit-card.completed {
+  border-color: var(--correct);
+  opacity: 0.85;
+}
+
+.dungeon-unit-card.unlocked:hover {
+  border-color: var(--border-glow);
+  transform: translateX(4px);
+  cursor: pointer;
+}
+
+.dungeon-unit-card.locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.unit-status-icon {
+  font-size: 1.8rem;
+  min-width: 40px;
+  text-align: center;
+}
+
+.unit-info {
+  flex: 1;
+}
+
+.unit-name {
+  font-family: var(--font-display);
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.unit-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.unit-progress {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Unit Overview / Word-Monster List */
+.overview-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.word-monster-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.word-monster-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+}
+
+.word-monster-item.mastered {
+  opacity: 0.6;
+  background: rgba(68, 255, 68, 0.05);
+}
+
+.word-monster-item.boss-item {
+  border-color: var(--text-accent);
+  background: rgba(233, 69, 96, 0.1);
+  font-weight: bold;
+}
+
+.monster-emoji {
+  font-size: 1.3rem;
+  width: 30px;
+  text-align: center;
+}
+
+.word-english {
+  font-family: var(--font-mono);
+  font-weight: bold;
+  min-width: 100px;
+}
+
+.word-chinese {
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.word-difficulty {
+  font-size: 0.7rem;
+}
+
+.word-mastered-tag {
+  font-size: 0.7rem;
+  color: var(--correct);
+}
