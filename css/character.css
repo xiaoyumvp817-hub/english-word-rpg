@@ -1,0 +1,29 @@
+/* === Character Sheet Styles === */
+
+.character-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.char-level-row {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: var(--spacing-sm);
+}
+
+.character-screen .stat-row {
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.character-screen .stat-row:last-child {
+  border-bottom: none;
+}
+
+.character-screen h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--text-gold);
+  margin-bottom: var(--spacing-sm);
+}
