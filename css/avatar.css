@@ -1,0 +1,424 @@
+/* === Character Avatar — CSS Pixel Art === */
+
+/* ---- Container ---- */
+.avatar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 140px;
+  height: 170px;
+  flex-shrink: 0;
+}
+
+/* ---- Aura / Glow Effects ---- */
+.avatar-aura {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  top: 20px;
+  left: 20px;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.5s ease;
+  z-index: 0;
+}
+
+/* Level 4-6: subtle white glow */
+.avatar-aura.level-mid {
+  opacity: 0.35;
+  box-shadow:
+    0 0 15px 5px rgba(200, 220, 255, 0.4),
+    0 0 30px 10px rgba(200, 220, 255, 0.15);
+}
+
+/* Level 7-9: blue glow */
+.avatar-aura.level-high {
+  opacity: 0.5;
+  box-shadow:
+    0 0 20px 8px rgba(100, 150, 255, 0.5),
+    0 0 40px 15px rgba(100, 150, 255, 0.2);
+  animation: auraPulse 2s ease-in-out infinite;
+}
+
+/* Level 10+: golden glow */
+.avatar-aura.level-epic {
+  opacity: 0.6;
+  box-shadow:
+    0 0 25px 10px rgba(255, 200, 50, 0.55),
+    0 0 50px 20px rgba(255, 200, 50, 0.25);
+  animation: auraPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes auraPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.75; }
+}
+
+/* ---- Character Figure ---- */
+.avatar-figure {
+  position: relative;
+  width: 80px;
+  height: 130px;
+  z-index: 1;
+}
+
+/* == Head == */
+.avatar-head {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: #FFD5B8;
+  border: 2px solid #E8B898;
+  z-index: 5;
+}
+
+/* Face - simple eyes */
+.avatar-head::before {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 7px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #333;
+  box-shadow: 10px 0 0 #333;
+}
+
+/* Face - mouth */
+.avatar-head::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: 10px;
+  width: 8px;
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  background: #C96;
+}
+
+/* Hair (helmet area) */
+.avatar-hair {
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 10px;
+  border-radius: 6px 6px 2px 2px;
+  background: #3D2B1F;
+  z-index: 6;
+}
+
+/* == Body (changes with armor) == */
+.avatar-body {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 36px;
+  border-radius: 4px 4px 2px 2px;
+  background: #6B7B8D;  /* default: grey cloth */
+  z-index: 2;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Armor rarity border */
+.avatar-body.armor-common {
+  background: #8B7355;
+  box-shadow: none;
+}
+.avatar-body.armor-common::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+.avatar-body.armor-rare {
+  background: linear-gradient(135deg, #A0A0B8, #8088A0);
+  box-shadow: 0 0 6px rgba(77, 128, 228, 0.4);
+}
+.avatar-body.armor-rare::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(77, 128, 228, 0.5);
+}
+
+.avatar-body.armor-epic {
+  background: linear-gradient(135deg, #9B4DCA, #6B2FA0);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+.avatar-body.armor-epic::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1.5px solid rgba(255, 215, 0, 0.6);
+}
+
+/* == Arms == */
+.avatar-arm {
+  position: absolute;
+  top: 34px;
+  width: 10px;
+  height: 28px;
+  border-radius: 5px;
+  background: #FFD5B8;
+  border: 1px solid #E8B898;
+  z-index: 1;
+}
+
+.avatar-arm-left {
+  left: 12px;
+}
+
+.avatar-arm-right {
+  right: 12px;
+}
+
+/* == Legs == */
+.avatar-leg {
+  position: absolute;
+  top: 66px;
+  width: 12px;
+  height: 32px;
+  border-radius: 4px;
+  background: #4A5568;
+  border: 1px solid #3A4558;
+  z-index: 1;
+}
+
+.avatar-leg-left {
+  left: 24px;
+}
+
+.avatar-leg-right {
+  right: 24px;
+}
+
+/* == Feet / Boots == */
+.avatar-boot {
+  position: absolute;
+  top: 94px;
+  width: 14px;
+  height: 8px;
+  border-radius: 4px 4px 2px 2px;
+  background: #6B4226;
+  z-index: 1;
+}
+
+.avatar-boot-left {
+  left: 22px;
+}
+
+.avatar-boot-right {
+  right: 22px;
+}
+
+/* == Weapon (emoji positioned near right hand) == */
+.avatar-weapon {
+  position: absolute;
+  top: 38px;
+  right: -2px;
+  font-size: 1.2rem;
+  z-index: 10;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.4));
+  transition: all 0.3s ease;
+}
+
+.avatar-weapon.glow-rare {
+  filter: drop-shadow(0 0 4px rgba(77, 128, 228, 0.6));
+}
+
+.avatar-weapon.glow-epic {
+  filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.7));
+  animation: weaponPulse 1.5s ease-in-out infinite;
+}
+
+.avatar-weapon.glow-legendary {
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+  animation: weaponPulse 1s ease-in-out infinite;
+}
+
+@keyframes weaponPulse {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.5)); }
+  50% { filter: drop-shadow(0 0 14px rgba(255, 215, 0, 0.9)); }
+}
+
+/* == Accessory effects == */
+.avatar-accessory {
+  position: absolute;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Ring - near left hand */
+.avatar-accessory.acc-ring {
+  top: 44px;
+  left: 2px;
+  font-size: 0.7rem;
+}
+
+.avatar-accessory.acc-ring-rare {
+  top: 44px;
+  left: 2px;
+  font-size: 0.8rem;
+  filter: drop-shadow(0 0 3px rgba(77, 128, 228, 0.6));
+}
+
+/* Focus stone - floats above head */
+.avatar-accessory.acc-stone {
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  filter: drop-shadow(0 0 5px rgba(168, 85, 247, 0.7));
+  animation: stoneFloat 2s ease-in-out infinite;
+}
+
+@keyframes stoneFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-3px); }
+}
+
+/* Swift boots - lightning at feet */
+.avatar-accessory.acc-boots {
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.8));
+  animation: bootsSpark 0.8s ease-in-out infinite;
+}
+
+@keyframes bootsSpark {
+  0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.2); }
+}
+
+/* == Level-based scale == */
+.avatar-figure.level-1 { transform: scale(0.9); }
+.avatar-figure.level-2 { transform: scale(0.92); }
+.avatar-figure.level-3 { transform: scale(0.95); }
+.avatar-figure.level-4 { transform: scale(1.0); }
+.avatar-figure.level-5 { transform: scale(1.04); }
+.avatar-figure.level-6 { transform: scale(1.06); }
+.avatar-figure.level-7 { transform: scale(1.09); }
+.avatar-figure.level-8 { transform: scale(1.11); }
+.avatar-figure.level-9 { transform: scale(1.13); }
+.avatar-figure.level-10 { transform: scale(1.18); }
+
+/* == Empty equipment indicator == */
+.avatar-weapon.empty {
+  opacity: 0.3;
+  font-size: 0.6rem;
+  top: 45px;
+  right: 5px;
+}
+
+/* ---- Avatar in player summary (main menu) ---- */
+.player-summary.with-avatar {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.player-summary .avatar-container {
+  width: 110px;
+  height: 140px;
+}
+
+.player-summary .avatar-figure {
+  width: 70px;
+  height: 115px;
+}
+
+.player-summary .avatar-head {
+  width: 24px;
+  height: 24px;
+}
+
+.player-summary .avatar-hair {
+  width: 28px;
+  height: 8px;
+}
+
+.player-summary .avatar-body {
+  width: 22px;
+  height: 30px;
+}
+
+.player-summary .avatar-arm {
+  width: 8px;
+  height: 24px;
+}
+
+.player-summary .avatar-leg {
+  width: 10px;
+  height: 28px;
+}
+
+.player-summary .avatar-boot {
+  width: 12px;
+  height: 7px;
+}
+
+/* ---- Avatar in character screen (larger) ---- */
+.character-avatar-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-lg) 0;
+}
+
+.character-avatar-area .avatar-container {
+  width: 160px;
+  height: 200px;
+}
+
+.character-avatar-area .avatar-figure {
+  width: 95px;
+  height: 155px;
+}
+
+.character-avatar-area .avatar-head {
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+}
+
+.character-avatar-area .avatar-hair {
+  width: 38px;
+  height: 12px;
+}
+
+.character-avatar-area .avatar-body {
+  width: 32px;
+  height: 44px;
+}
+
+.character-avatar-area .avatar-arm {
+  width: 12px;
+  height: 34px;
+}
+
+.character-avatar-area .avatar-leg {
+  width: 14px;
+  height: 38px;
+}
+
+.character-avatar-area .avatar-boot {
+  width: 16px;
+  height: 9px;
+}
