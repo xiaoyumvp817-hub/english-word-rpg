@@ -23,6 +23,8 @@ export class Player {
 
     this.gold = 0;
 
+    this.textbookId = 'wy-7a';  // Active textbook ID
+
     this.equipment = { weapon: null, armor: null, accessory: null };
     this.inventory = [];
 
@@ -362,6 +364,45 @@ export class Player {
     return Math.round((this.stats.battlesWon / this.stats.totalBattles) * 100);
   }
 
+  // ========== Textbook Management ==========
+
+  /**
+   * Switch to a different textbook. Auto-unlocks first unit if needed.
+   * Character stats (level, gold, equipment) are shared across textbooks —
+   * only unit/word progress is per-textbook.
+   * @param {string} textbookId
+   * @param {Array} textbookUnits — unit definitions for the target textbook
+   * @returns {string|null} the new textbookId, or null if invalid
+   */
+  switchTextbook(textbookId, textbookUnits) {
+    if (!textbookUnits || textbookUnits.length === 0) return null;
+
+    // Auto-unlock the first unit if this textbook has never been visited
+    const firstUnit = textbookUnits.reduce((min, u) =>
+      u.order < min.order ? u : min
+    );
+    if (firstUnit && !this.unlockedUnits.includes(firstUnit.id)) {
+      this.unlockedUnits.push(firstUnit.id);
+    }
+
+    // Determine currentUnit: the highest-order unlocked-but-not-completed unit,
+    // or the first unit as fallback
+    const textbookUnitIds = new Set(textbookUnits.map(u => u.id));
+    const relevantUnits = this.unlockedUnits
+      .filter(id => textbookUnitIds.has(id))
+      .map(id => textbookUnits.find(u => u.id === id))
+      .filter(Boolean);
+
+    const nextUnit = relevantUnits
+      .filter(u => !this.completedUnits.includes(u.id))
+      .sort((a, b) => a.order - b.order)[0];
+
+    this.currentUnit = nextUnit ? nextUnit.id : firstUnit.id;
+    this.textbookId = textbookId;
+
+    return textbookId;
+  }
+
   // ========== Serialization ==========
 
   serialize() {
@@ -388,6 +429,7 @@ export class Player {
       unlockedUnits: [...this.unlockedUnits],
       completedUnits: [...this.completedUnits],
       bossDefeated: [...this.bossDefeated],
+      textbookId: this.textbookId,
       stats: { ...this.stats },
       saveVersion: this.saveVersion,
       lastSaved: this.lastSaved,
@@ -463,6 +505,7 @@ export class Player {
     };
 
     // Metadata
+    this.textbookId = data.textbookId || 'wy-7a';
     this.saveVersion = data.saveVersion ?? 1;
     this.lastSaved = data.lastSaved || null;
     this.createdAt = data.createdAt || null;
