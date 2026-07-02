@@ -4,6 +4,7 @@
 import { Player } from './player.js';
 import { deepClone, nowISO, safeSetItem, safeGetItem } from './utils.js';
 import { CURRENT_SAVE_VERSION, migrateSave, repairEquipment, validateSave } from './saveManager.js';
+import { getUnits, isValidTextbookId } from '../data/textbooks.js';
 
 const SAVE_KEY = 'englishRpgSave';
 
@@ -25,11 +26,29 @@ class GameState {
   }
 
   /**
-   * Create a new game with the given player name.
+   * Create a new game with the given player name and textbook.
+   * @param {string} name - Player name
+   * @param {string} [textbookId='wy-7a'] - Textbook ID to use
    */
-  newGame(name) {
+  newGame(name, textbookId = 'wy-7a') {
     this.player = new Player(name);
     this.player.createdAt = nowISO();
+
+    // Apply textbook selection
+    if (isValidTextbookId(textbookId)) {
+      this.player.textbookId = textbookId;
+      const units = getUnits(textbookId);
+      if (units.length > 0) {
+        const firstUnit = units.reduce((min, u) => u.order < min.order ? u : min);
+        this.player.unlockedUnits = [firstUnit.id];
+        this.player.currentUnit = firstUnit.id;
+      } else {
+        // Empty textbook (no words yet) — reset progress
+        this.player.unlockedUnits = [];
+        this.player.currentUnit = '';
+      }
+    }
+
     this.currentScreen = 'mainMenu';
     this.saveGame();
     return this.player;
