@@ -7,14 +7,18 @@
 
 import { TEXTBOOK_META as meta7a, UNITS as units7a, WORDS as words7a } from './words-wy-7a.js';
 import { TEXTBOOK_META as meta7b, UNITS as units7b, WORDS as words7b } from './words-wy-7b.js';
-// ADD NEW TEXTBOOKS HERE:
-// import { TEXTBOOK_META as meta8a, UNITS as units8a, WORDS as words8a } from './words-wy-8a.js';
+import { TEXTBOOK_META as meta8a, UNITS as units8a, WORDS as words8a } from './words-wy-8a.js';
+import { TEXTBOOK_META as meta8b, UNITS as units8b, WORDS as words8b } from './words-wy-8b.js';
+import { TEXTBOOK_META as meta9a, UNITS as units9a, WORDS as words9a } from './words-wy-9a.js';
+import { TEXTBOOK_META as meta9b, UNITS as units9b, WORDS as words9b } from './words-wy-9b.js';
 
 const REGISTRY = [
   { meta: meta7a, units: units7a, words: words7a },
   { meta: meta7b, units: units7b, words: words7b },
-  // ADD NEW TEXTBOOKS HERE:
-  // { meta: meta8a, units: units8a, words: words8a },
+  { meta: meta8a, units: units8a, words: words8a },
+  { meta: meta8b, units: units8b, words: words8b },
+  { meta: meta9a, units: units9a, words: words9a },
+  { meta: meta9b, units: units9b, words: words9b },
 ];
 
 // Build lookup map
