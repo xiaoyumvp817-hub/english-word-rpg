@@ -4,7 +4,7 @@
 import { gameState } from './state.js';
 import { createMonsterFromWord, createBossFromUnit, scaleMonsterToPlayer, getNextBossWord } from './monster.js';
 import { BattleController, BATTLE_STATE } from './battle.js';
-import { UNITS, WORDS } from '../data/words-wy-7a.js';
+import { getUnits, getWords, getTextbookMeta, getAllTextbooks, isValidTextbookId } from '../data/textbooks.js';
 import { EQUIPMENT_CATALOG } from '../data/equipment.js';
 import {
   createElement, createButton, createPanel, createScreenTitle,
@@ -16,6 +16,17 @@ import { audio } from './audio.js';
 import { speech } from './speech.js';
 import { exportSave, importSave, getSaveSummary, CURRENT_SAVE_VERSION } from './saveManager.js';
 import { Player } from './player.js';
+
+// Helper: resolve the active textbook's data from the player's current textbookId
+function _tb() {
+  const id = gameState.player?.textbookId || 'wy-7a';
+  return {
+    id,
+    units: getUnits(id),
+    words: getWords(id),
+    meta: getTextbookMeta(id) || { id, name: '未知教材', shortName: '未知', unitCount: 0, totalWords: 0 }
+  };
+}
 
 // Track current battle controller for rendering updates
 let currentBattle = null;
@@ -112,13 +123,22 @@ function renderTitleScreen(container) {
         <input type="text" id="input-player-name" class="input-rpg" maxlength="10" placeholder="输入名字..."
           autocomplete="off">
         <div style="margin-top: 12px;">
-          <button id="btn-confirm-name" class="btn btn-primary">确认开始</button>
+          <button id="btn-confirm-name" class="btn btn-primary">下一步：选择教材</button>
           <button id="btn-cancel-name" class="btn">取消</button>
         </div>
       </div>
 
+      <div class="title-textbook-select" id="textbook-select-area" style="display:none;">
+        <p style="margin-bottom: 12px;">请选择你的教材：</p>
+        <div id="textbook-options" class="textbook-options"></div>
+        <div style="margin-top: 16px;">
+          <button id="btn-confirm-textbook" class="btn btn-primary" disabled>确认开始</button>
+          <button id="btn-back-textbook" class="btn">返回</button>
+        </div>
+      </div>
+
       <div class="title-footer">
-        <p>v1.0 | 外研版七年级上册 | 适合初一学生</p>
+        <p>v2.0 | ${_tb().meta.name} | ${_tb().words.length} 词</p>
         <p class="title-hint">按 Enter 确认 · 支持键盘操作</p>
       </div>
     </div>
@@ -154,16 +174,69 @@ function renderTitleScreen(container) {
 
   btnConfirm.addEventListener('click', () => {
     const name = inputName.value.trim() || '小冒险家';
-    audio.init(); // Initialize audio on first user gesture
-    speech.init(); // Initialize speech synthesis
-    gameState.newGame(name);
-    audio.newGame();
-    renderScreen('mainMenu');
-    showToast(`欢迎，${name}！你的冒险开始了！`, 'success');
+    nameArea.style.display = 'none';
+    // Store name temporarily and show textbook picker
+    container._pendingName = name;
+    tbSelectArea.style.display = 'block';
   });
+
+  // Textbook confirm handler
+  const btnConfirmTb = document.getElementById('btn-confirm-textbook');
+  const btnBackTb = document.getElementById('btn-back-textbook');
+  const tbOptions = document.getElementById('textbook-options');
+  const tbSelectArea = document.getElementById('textbook-select-area');
+
+  if (btnConfirmTb && tbOptions) {
+    let selectedTbId = 'wy-7a';
+    const textbooks = getAllTextbooks();
+
+    // Populate textbook options
+    textbooks.forEach(tb => {
+      const card = document.createElement('div');
+      card.className = 'textbook-option-card';
+      card.dataset.tbId = tb.id;
+      card.innerHTML = `
+        <div class="tb-card-name">${tb.name}</div>
+        <div class="tb-card-info">${tb.unitCount} 个单元 · ${tb.totalWords} 个单词</div>
+        ${tb.id === 'wy-7a' ? '<div class="tb-card-badge">默认</div>' : ''}
+        ${tb.totalWords === 0 ? '<div class="tb-card-badge tb-card-empty">暂无数据</div>' : ''}
+      `;
+      card.addEventListener('click', () => {
+        tbOptions.querySelectorAll('.textbook-option-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        selectedTbId = tb.id;
+        if (btnConfirmTb) btnConfirmTb.disabled = (tb.totalWords === 0);
+      });
+      tbOptions.appendChild(card);
+    });
+
+    // Pre-select first textbook
+    const firstCard = tbOptions.querySelector('.textbook-option-card');
+    if (firstCard) {
+      firstCard.classList.add('selected');
+      btnConfirmTb.disabled = (textbooks[0]?.totalWords === 0);
+    }
+
+    btnConfirmTb.addEventListener('click', () => {
+      const name = container._pendingName || '小冒险家';
+      audio.init();
+      speech.init();
+      gameState.newGame(name, selectedTbId);
+      audio.newGame();
+      renderScreen('mainMenu');
+      showToast(`欢迎，${name}！你的冒险开始了！`, 'success');
+    });
+
+    btnBackTb.addEventListener('click', () => {
+      tbSelectArea.style.display = 'none';
+      nameArea.style.display = 'block';
+      inputName.focus();
+    });
+  }
 
   btnCancel.addEventListener('click', () => {
     nameArea.style.display = 'none';
+    tbSelectArea.style.display = 'none';
     btnNew.style.display = '';
     btnContinue.style.display = '';
   });
@@ -213,7 +286,7 @@ function renderMainMenu(container) {
             <span>💥CRIT:${Math.round(p.criticalChance * 100)}%</span>
           </div>
           <div class="player-progress-text">
-            掌握单词: ${p.wordsMastered.length}/${WORDS.length} | Boss击败: ${p.bossDefeated.length}
+            掌握单词: ${p.wordsMastered.length}/${_tb().words.length} | Boss击败: ${p.bossDefeated.length}
           </div>
         </div>
       </div>
@@ -242,6 +315,11 @@ function renderMainMenu(container) {
       </div>
 
       <div class="menu-bottom">
+        <div class="textbook-switch-area" style="margin-bottom: 12px;">
+          <button id="btn-switch-textbook" class="btn btn-block" style="background: var(--bg-card);">
+            📚 当前教材：${_tb().meta.shortName} — 点击切换
+          </button>
+        </div>
         <button id="btn-rest" class="btn btn-success btn-block">
           💤 休息回血（恢复 50% HP，10分钟冷却）
         </button>
@@ -277,6 +355,7 @@ function renderMainMenu(container) {
   document.getElementById('btn-shop').addEventListener('click', () => renderScreen('shop'));
   document.getElementById('btn-character').addEventListener('click', () => renderScreen('character'));
   document.getElementById('btn-inventory').addEventListener('click', () => renderScreen('inventory'));
+  document.getElementById('btn-switch-textbook').addEventListener('click', () => renderTextbookSwitch(container));
   document.getElementById('btn-rest').addEventListener('click', () => {
     const healed = p.restHp(0.5);
     gameState.saveGame();
@@ -417,10 +496,10 @@ function renderDungeonMap(container) {
 
   const html = `
     <div class="dungeon-screen">
-      <h2 class="screen-title">🗺️ 地牢地图 — 外研版七年级上册</h2>
+      <h2 class="screen-title">🗺️ 地牢地图 — ${_tb().meta.name}</h2>
       <div class="dungeon-units" id="dungeon-units"></div>
       <div style="margin-top: 16px; text-align: center; color: var(--text-secondary); font-size: 0.85rem;">
-        单词掌握: ${p.wordsMastered.length}/${WORDS.length} | 已完成: ${p.completedUnits.length}/${UNITS.length} 个单元
+        单词掌握: ${p.wordsMastered.length}/${_tb().words.length} | 已完成: ${p.completedUnits.length}/${_tb().units.length} 个单元
       </div>
       <div style="margin-top: 24px; text-align: center;">
         <button id="btn-back-menu" class="btn">返回主菜单</button>
@@ -432,7 +511,7 @@ function renderDungeonMap(container) {
 
   const unitsContainer = document.getElementById('dungeon-units');
 
-  UNITS.forEach((unit, index) => {
+  _tb().units.forEach((unit, index) => {
     const isCompleted = p.completedUnits.includes(unit.id);
     const isUnlocked = p.unlockedUnits.includes(unit.id);
     const isCurrent = p.currentUnit === unit.id;
@@ -450,7 +529,7 @@ function renderDungeonMap(container) {
       statusClass = 'unlocked';
     }
 
-    const unitWords = WORDS.filter(w => w.unitId === unit.id);
+    const unitWords = _tb().words.filter(w => w.unitId === unit.id);
     const completedWords = unitWords.filter(w => p.wordsMastered.includes(w.id)).length;
 
     const card = createElement('div', {
@@ -836,7 +915,7 @@ function renderBattleScreen(container, { monster, unit }) {
         p.completeUnit(unit.id);
 
         // Unlock next unit
-        const nextUnit = UNITS.find(u => u.order === unit.order + 1);
+        const nextUnit = _tb().units.find(u => u.order === unit.order + 1);
         if (nextUnit) {
           p.unlockUnit(nextUnit.id);
         }
@@ -1082,7 +1161,7 @@ function renderVictoryScreen(container, { rewards, levelUp, word, monster, unit,
   const btnBoss = document.getElementById('btn-boss-battle');
   if (btnBoss) {
     btnBoss.addEventListener('click', () => {
-      const unitWords = WORDS.filter(w => w.unitId === unit.id);
+      const unitWords = _tb().words.filter(w => w.unitId === unit.id);
       const boss = createBossFromUnit(unitWords, unit);
       boss.hp = Math.max(50, boss.maxHp); // Ensure boss starts at full HP
       renderScreen('battle', { monster: boss, unit: unit });
@@ -1183,7 +1262,7 @@ function renderCharacterScreen(container) {
         <div>胜利: ${p.stats.battlesWon} | 失败: ${p.stats.battlesLost}</div>
         <div>胜率: ${p.getWinRate()}%</div>
         <div>暴击次数: ${p.stats.totalCriticalHits}</div>
-        <div>掌握单词: ${p.wordsMastered.length}/${WORDS.length}</div>
+        <div>掌握单词: ${p.wordsMastered.length}/${_tb().words.length}</div>
         <div>Boss击败: ${p.bossDefeated.length}</div>
       </div>
 
@@ -1485,6 +1564,76 @@ function renderInventoryScreen(container) {
         showToast('已卸下装备。', 'info');
         renderScreen('inventory');
       }
+    }
+  });
+
+  document.getElementById('btn-back-menu').addEventListener('click', () => renderScreen('mainMenu'));
+}
+
+// ==================== TEXTBOOK SWITCH SCREEN ====================
+
+function renderTextbookSwitch(container) {
+  const p = gameState.player;
+  if (!p) {
+    renderScreen('title');
+    return;
+  }
+
+  const textbooks = getAllTextbooks();
+  const currentId = p.textbookId || 'wy-7a';
+
+  const html = `
+    <div class="textbook-switch-screen">
+      <h2 class="screen-title">📚 切换教材</h2>
+      <p class="screen-subtitle">选择你正在学习的教材。角色等级、金币和装备保留，但地牢进度按教材独立计算。</p>
+
+      <div class="textbook-list" id="textbook-list">
+        ${textbooks.map(tb => `
+          <div class="textbook-option-card ${tb.id === currentId ? 'selected current' : ''}"
+            data-tb-id="${tb.id}">
+            <div class="tb-card-header">
+              <span class="tb-card-name">${tb.name}</span>
+              ${tb.id === currentId ? '<span class="badge badge-legendary">当前</span>' : ''}
+            </div>
+            <div class="tb-card-info">
+              ${tb.unitCount} 个单元 · ${tb.totalWords} 个单词
+            </div>
+            ${tb.totalWords === 0 ? '<div class="tb-card-warning">⚠️ 此教材暂无单词数据，切换后地牢为空。</div>' : ''}
+            ${tb.id !== currentId ? '<button class="btn btn-primary btn-sm switch-tb-btn" data-tb-id="' + tb.id + '">切换到此教材</button>' : ''}
+          </div>
+        `).join('')}
+      </div>
+
+      <div style="margin-top: 24px; text-align: center;">
+        <button id="btn-back-menu" class="btn">返回主菜单</button>
+      </div>
+    </div>
+  `;
+
+  container.innerHTML = html;
+
+  // Switch button handlers
+  container.addEventListener('click', (e) => {
+    const btn = e.target.closest('.switch-tb-btn');
+    if (!btn) return;
+
+    const newTbId = btn.dataset.tbId;
+    if (!isValidTextbookId(newTbId)) {
+      showToast('无效的教材 ID。', 'error');
+      return;
+    }
+
+    const units = getUnits(newTbId);
+    const result = p.switchTextbook(newTbId, units);
+    if (result) {
+      gameState.saveGame();
+      const meta = getTextbookMeta(newTbId);
+      showToast(`已切换到「${meta.name}」！`, 'success');
+      renderScreen('mainMenu');
+      audio.click();
+    } else {
+      showToast('切换教材失败。', 'error');
+      audio.error();
     }
   });
 
