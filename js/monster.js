@@ -16,7 +16,7 @@ export function createMonsterFromWord(word) {
     id: `monster-${word.id}`,
     wordId: word.id,
     displayName: `${word.chinese.split('；')[0]}${template.nameZh}`,
-    englishName: `${word.english} ${template.nameEn}`,
+    englishName: template.nameEn,
     emoji: template.emoji,
     hp: s.hp + randomInt(-3, 3),
     maxHp: s.hp + randomInt(-3, 3),
