@@ -4,7 +4,7 @@
 
 ## 🌐 在线游玩
 
-👉 **[点击这里开始游戏](https://你的用户名.gitee.io/english-word-rpg)**（部署后替换为实际链接）
+👉 **[点击这里开始游戏](https://xiaoyumvp817-hub.github.io/english-word-rpg/)**
 
 ## 🚀 本地运行
 
@@ -22,7 +22,7 @@ python -m http.server 8080
 > Windows 10/11 自带 Python。如果没有，从 [python.org](https://www.python.org/downloads/) 免费安装（安装时勾选「Add Python to PATH」）。
 
 ### 方法三：部署到网页（让别人也能玩）
-详见 [DEPLOY.md](DEPLOY.md) — 免费部署到 Gitee Pages，只需 15 分钟。
+详见 [DEPLOY.md](DEPLOY.md) — 免费部署到 GitHub Pages，只需 10 分钟。
 
 ## 🎮 怎么玩
 

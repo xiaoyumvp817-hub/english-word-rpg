@@ -60,6 +60,36 @@
   50% { box-shadow: inset 0 0 80px rgba(255, 215, 0, 0.3); }
 }
 
+/* Speed-based godlike crit flash — golden burst */
+@keyframes flashGodlike {
+  0% { box-shadow: inset 0 0 0 transparent; }
+  50% { box-shadow: inset 0 0 120px rgba(255, 215, 0, 0.5); }
+  100% { box-shadow: inset 0 0 0 transparent; }
+}
+
+/* Speed-based fast answer flash — blue tint */
+@keyframes flashFast {
+  0% { box-shadow: inset 0 0 0 transparent; }
+  50% { box-shadow: inset 0 0 50px rgba(100, 180, 255, 0.25); }
+  100% { box-shadow: inset 0 0 0 transparent; }
+}
+
+/* Speed floating text float-up (larger, wider arc) */
+@keyframes speedFloatUp {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -40px) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -80px) scale(1.0);
+  }
+}
+
 /* Float/bob (title icon) */
 @keyframes floatIcon {
   0%, 100% { transform: translateY(0); }

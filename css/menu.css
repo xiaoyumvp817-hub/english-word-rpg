@@ -175,3 +175,88 @@
   font-size: 0.8rem;
   padding: 6px 12px;
 }
+
+/* ========== Textbook Selection ========== */
+
+.textbook-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.textbook-option-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.textbook-option-card:hover {
+  border-color: var(--text-accent);
+  background: var(--bg-secondary);
+}
+
+.textbook-option-card.selected {
+  border-color: var(--text-gold);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+}
+
+.textbook-option-card.current {
+  border-color: var(--rarity-legendary);
+}
+
+.tb-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.tb-card-name {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.tb-card-info {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.tb-card-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--rarity-rare);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
+
+.tb-card-badge.tb-card-empty {
+  background: var(--text-accent);
+}
+
+.tb-card-warning {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--text-accent);
+}
+
+.textbook-switch-area {
+  text-align: center;
+}
+
+.textbook-switch-screen .textbook-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.textbook-switch-screen .textbook-option-card .switch-tb-btn {
+  margin-top: var(--spacing-sm);
+}

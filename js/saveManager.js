@@ -5,7 +5,7 @@
 import { EQUIPMENT_CATALOG } from '../data/equipment.js';
 
 /** Current save format version. Increment when Player data structure changes. */
-export const CURRENT_SAVE_VERSION = 1;
+export const CURRENT_SAVE_VERSION = 2;
 
 /**
  * Migration chain. Each function upgrades data from version (N-1) to N.
@@ -25,7 +25,14 @@ export const CURRENT_SAVE_VERSION = 1;
  *   },
  */
 const MIGRATIONS = {
-  // No migrations yet — v1 is the initial format.
+  // v1 → v2: Add textbookId for multi-textbook support
+  2: (data) => {
+    if (!data.player.textbookId) {
+      data.player.textbookId = 'wy-7a';
+    }
+    data.saveVersion = 2;
+    return data;
+  },
 };
 
 /**

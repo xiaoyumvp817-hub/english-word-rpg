@@ -1,0 +1,925 @@
+/* === CSS Pixel Art Monsters ===
+ * Each monster is built from positioned divs and pseudo-elements.
+ * All monsters are 80-100px in their container, matching the old 5rem emoji size.
+ */
+
+/* --- Shared Monster Sprite Container --- */
+.monster-sprite {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+  margin-bottom: var(--spacing-sm);
+  /* Each sprite type fills this container */
+}
+
+.monster-sprite.shake {
+  animation: shake 0.4s ease;
+}
+
+.sprite-inner {
+  position: relative;
+  width: 80px;
+  height: 90px;
+}
+
+/* ================================================================
+   GOBLIN — Green imp with pointy ears, yellow eyes, tiny dagger
+   ================================================================ */
+.goblin .sprite-inner {
+  width: 70px;
+  height: 90px;
+}
+
+/* Head */
+.goblin-head {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 42px;
+  height: 36px;
+  background: linear-gradient(180deg, #5cb85c 0%, #3d8b3d 100%);
+  border-radius: 50% 50% 40% 40%;
+  z-index: 3;
+}
+/* Ears */
+.goblin-head::before,
+.goblin-head::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 14px solid #3d8b3d;
+}
+.goblin-head::before { left: -8px; transform: rotate(-20deg); }
+.goblin-head::after  { right: -8px; transform: rotate(20deg); }
+
+/* Eyes */
+.goblin-eyes {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 6px;
+  z-index: 4;
+}
+.goblin-eyes::before,
+.goblin-eyes::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #ffe600;
+  border-radius: 50%;
+  box-shadow: 0 0 4px #ff8800;
+}
+.goblin-eyes::before { left: 0; }
+.goblin-eyes::after  { right: 0; }
+
+/* Mouth */
+.goblin-mouth {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 4px;
+  border-bottom: 2px solid #2a5a2a;
+  border-radius: 0 0 6px 6px;
+  z-index: 4;
+}
+
+/* Body */
+.goblin-body {
+  position: absolute;
+  top: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34px;
+  height: 28px;
+  background: linear-gradient(180deg, #4a9e4a 0%, #357535 100%);
+  border-radius: 6px 6px 10px 10px;
+  z-index: 2;
+}
+/* Belt */
+.goblin-body::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #8B4513;
+  border-radius: 2px;
+}
+
+/* Arms */
+.goblin-arm-left,
+.goblin-arm-right {
+  position: absolute;
+  top: 37px;
+  width: 8px;
+  height: 24px;
+  background: #4a9e4a;
+  border-radius: 4px;
+  z-index: 1;
+}
+.goblin-arm-left  { left: 6px; transform: rotate(8deg); }
+.goblin-arm-right { right: 4px; transform: rotate(-8deg); }
+
+/* Dagger in right hand */
+.goblin-arm-right::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 14px;
+  background: linear-gradient(180deg, #c0c0c0 0%, #e8e8e8 50%, #888 100%);
+  border-radius: 1px 1px 0 0;
+}
+
+/* Legs */
+.goblin-leg-left,
+.goblin-leg-right {
+  position: absolute;
+  top: 62px;
+  width: 10px;
+  height: 16px;
+  background: #357535;
+  border-radius: 0 0 4px 4px;
+  z-index: 1;
+}
+.goblin-leg-left  { left: 20px; }
+.goblin-leg-right { right: 20px; }
+
+/* Feet */
+.goblin-leg-left::after,
+.goblin-leg-right::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -2px;
+  width: 14px;
+  height: 6px;
+  background: #5c3a1e;
+  border-radius: 6px 6px 2px 2px;
+}
+
+/* Idle: slight bob */
+.goblin {
+  animation: goblinIdle 2s ease-in-out infinite;
+}
+@keyframes goblinIdle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* ================================================================
+   SLIME — Bouncy gelatinous blob
+   ================================================================ */
+.slime .sprite-inner {
+  width: 80px;
+  height: 70px;
+  margin-top: 15px;
+}
+
+.slime-body {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 45px;
+  background: radial-gradient(ellipse at 50% 30%, #7dff7d 0%, #2ecc2e 40%, #1a8a1a 100%);
+  border-radius: 50% 50% 45% 45%;
+  box-shadow:
+    inset 0 -8px 12px rgba(0, 0, 0, 0.15),
+    0 4px 0 #0d5e0d;
+  z-index: 2;
+}
+/* Slime highlight */
+.slime-body::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 12px;
+  width: 14px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+}
+
+/* Eyes */
+.slime-eyes {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 10px;
+  z-index: 3;
+}
+.slime-eyes::before,
+.slime-eyes::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 11px;
+  background: #fff;
+  border-radius: 50%;
+}
+.slime-eyes::before { left: 0; }
+.slime-eyes::after  { right: 0; }
+/* Pupils */
+.slime-eyes::before,
+.slime-eyes::after {
+  box-shadow: inset 2px 1px 0 2px #222;
+}
+
+/* Mouth */
+.slime-mouth {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 5px;
+  background: #0d5e0d;
+  border-radius: 0 0 5px 5px;
+  z-index: 3;
+}
+
+/* Shadow */
+.slime-shadow {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Slime bounces */
+.slime {
+  animation: slimeBounce 1.5s ease-in-out infinite;
+}
+@keyframes slimeBounce {
+  0%, 100% { transform: translateY(0) scaleY(1) scaleX(1); }
+  15%  { transform: translateY(-12px) scaleY(0.85) scaleX(1.1); }
+  30%  { transform: translateY(0) scaleY(1.15) scaleX(0.9); }
+  45%  { transform: translateY(-3px) scaleY(0.95) scaleX(1.03); }
+  60%  { transform: translateY(0) scaleY(1.05) scaleX(0.97); }
+}
+
+/* ================================================================
+   SKELETON — Bony frame with glowing red eyes
+   ================================================================ */
+.skeleton .sprite-inner {
+  width: 56px;
+  height: 90px;
+}
+
+/* Skull */
+.skeleton-head {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 38px;
+  background: #f0ead6;
+  border-radius: 50% 50% 35% 35%;
+  z-index: 3;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+/* Jaw separation line */
+.skeleton-head::after {
+  content: '';
+  position: absolute;
+  bottom: 12px;
+  left: 6px;
+  right: 6px;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 1px;
+}
+
+/* Red glowing eyes */
+.skeleton-eyes {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 7px;
+  z-index: 4;
+}
+.skeleton-eyes::before,
+.skeleton-eyes::after {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 8px;
+  background: #ff2200;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #ff0000, 0 0 12px #ff4400;
+}
+.skeleton-eyes::before { left: 0; }
+.skeleton-eyes::after  { right: 0; }
+
+/* Nose hole */
+.skeleton-nose {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 5px;
+  background: #c0b896;
+  border-radius: 40%;
+  z-index: 4;
+}
+
+/* Neck */
+.skeleton-neck {
+  position: absolute;
+  top: 37px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #e8dcc8;
+  z-index: 2;
+}
+
+/* Ribcage */
+.skeleton-ribcage {
+  position: absolute;
+  top: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 24px;
+  background: #e8dcc8;
+  border-radius: 8px 8px 4px 4px;
+  z-index: 1;
+}
+/* Rib lines */
+.skeleton-ribcage::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  right: 4px;
+  bottom: 3px;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.1) 3px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  border-radius: 6px 6px 3px 3px;
+}
+
+/* Arms — bone sticks */
+.skeleton-arm-left,
+.skeleton-arm-right {
+  position: absolute;
+  top: 42px;
+  width: 7px;
+  height: 28px;
+  background: linear-gradient(180deg, #e8dcc8 0%, #d4c8a8 100%);
+  border-radius: 4px;
+}
+.skeleton-arm-left  { left: 6px; transform: rotate(10deg); }
+.skeleton-arm-right { right: 6px; transform: rotate(-10deg); }
+
+/* Pelvis */
+.skeleton-pelvis {
+  position: absolute;
+  top: 66px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 10px;
+  background: #e8dcc8;
+  border-radius: 0 0 6px 6px;
+  z-index: 1;
+}
+
+/* Legs */
+.skeleton-leg-left,
+.skeleton-leg-right {
+  position: absolute;
+  top: 74px;
+  width: 8px;
+  height: 20px;
+  background: #e8dcc8;
+  border-radius: 0 0 4px 4px;
+}
+.skeleton-leg-left  { left: 16px; }
+.skeleton-leg-right { right: 16px; }
+
+/* Feet */
+.skeleton-leg-left::after,
+.skeleton-leg-right::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -3px;
+  width: 14px;
+  height: 5px;
+  background: #d4c8a8;
+  border-radius: 4px;
+}
+
+/* Skeleton rattle */
+.skeleton {
+  animation: skeletonRattle 3s ease-in-out infinite;
+}
+@keyframes skeletonRattle {
+  0%, 90%, 100% { transform: translateX(0); }
+  91%  { transform: translateX(-2px); }
+  93%  { transform: translateX(2px); }
+  95%  { transform: translateX(-1px); }
+  97%  { transform: translateX(1px); }
+}
+
+/* ================================================================
+   GHOST — Translucent floating specter
+   ================================================================ */
+.ghost .sprite-inner {
+  width: 60px;
+  height: 85px;
+}
+
+.ghost-body {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 65px;
+  background: linear-gradient(180deg,
+    rgba(220, 230, 255, 0.9) 0%,
+    rgba(180, 200, 240, 0.8) 60%,
+    rgba(140, 165, 210, 0.5) 100%
+  );
+  border-radius: 30px 30px 5px 5px;
+  z-index: 2;
+  box-shadow: 0 0 15px rgba(180, 200, 240, 0.4);
+}
+/* Wavy bottom */
+.ghost-body::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background:
+    radial-gradient(ellipse at 5px 0, rgba(180, 200, 240, 0.8) 6px, transparent 6px),
+    radial-gradient(ellipse at 17px 0, rgba(160, 185, 225, 0.7) 6px, transparent 6px),
+    radial-gradient(ellipse at 29px 0, rgba(180, 200, 240, 0.8) 6px, transparent 6px),
+    radial-gradient(ellipse at 41px 0, rgba(160, 185, 225, 0.7) 6px, transparent 6px);
+}
+
+/* Dark eye sockets */
+.ghost-eyes {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 11px;
+  z-index: 3;
+}
+.ghost-eyes::before,
+.ghost-eyes::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 12px;
+  background: #1a1a3e;
+  border-radius: 50%;
+}
+.ghost-eyes::before { left: 0; }
+.ghost-eyes::after  { right: 0; }
+
+/* Mouth */
+.ghost-mouth {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #1a1a3e;
+  border-radius: 50%;
+  z-index: 3;
+}
+
+/* Ghost floats gently */
+.ghost {
+  animation: ghostFloat 3s ease-in-out infinite;
+}
+@keyframes ghostFloat {
+  0%, 100% { transform: translateY(0); }
+  25%  { transform: translateY(-8px); }
+  75%  { transform: translateY(4px); }
+}
+
+/* ================================================================
+   DRAGON WHELP — Small dragon with wings and fire spark
+   ================================================================ */
+.dragon .sprite-inner {
+  width: 80px;
+  height: 85px;
+}
+
+/* Head */
+.dragon-head {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 26px;
+  background: linear-gradient(180deg, #3a9a3a 0%, #2a7a2a 100%);
+  border-radius: 40% 40% 30% 30%;
+  z-index: 4;
+}
+
+/* Horns */
+.dragon-head::before,
+.dragon-head::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 10px solid #c8a050;
+}
+.dragon-head::before { left: 4px; transform: rotate(-10deg); }
+.dragon-head::after  { right: 4px; transform: rotate(10deg); }
+
+/* Eyes */
+.dragon-eyes {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 6px;
+  z-index: 5;
+}
+.dragon-eyes::before,
+.dragon-eyes::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 7px;
+  background: #ff6600;
+  border-radius: 50%;
+  box-shadow: 0 0 3px #ff4400;
+}
+.dragon-eyes::before { left: 0; }
+.dragon-eyes::after  { right: 0; }
+
+/* Snout */
+.dragon-snout {
+  position: absolute;
+  top: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 3px;
+  background: #ff6600;
+  border-radius: 3px;
+  z-index: 5;
+}
+
+/* Body */
+.dragon-body {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 24px;
+  background: linear-gradient(180deg, #3a8a3a 0%, #2a6a2a 100%);
+  border-radius: 10px 10px 8px 8px;
+  z-index: 2;
+}
+/* Belly */
+.dragon-body::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 6px;
+  right: 6px;
+  height: 14px;
+  background: #c8d840;
+  border-radius: 0 0 6px 6px;
+  opacity: 0.6;
+}
+
+/* Wings */
+.dragon-wing-left,
+.dragon-wing-right {
+  position: absolute;
+  top: 30px;
+  width: 0;
+  height: 0;
+  z-index: 3;
+}
+.dragon-wing-left {
+  left: 2px;
+  border-top: 22px solid #2a8a2a;
+  border-right: 18px solid transparent;
+  border-bottom: 5px solid transparent;
+  transform: rotate(15deg);
+}
+.dragon-wing-right {
+  right: 2px;
+  border-top: 22px solid #2a8a2a;
+  border-left: 18px solid transparent;
+  border-bottom: 5px solid transparent;
+  transform: rotate(-15deg);
+}
+
+/* Wing membranes (lighter) */
+.dragon-wing-left::after,
+.dragon-wing-right::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  width: 0;
+  height: 0;
+}
+.dragon-wing-left::after {
+  left: -12px;
+  border-top: 14px solid #4aba4a;
+  border-right: 12px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+.dragon-wing-right::after {
+  right: -12px;
+  border-top: 14px solid #4aba4a;
+  border-left: 12px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+
+/* Tail */
+.dragon-tail {
+  position: absolute;
+  top: 52px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 22px;
+  background: #2a7a2a;
+  border-radius: 0 0 6px 3px;
+  z-index: 1;
+}
+.dragon-tail::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 10px;
+  background: #2a7a2a;
+  border-radius: 0 50% 50% 0;
+}
+
+/* Legs */
+.dragon-leg-left,
+.dragon-leg-right {
+  position: absolute;
+  bottom: 14px;
+  width: 8px;
+  height: 10px;
+  background: #2a7a2a;
+  border-radius: 0 0 4px 4px;
+  z-index: 1;
+}
+.dragon-leg-left  { left: 20px; }
+.dragon-leg-right { right: 20px; }
+
+/* Fire spark */
+.dragon-fire {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateX(-20px);
+  width: 6px;
+  height: 6px;
+  background: #ff6600;
+  border-radius: 50%;
+  z-index: 6;
+  box-shadow: 0 0 6px #ff4400, 0 0 12px #ff2200;
+  animation: fireSpark 0.6s ease-in-out infinite;
+}
+@keyframes fireSpark {
+  0%, 100% { opacity: 0.3; transform: translateX(-50%) translateX(-20px) scale(0.8); }
+  50% { opacity: 1; transform: translateX(-50%) translateX(-22px) scale(1.3); }
+}
+
+/* Dragon idle — slow breath */
+.dragon {
+  animation: dragonBreath 3s ease-in-out infinite;
+}
+@keyframes dragonBreath {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+/* ================================================================
+   BOSS — Massive shadow entity with golden eyes and dark aura
+   ================================================================ */
+.boss .sprite-inner {
+  width: 90px;
+  height: 100px;
+}
+
+/* Dark aura ring 1 */
+.boss-aura-outer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, transparent 50%, rgba(120, 0, 200, 0.25) 70%, transparent 72%);
+  z-index: 0;
+  animation: bossAuraOuter 2s linear infinite;
+}
+@keyframes bossAuraOuter {
+  0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+  50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.08); }
+  100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+}
+
+/* Aura ring 2 */
+.boss-aura-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, transparent 45%, rgba(180, 50, 50, 0.2) 65%, transparent 68%);
+  z-index: 1;
+  animation: bossAuraInner 2s linear infinite reverse;
+}
+@keyframes bossAuraInner {
+  0% { transform: translate(-50%, -50%) rotate(0deg) scale(1.05); }
+  50% { transform: translate(-50%, -50%) rotate(-180deg) scale(1); }
+  100% { transform: translate(-50%, -50%) rotate(-360deg) scale(1.05); }
+}
+
+/* Main body — dark mass */
+.boss-body {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 55px;
+  background: linear-gradient(180deg,
+    #1a0a2e 0%,
+    #2d1040 30%,
+    #1a0a2e 60%,
+    #0d0515 100%
+  );
+  border-radius: 50% 50% 30% 30%;
+  z-index: 2;
+  box-shadow:
+    0 0 20px rgba(80, 0, 120, 0.4),
+    inset 0 0 20px rgba(60, 0, 100, 0.3);
+}
+
+/* Crown / Horns */
+.boss-horns {
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 20px;
+  z-index: 3;
+}
+.boss-horns::before,
+.boss-horns::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 18px solid #3d1050;
+}
+.boss-horns::before { left: 2px; transform: rotate(-15deg); }
+.boss-horns::after  { right: 2px; transform: rotate(15deg); }
+/* Middle horn */
+.boss-horns {
+  box-shadow: none;
+}
+/* Center spike via extra element */
+.boss-crown-spike {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 12px solid #5a1868;
+  z-index: 4;
+}
+
+/* Golden eyes */
+.boss-eyes {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 10px;
+  z-index: 3;
+}
+.boss-eyes::before,
+.boss-eyes::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 12px;
+  background: #ffd700;
+  border-radius: 50% 50% 40% 40%;
+  box-shadow:
+    0 0 8px #ffd700,
+    0 0 16px #ff8800,
+    0 0 24px #ff4400;
+}
+.boss-eyes::before { left: 0; }
+.boss-eyes::after  { right: 0; }
+
+/* Mouth — jagged */
+.boss-mouth {
+  position: absolute;
+  top: 42px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 8px;
+  z-index: 3;
+  background:
+    linear-gradient(180deg, transparent 40%, #0a0000 40%, #0a0000 60%, transparent 60%);
+  clip-path: polygon(0% 50%, 10% 30%, 20% 50%, 30% 30%, 40% 50%, 50% 30%, 60% 50%, 70% 30%, 80% 50%, 90% 30%, 100% 50%, 90% 70%, 80% 50%, 70% 70%, 60% 50%, 50% 70%, 40% 50%, 30% 70%, 20% 50%, 10% 70%, 0% 50%);
+}
+
+/* Boss idle — slow menacing pulse */
+.boss {
+  animation: bossMenace 2s ease-in-out infinite;
+}
+@keyframes bossMenace {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5)); }
+  50% { transform: scale(1.06); filter: drop-shadow(0 6px 16px rgba(100, 0, 180, 0.5)); }
+}
+
+/* ================================================================
+   Small sprite for unit overview list
+   ================================================================ */
+.monster-sprite-small {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.45);
+  transform-origin: center center;
+}

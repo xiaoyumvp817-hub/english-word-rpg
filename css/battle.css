@@ -36,11 +36,14 @@
 }
 
 .monster-sprite {
-  font-size: 5rem;
+  width: 100px;
+  height: 100px;
   line-height: 1;
   margin-bottom: var(--spacing-sm);
   transition: transform 0.3s ease;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .monster-sprite.shake {
@@ -273,6 +276,23 @@
   color: #ff4444;
 }
 
+/* Speed-tier floating text */
+.speed-godlike {
+  color: #ffd700;
+  font-size: 1.6rem;
+  top: 40%;
+  animation: speedFloatUp 1.2s ease-out forwards;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.8), 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.speed-fast {
+  color: #64b4ff;
+  font-size: 1.3rem;
+  top: 42%;
+  animation: speedFloatUp 1.0s ease-out forwards;
+  text-shadow: 0 0 8px rgba(100, 180, 255, 0.6), 2px 2px 4px rgba(0,0,0,0.8);
+}
+
 /* Screen Flash Effects */
 .screen-title { /* placeholder to avoid empty rule */ }
 
@@ -286,6 +306,14 @@
 
 .flash-critical {
   animation: flashGold 0.5s ease;
+}
+
+.flash-godlike {
+  animation: flashGodlike 0.5s ease;
+}
+
+.flash-fast {
+  animation: flashFast 0.3s ease;
 }
 
 /* === Victory Screen === */

@@ -54,6 +54,11 @@ export class BattleController {
   submitAnswer(userInput) {
     if (this.state !== BATTLE_STATE.PLAYER_TURN) return null;
 
+    // Capture speed fraction BEFORE stopping the timer
+    const timeFraction = this.timerSeconds > 0
+      ? Math.max(0, this.timeLeft / this.timerSeconds)
+      : 0;
+
     this.stopTimer();
 
     const word = this.monster.word || (this.monster.wordPool ? null : null);
@@ -72,7 +77,7 @@ export class BattleController {
       if (this.streakCount > this.maxStreak) {
         this.maxStreak = this.streakCount;
       }
-      result = this.resolvePlayerAttack();
+      result = this.resolvePlayerAttack(timeFraction);
       result.isCorrect = true;
       result.correctAnswer = word.english;
     } else {
@@ -193,13 +198,23 @@ export class BattleController {
 
   /**
    * Player attacks the monster.
+   * @param {number} timeFraction - 0.0 (timeout edge) to 1.0 (instant answer)
+   *        Faster answers get higher crit chance and bigger crits.
    */
-  resolvePlayerAttack() {
+  resolvePlayerAttack(timeFraction = 0) {
     const baseDamage = this.player.attack - this.monster.defense;
     const randomJitter = randomInt(-2, 2);
-    const isCritical = Math.random() < this.player.criticalChance;
-    const multiplier = isCritical ? 2.0 : 1.0;
-    const damage = Math.max(1, Math.floor((baseDamage + randomJitter) * multiplier));
+
+    // Speed-based crit: faster = more likely + harder hit
+    //   critChance  = base 5% + up to 25% from speed → max ~30%
+    //   critMult    = 2.0x  + up to 1.0x from speed → max 3.0x
+    const speedCritBonus = Math.max(0, Math.min(1, timeFraction)) * 0.25;
+    const effectiveCritChance = Math.min(0.50, this.player.criticalChance + speedCritBonus);
+    const isCritical = Math.random() < effectiveCritChance;
+    const critMultiplier = isCritical ? (2.0 + timeFraction * 1.0) : 1.0;
+
+    const rawDamage = (baseDamage + randomJitter) * critMultiplier;
+    const damage = Math.max(1, Math.floor(rawDamage));
 
     this.monster.hp = Math.max(0, this.monster.hp - damage);
 
@@ -207,11 +222,19 @@ export class BattleController {
       this.player.recordCriticalHit();
     }
 
+    // Determine speed tier for UI feedback
+    let speedTier = '';
+    if (timeFraction >= 0.8) speedTier = 'godlike';
+    else if (timeFraction >= 0.5) speedTier = 'fast';
+
     return {
       type: isCritical ? 'crit' : 'attack',
       damage,
       isPlayer: true,
       isCritical,
+      critMultiplier: isCritical ? critMultiplier : 1.0,
+      speedTier,
+      timeFraction,
       streak: this.streakCount,
       message: isCritical
         ? `💥 暴击! 造成 ${damage} 点伤害!`

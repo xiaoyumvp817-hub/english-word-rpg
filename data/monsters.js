@@ -4,6 +4,7 @@
 export const MONSTER_TEMPLATES = {
   1: {
     type: 'goblin',
+    sprite: 'goblin',
     emoji: '👾',
     nameZh: '哥布林',
     nameEn: 'Goblin',
@@ -11,6 +12,7 @@ export const MONSTER_TEMPLATES = {
   },
   2: {
     type: 'slime',
+    sprite: 'slime',
     emoji: '🟢',
     nameZh: '史莱姆',
     nameEn: 'Slime',
@@ -18,6 +20,7 @@ export const MONSTER_TEMPLATES = {
   },
   3: {
     type: 'skeleton',
+    sprite: 'skeleton',
     emoji: '💀',
     nameZh: '骷髅兵',
     nameEn: 'Skeleton',
@@ -25,6 +28,7 @@ export const MONSTER_TEMPLATES = {
   },
   4: {
     type: 'ghost',
+    sprite: 'ghost',
     emoji: '👻',
     nameZh: '幽灵',
     nameEn: 'Ghost',
@@ -32,6 +36,7 @@ export const MONSTER_TEMPLATES = {
   },
   5: {
     type: 'dragon_whelp',
+    sprite: 'dragon',
     emoji: '🐉',
     nameZh: '幼龙',
     nameEn: 'Dragon Whelp',
@@ -41,17 +46,17 @@ export const MONSTER_TEMPLATES = {
 
 // Boss templates per theme category
 export const BOSS_TEMPLATES = {
-  school: { emoji: '👹', nameZh: '学府巨魔', nameEn: 'Academy Troll' },
-  family: { emoji: '👹', nameZh: '家族石像鬼', nameEn: 'Family Gargoyle' },
-  food: { emoji: '👹', nameZh: '贪食魔龙', nameEn: 'Glutton Dragon' },
-  animals: { emoji: '👹', nameZh: '兽王', nameEn: 'Beast King' },
-  weather: { emoji: '👹', nameZh: '风暴元素', nameEn: 'Storm Elemental' },
-  body: { emoji: '👹', nameZh: '暗影魔', nameEn: 'Shadow Fiend' },
-  clothes: { emoji: '👹', nameZh: '铁甲巨兽', nameEn: 'Iron Behemoth' },
-  sports: { emoji: '👹', nameZh: '竞技场冠军', nameEn: 'Arena Champion' },
-  numbers: { emoji: '👹', nameZh: '数字恶魔', nameEn: 'Number Demon' },
-  colors: { emoji: '👹', nameZh: '彩虹巨龙', nameEn: 'Rainbow Dragon' },
-  actions: { emoji: '👹', nameZh: '行动巨人', nameEn: 'Action Giant' },
-  places: { emoji: '👹', nameZh: '迷宫守卫', nameEn: 'Maze Guardian' },
-  default: { emoji: '👹', nameZh: '暗影领主', nameEn: 'Shadow Lord' }
+  school:   { sprite: 'boss', emoji: '👹', nameZh: '学府巨魔',   nameEn: 'Academy Troll' },
+  family:   { sprite: 'boss', emoji: '👹', nameZh: '家族石像鬼', nameEn: 'Family Gargoyle' },
+  food:     { sprite: 'boss', emoji: '👹', nameZh: '贪食魔龙',   nameEn: 'Glutton Dragon' },
+  animals:  { sprite: 'boss', emoji: '👹', nameZh: '兽王',       nameEn: 'Beast King' },
+  weather:  { sprite: 'boss', emoji: '👹', nameZh: '风暴元素',   nameEn: 'Storm Elemental' },
+  body:     { sprite: 'boss', emoji: '👹', nameZh: '暗影魔',     nameEn: 'Shadow Fiend' },
+  clothes:  { sprite: 'boss', emoji: '👹', nameZh: '铁甲巨兽',   nameEn: 'Iron Behemoth' },
+  sports:   { sprite: 'boss', emoji: '👹', nameZh: '竞技场冠军', nameEn: 'Arena Champion' },
+  numbers:  { sprite: 'boss', emoji: '👹', nameZh: '数字恶魔',   nameEn: 'Number Demon' },
+  colors:   { sprite: 'boss', emoji: '👹', nameZh: '彩虹巨龙',   nameEn: 'Rainbow Dragon' },
+  actions:  { sprite: 'boss', emoji: '👹', nameZh: '行动巨人',   nameEn: 'Action Giant' },
+  places:   { sprite: 'boss', emoji: '👹', nameZh: '迷宫守卫',   nameEn: 'Maze Guardian' },
+  default:  { sprite: 'boss', emoji: '👹', nameZh: '暗影领主',   nameEn: 'Shadow Lord' }
 };

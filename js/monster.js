@@ -16,7 +16,7 @@ export function createMonsterFromWord(word) {
     id: `monster-${word.id}`,
     wordId: word.id,
     displayName: `${word.chinese.split('；')[0]}${template.nameZh}`,
-    englishName: `${word.english} ${template.nameEn}`,
+    englishName: template.nameEn,
     emoji: template.emoji,
     hp: s.hp + randomInt(-3, 3),
     maxHp: s.hp + randomInt(-3, 3),
@@ -25,7 +25,7 @@ export function createMonsterFromWord(word) {
     xpReward: s.xp + randomInt(-5, 5),
     goldReward: s.gold + randomInt(-3, 3),
     type: 'normal',
-    sprite: template.type,
+    sprite: template.sprite,
     word: { ...word }  // Full word object reference
   };
 }
@@ -55,7 +55,7 @@ export function createBossFromUnit(words, unit) {
     id: `boss-${unit.id}`,
     wordId: null, // Boss uses a pool of words
     displayName: bossTemplate.nameZh,
-    englishName: bossTemplate.englishName,
+    englishName: bossTemplate.nameEn,
     emoji: bossTemplate.emoji,
     hp: Math.max(50, bossHp),
     maxHp: Math.max(50, bossHp),
@@ -64,7 +64,7 @@ export function createBossFromUnit(words, unit) {
     xpReward: words.length * 20,
     goldReward: words.length * 12,
     type: 'boss',
-    sprite: 'boss',
+    sprite: bossTemplate.sprite,
     wordPool: [...words], // All words from the unit
     usedWords: []         // Words already presented (to avoid repeats)
   };
