@@ -1,0 +1,3827 @@
+主语 + was + 动词过去分词（+ by + 动作执行者） were
+一般现在时被动语态的各类句式在上一模块中已进行了总结，一般过去时被动语态的各 类句式与之类似，在此不再赘述。
+那么，encourage sb. to do sth., allow sb. to do sth. 等不定式作宾语补足语的结构在被动语态 中如何处理呢？我们来对比一下其主动语态与被动语态形式：
+The school encouraged Liu Xiang to train for the high jump. 学校鼓励刘翔参加跳高训练。 Liu Xiang was encouraged (by the school) to train for the high jump. 刘翔被（学校）鼓励参加 跳高训练。 可以看出，被动语态的句子是把主动语态中的宾语提到了主语位置，宾语补足语的位置 则不变。应注意，这样的句子往往不会提到动作的执行者。这正是被动语态的特点：被 动语态强调动作承受者，而不强调动作执行者。
+Module 9  被动语态（3）
+在前两个模块中，我们学习了一般现在时和一般过去时的被动语态。本模块我们学习一 般将来时的被动语态，并对被动语态的用法进行归纳总结。
+1. 一般将来时的被动语态 同学们先来看一看本模块中含有一般将来时被动语态的句子：
+They’ll be put up on the school website. 它们（照片）将被公布在学校的网站上。 Will books be replaced by the Internet? 书会被因特网替代吗？ 在前两个模块中，我们已经学过了被动语态的基本构成形式：be + 动词过去分词。因此， 一般将来时的被动语态的肯定句结构为：
+will 主语 + is going to + be + 动词过去分词 (+ by + 动作执行者 )
+are going to
+2. 被动语态用法总结 现在，我们根据时态变化的规则，将一般现在时、一般过去时和一般将来时的主动语态 和被动语态的结构总结如下（以 do 为例）：
+135
+
+时态 一般现在时 一般过去时
+一般将来时
+
+主动语态
+
+被动语态
+
+do/does
+
+am/is/are + done
+
+did
+
+was/were + done
+
+will/be (am/is/are) going to + do
+
+will/be (am/is/are) going to + be + done
+
+被动语态的肯定句形式、否定句形式和疑问句形式列表如下（以 do 为例）：
+
+一般现在时
+
+一般过去时
+
+一般将来时
+
+肯定句形式 主语 + am/is/are + done
+
+主语 + was/were + 主语 + will/be (am/is/are) going
+
+done
+
+to + be + done
+
+否定句形式 主语 + am/is/are + not 主语 + was/were + not 主语 + will not/be (am/is/are)
+
++ done
+
++ done
+
+not going to + be + done
+
+一般疑问句 Am/Is/Are + 主语 +
+
+形式
+
+done
+
+Was/Were + 主语 + done
+
+Will + 主语 + be + done/ Be (am/is/are) + 主语 + going to
++ be + done
+
+特殊疑问句 特殊疑问词 + am/is/are 特殊疑问词 + was/
+
+形式
+
++ 主语 + done
+
+were + 主语 + done
+
+特殊疑问词 + will + 主语 + be + done/
+特殊疑问词 + be (am/is/are) + 主语 + going to + be + done
+
+Module 10  that引导的定语从句
+本模块我们学习由 that 引导的定语从句。我们先来看两个例句： I have some photos that I took in Australia last year. 我有一些去年在澳大利亚拍的照片。 The horse that I rode was lazy. 我骑的那匹马很懒。
+句中加黑部分为定语从句，分别用来进一步说明或限定前面的 photos 和 horse。我们称 photos，horse 这些被定语从句修饰的词为先行词，that 为定语从句的引导词，放在先行词 及定语从句之间起连接作用，同时在定语从句中充当句子成分。 that 引导的定语从句既可以修饰无生命的事物，也可以修饰有生命的动物或人，that 在从
+136
+
+句中作主语或宾语（作宾语时可以省略）。例如： The film that tells an adventure is very interesting. 那部关于探险的电影非常有趣。（that 作主语，从句修饰物） The writer that I like best is Mark Twain. 我最喜欢的作家是马克· 吐温。（that 作宾语， 从句修饰人）
+Module 11  which 和 who 引导的定语从句
+在上一模块中，我们学习了由 that 引导的定语从句。本模块我们学习由 which 和 who 引 导的定语从句。首先来看一下本模块中出现的例句：
+(1) The photo which we liked best in the City and People group was taken by Zhao Min. 在 “城市与人”这组照片中，我们最喜爱的是由赵敏拍摄的。 (2) A group of photos which show Beijing and Cambridge in England has won the prize for the subject Home and Away. 一组展示北京和英国剑桥的照片赢得了“故土与他乡”这 一主题的奖项。 (3) He’s the boy who won the photo competition last year! 他就是去年赢得摄影比赛的那 个男生！ (4) ... thanks to everyone who entered the competition. ……感谢所有参加本次比赛的参赛者。
+从以上例句我们发现，which 和 who 引导的定语从句的区别体现在先行词上。在上面的例 句中，which 引导的定语从句的先行词是 photo 和 photos，是没有生命的物体；who 引导 的定语从句的先行词是 boy 和 everyone，均指人。下面我们来看它们的具体区别。
+1. which 引导的定语从句 which 引导的定语从句修饰的一般是物，which 在从句中可以作主语，如句（2），也可以 作宾语，如句（1）。
+2. who 引导的定语从句 从上面的（3）（4）两句可以看出，如果先行词指人，那么定语从句的引导词就可以用 who。例句中 who 在从句中都充当主语。 如果先行词指人，引导词在从句中充当宾语，那么引导词就要用 who 的宾格形式 whom，
+137
+
+口语中也可以用 who 代替。例如： I took some photos for the soldiers whom I met in the army. 我给在部队里碰到的战士们拍 了一些照片。
+3. 定语从句中引导词的省略 不管定语从句修饰的是人还是物，如果引导词在从句中作宾语，通常就可以省略。例如：
+(1) Did you go to the talk (that/which) the famous scientist gave at your school? 你去听 那位著名科学家在你们学校做的演讲了吗？ (2) Is that the car (that/which) you bought last month? 那是你上个月买的车吗？ (3) A friend is a person (who/whom) you know very well and like. 朋友是你十分了解并且 喜欢的人。
+在上面的句子中，第 (1) 句和第 (2) 句都省略了引导词 that/which，第 (3) 句省略了引导词 who/whom，因为它们在从句中分别作 gave, bought 和 know/like 的宾语。 引导词作宾语时可以省略是因为省略后的从句仍然有主语和谓语，我们仍然可以分辨出 哪部分是定语从句。但是，引导词在从句中作主语时就不能省略，否则会造成结构混乱。 请看以下例句：
+I’d love to have parents who understand me. 我希望父母理解我。 He can make lessons that are usually boring interesting. 他能把通常枯燥乏味的课讲得生动有趣。 以上两句中的引导词 who 和 that 在从句中作主语，不能省略。 此外，需要注意的是，虽然在定语从句中作宾语的引导词在口语中往往被省略，但在正式 文体中则常常被保留。
+Module 12  构词法
+1. 合成法 将两个或两个以上独立且语义不同的单词合在一起构成新词的方法称作合成法。合成法是 一种比较灵活的构词方法，可以合成名词、形容词、副词、代词、动词等。例如，afternoon, sportsman, blackboard, sportsperson, newspaper, airplane, classmate, grandfather 等就是通过合成构词
+138
+
+法构成的名词；kind-hearted, middle-aged, hard-working 等为合成形容词；however, maybe, himself, everyone, nothing, overlook 等也都是通过合成法构成的单词。掌握合成法有助于我们理解和记 忆更多单词。
+
+2. 派生法 通过在词根前面加前缀或在词根后面加后缀构成一个新词的方法称作派生法。要通过派生 法理解和记忆单词，我们需要掌握常见的前缀和后缀及派生规律。我们先来介绍一些常 见的前缀和后缀。
+
+（1）常见前缀
+前缀 disenim-, inintermisnonreun-
+
+含义 不 使……处于某种状态 不 在……之间，相互 错误地 不，非 再，重复 不
+
+例词 disagree, dislike enable, enrich impossible, impatient, inexpensive international, interconnect mislead, misunderstand non-smoker, non-native rewrite, retell unable, unhappy, unpopular
+
+（2）常见后缀
+后缀 -er, -or -ian -ing -ist -ment -ness -th -tion -ty
+
+功能 构成名词
+
+例词 teacher, worker, visitor musician building, painting, shopping, meaning artist, scientist agreement, government coldness, happiness, illness truth, warmth competition, education, information, invitation activity, safety
+139
+
+后缀 -able, -ible -al -ful -ive -less -ly -ous -teen -th -ty -ly
+
+功能 构成形容词
+构成数词 构成副词
+
+例词 comfortable, eatable, enjoyable, possible environmental, international, national, traditional careful, helpful, useful active, expensive careless, helpless, homeless, useless friendly, lovely, monthly, weekly dangerous, famous eighteen, ﬁfteen, seventeen ﬁfteenth, ﬁfth, fortieth, seventh forty, sixty, twenty badly, carefully, carelessly, happily, quickly
+
+（3）派生规律 由一个词根加上相应的词缀可以派生出名词、形容词、副词等，掌握派生规律对扩充词 汇有很大帮助。例如：
+
+由 interest 可以派生出：
+
+interest
+
+interesting
+
+uninteresting interestingly
+
+interested uninterested
+
+由 help 可以派生出：
+helpless helplessly help
+helpful helpfully
+
+由 able 可以派生出：
+enable
+able unable ability disable
+
+140
+
+3. 转化法 英语构词法中把一种词性转化为另一种词性而词形不变的方法称作转化法。常见的转化有： （1）动词转化为名词
+- Let’s talk about it more. 咱们再谈谈这件事吧。 - I think we’d better ﬁnish the talk now. 我想我们最好现在结束谈话。 （2）名词转化为动词 She gave me a cup of water. 她给了我一杯水。 You should water the ﬂowers twice a day. 你应该每天给这些花浇两次水。 （3）形容词转化为名词 She was wearing a black dress. 她穿着一条黑色的裙子。 The girl in black looks very beautiful. 那个穿黑衣服的女孩看上去很漂亮。
+141
+
+W ords and expressions
+
+Module 1
+
+man-made /;mæn'me!d/ adj. 人造的 ()
+
+natural /'næt12r2l/ adj. 大自然的
+
+()
+
+wonder /'w7nd2/ n. 奇观；奇迹
+
+()
+
+discussion /d!'sk71n/ n. 讨论；商讨 ()
+
+eastern /'iːst2n/ adj. 在东边的；来自东
+
+边的
+
+()
+
+though /ð2%/ conj. 虽然；但是
+
+()
+
+loud /la%d/ adj.（声音）响亮的
+
+()
+
+wow /wa%/ int. 呀；哇（用于表示惊讶
+
+或赞叹）
+
+()
+
+opinion /2'p!nj2n/ n. 看法；主张
+
+()
+
+  in one’s opinion 按某人的意见；据
+
+某人看来
+
+()
+
+more than 超过
+
+()
+
+electricity /!;lek'tr!s2ti/ n. 电
+
+()
+
+millions of 大量的；无数的
+
+()
+
+below /b!'l2%/ prep. 在下面；在……
+
+以下
+
+()
+
+shine /1a!n/ v. (shone /1=n/, shone; shined,
+
+shined) 照耀
+
+()
+
+sign /sa!n/ n. 迹象；标志；招牌
+
+()
+
+silent /'sa!l2nt/ adj. 寂静的
+
+()
+
+silver /'s!lv2/ adj. 银灰色的；银制的 ()
+
+sky /ska!/ n. 天；天空
+
+()
+
+grey /gre!/ adj. 灰色的；（天气）阴沉的 ()
+
+go through 穿过
+
+()
+
+* beside /b!'sa!d/ prep. 在……旁边；
+
+在……附近
+
+()
+
+reply /r!'pla!/ v. 回答；答复
+
+()
+
+clear /kl!2/ v.（烟雾等）开始消失
+
+()
+
+fall away 突然向下倾斜
+
+()
+
+stream /striːm/ n. 小河；小溪
+
+()
+
+nearly /'n!2li/ adv. 几乎；差不多
+
+()
+
+on top of 在……上面；盖住
+
+()
+
+canyon /'kænj2n/ n. 峡谷
+
+()
+
+remain /r!'me!n/ v. 逗留；留下
+
+()
+
+* by /ba!/ prep. 在……旁边；靠近
+
+()
+
+Module 2
+
+found /fa%nd/ v. 创立；创建
+
+()
+
+since then 从那以后
+
+()
+
+flag /flæg/ n. 旗；旗帜
+
+()
+
+until /2n't!l/ prep. 直到……为止
+
+conj. 直到……为止
+
+()
+
+off /=f/ adv. 不上课；休息；不工作 ()
+
+all kinds of 各种各样的
+
+()
+
+vacation /v2'ke!1n/ n. 假期；假日 ()
+
+  take a vacation 去度假
+
+()
+
+* season /'siːzn/ n. 度假旺季；节期 ()
+
+* kid /k!d/ n. 小孩
+
+()
+
+have fun 玩得高兴；有乐趣
+
+()
+
+band /bænd/ n. 乐队
+
+()
+
+UK /;juː'ke!/ 英国
+
+()
+
+as soon as 一……就……
+
+()
+
+fourth /f0ː8/ num. 第四
+
+()
+
+sixth /s!ks8/ num. 第六
+
+()
+
+seventh /'sevn8/ num. 第七
+
+()
+
+eighth /e!t8/ num. 第八
+
+()
+
+ninth /na!n8/ num. 第九
+
+()
+
+tenth /ten8/ num. 第十
+
+()
+
+twelfth /twelf 8/ num. 第十二
+
+()
+
+twentieth /'twenti28/ num. 第二十 ()
+
+among /2'm79/ prep. 在……之中 ()
+
+speech /spiːt1/ n. 演说；讲演
+
+()
+
+pioneer /;pa!2'n!2/ n. 开拓者；先驱者 ()
+
+grow /gr2%/ v. 种植，栽培（植物） ()
+
+corn /k0ːn/ n. 谷物；玉米
+
+()
+
+following /'f=l2%!9/ adj. 接着的；接
+
+下来的
+
+()
+
+lay /le!/ v. (laid /le!d/, laid) 摆放（餐桌）()
+
+注：黑体的单词要求掌握；加 * 的单词表示复习强化；白体的单词只要求理解。
+
+142
+
+  lay the table 摆放餐桌
+
+(12)
+
+over /'2%v2/ adj. 完了的；结束的 (12)
+
+dish /d!1/ n. 盘；碟
+
+(12)
+
+parade /p2're!d/ n.（庆祝）游行
+
+(12)
+
+ourselves /a%2'selvz/ pron. 我们自己 (12)
+
+Module 3
+
+medal /'medl/ n. 奖牌；奖章
+
+(18)
+
+attend /2'tend/ v. 上（学）；出席，参
+
+加（事件或活动）
+
+(18)
+
+degree /d!'griː/ n. 课程；学位
+
+(18)
+
+will /w!l/ n. 意志；决心
+
+(18)
+
+whatever /w=t'ev2/ pron. 无论什么；
+
+不管什么
+
+(18)
+
+give up 放弃（努力）
+
+(18)
+
+including /!n'kluːd!9/ prep. 包含；包括 (18)
+
+amazing /2'me!z!9/ adj. 惊人的；
+
+极好的
+
+(18)
+
+once again 再一次
+
+(18)
+
+abroad /2'br0ːd/ adv. 在国外；到国外 (18)
+
+simply /'s!mpli/ adv. 实在；的确
+
+(18)
+
+victory /'v!kt2ri/ n. 成功；胜利
+
+(18)
+
+Canadian /k2'ne!di2n/ adj. 加拿大的；
+
+加拿大人的
+
+(20)
+
+sick /s!k/ adj.（感觉）不适的，生病的 (20)
+
+soldier /'s2%ld32/ n. 军人；士兵
+
+(20)
+
+treat /triːt/ v. 医治；治疗
+
+(20)
+
+war /w0ː/ n. 战争
+
+(20)
+
+wound /wuːnd/ n. 伤；伤口
+
+(20)
+
+die for 为……而死
+
+(20)
+
+wounded /'wuːnd!d/ adj. 受伤的
+
+(20)
+
+realise /'r!2la!z/ v. 了解；意识到 (20)
+
+dying /'da!!9/ adj. 垂死的；即将死亡的 (20)
+
+care /ke2/ n. 照顾；照料
+
+(20)
+
+  take care of 照顾；护理
+
+(20)
+
+tool /tuːl/ n. 工具；器械
+
+(20)
+
+invention /!n'ven12n/ n. 发明；发明物 (20)
+
+at that time 那时候
+
+(20)
+
+on one’s own 独自一人
+
+(20)
+
+useful /'juːsfl/ adj. 有用的；有益的 (20)
+
+rest /rest/ v. 休息；睡眠
+
+(20)
+
+himself /h!m'self; !m'self/ pron. 他自己(20)
+
+manage /'mæn!d3/ v. 做成；（尤指）设
+
+法完成
+
+(20)
+
+operation /;=p2're!1n/ n. 手术
+
+(20)
+
+continue /k2n't!njuː/ v.（使）继续 (20)
+
+die of 死于……
+
+(20)
+
+Canada /'kæn2d2/ 加拿大
+
+(20)
+
+Module 4
+
+platform /'plæt;f0ːm/ n.（供上下火车
+
+用的）月台；站台
+
+(26)
+
+meeting /'miːt!9/ n. 会议；集会
+
+(26)
+
+miss /m!s/ v. 未出席；未出现
+
+(26)
+
+shut /17t/ v. (shut, shut) 关上；合上 (26)
+
+lock /l=k/ v. 锁；锁住
+
+(26)
+
+simple /'s!mpl/ adj. 简单的；容易的 (26)
+
+anybody /'eni;b=di/ pron. 任何人
+
+(26)
+
+* clock /kl=k/ n. 钟；时钟
+
+(26)
+
+ring /r!9/ v. (rang /ræ9/, rung /r79/) 鸣
+
+响；发出铃声
+
+(26)
+
+passenger /'pæs!nd32/ n. 乘客；旅客 (26)
+
+address /2'dres/ n. 地址
+
+(26)
+
+text /tekst/ n. 文本；正文
+
+(26)
+
+  text message 短信
+
+(26)
+
+couple /'k7pl/ n. 一对；两个
+
+(26)
+
+  a couple of 两个
+
+(26)
+
+actually /'ækt1u2li/ adv. 事实上
+
+(28)
+
+manage /'mæn!d3/ v. 管理；支配
+
+(28)
+
+unhappy /7n'hæpi/ adj. 不高兴的
+
+(28)
+
+turn off 关掉；关闭（设备）
+
+(28)
+
+order /'0ːd2/ n. 命令；指示
+
+(28)
+
+be worried about 担心
+
+(28)
+
+business /'b!zn2s/ n. 工作
+
+(28)
+
+  on business 出差
+
+(28)
+
+sofa /'s2%f2/ n.（长）沙发
+
+(28)
+
+snack /snæk/ n. 点心；小吃
+
+(28)
+
+143
+
+midnight /'m!d;na!t/ n. 午夜；子夜 ()
+
+wake up 醒；醒来
+
+()
+
+hand in 提交；上交
+
+()
+
+empty /'empti/ adj. 空的
+
+()
+
+unable /7n'e!bl/ adj. 不能做某事的 ()
+
+all day long 整天
+
+()
+
+burn /b^ːn/ v. (burned /b^ːnd/, burned;
+
+burnt /b^ːnt/, burnt)（使）烧焦；
+
+（使）烤糊
+
+()
+
+cup /k7p/ n. 杯子；一杯饮料
+
+()
+
+task /t4ːsk/ n. 任务；工作
+
+()
+
+Module 5
+
+upstairs /7p'ste2z/ adj. 位于楼上的
+
+adv. 往楼上；在
+
+楼上
+
+()
+
+exhibition /;eks!'b!1n/ n. 展览；展览会 ()
+
+rule/ruːl/ n. 规则；法则
+
+()
+
+  against the rules 违反规定
+
+()
+
+in trouble 遇上麻烦；处于困境
+
+()
+
+tail /te!l/ n. 尾；尾巴
+
+()
+
+rope /r2%p/ n. 粗绳；绳索
+
+()
+
+entry /'entri/ n. 进入权；进入许可 ()
+
+  No entry. 禁止入内。
+
+()
+
+no good 不合适的；不方便的
+
+()
+
+no wonder 难怪；不足为奇
+
+()
+
+missing /'m!s!9/ adj. 找不到的；失
+
+踪的
+
+()
+
+downstairs /;da%n'ste2z/ adj. 位于楼下的
+
+adv. 往楼下；
+
+在楼下 ()
+
+punish /'p7n!1/ v. 惩罚；惩处
+
+()
+
+communications /k2;mjuːn!'ke!1nz/ n.
+
+[ 复数] 通信
+
+()
+
+physics /'f!z!ks/ n. 物理学
+
+()
+
+chemistry /'kem!stri/ n. 化学
+
+()
+
+dig /d!g/ v. (dug /d7g/, dug) 挖掘；
+
+掘（洞）
+
+()
+
+coal /k2%l/ n. 煤
+
+()
+
+144
+
+energy /'en2d3i/ n. 能量；能源
+
+()
+
+X-ray /'eks;re!/ n. X 射线；X 光
+
+()
+
+experiment /!k'sper!m2nt/ n. 实验 ()
+
+sand /sænd/ n. 沙；沙子
+
+()
+
+control /k2n'tr2%l/ v. 操作；操纵 ()
+
+truck /tr7k/ n. 卡车；货车
+
+()
+
+wheel /wiːl/ n. 轮子；车轮
+
+()
+
+compare... with... 比较……与…… ()
+
+of all ages 所有年龄段的
+
+()
+
+whole /h2%l/ adj. 全部的；整个的 ()
+
+Module 6
+
+deal /diːl/ n. 协议
+
+()
+
+exam /!g'zæm/ n. 考试
+
+()
+
+fail /fe!l/ v. 未能及格；未能达到 ()
+
+guitar /g!'t4ː/ n. 吉他
+
+()
+
+instrument /'!nstr%m2nt/ n. 乐器；仪器 ()
+
+musical /'mjuːz!kl/ adj. 音乐的
+
+()
+
+habit /'hæb!t/ n. 习惯
+
+()
+
+  get into the habit of... 养成……的
+
+习惯
+
+()
+
+schoolwork /'skuːl;w^ːk/ n. 学生课业；
+
+功课
+
+()
+
+volunteer /;v=l2n't!2/ n. 志愿者
+
+()
+
+necessary /'nes2s2ri/ adj. 必要的；
+
+必需的
+
+()
+
+shame /1e!m/ n. 可惜；遗憾
+
+()
+
+instead /!n'sted/ adv. 代替；而不是 ()
+
+instead of 而不是
+
+()
+
+community /k2'mjuːn2ti/ n. 社区；
+
+社会
+
+()
+
+knowledge /'n=l!d3/ n. 知识；学识 ()
+
+point /p0!nt/ n.（试图表达的）观点，
+
+看法
+
+()
+
+consider /k2n's!d2/ v. 考虑；斟酌 ()
+
+last word 最后一句话；最终决定 ()
+
+come round 拜访（某人的家）
+
+()
+
+reason /'riːzn/ n. 原因；理由
+
+()
+
+try out 试用；试
+
+()
+
+* angry /'æ9gri/ adj. 愤怒的；生气的 ()
+
+no longer 不再
+
+()
+
+be angry with sb. 生某人的气
+
+()
+
+repair /r!'pe2/ n. 修理；修补
+
+v. 修理；修补
+
+()
+
+truth /truː8/ n. 事实；真相
+
+()
+
+least /liːst/ pron. 最少；最小
+
+()
+
+  at least 至少；起码
+
+()
+
+honest /'=n!st/ adj. 诚实的；老实的 ()
+
+apologise /2'p=l2;d3a!z/ v. 认错；道歉 ()
+
+bill /b!l/ n. 账单；账款
+
+()
+
+pocket money 零花钱
+
+()
+
+Module 7
+
+discuss /d!'sk7s/ v. 讨论；谈论
+
+()
+
+thinker /'8!9k2/ n. 思想家
+
+()
+
+wise /wa!z/ adj. 有判断力的；明智的 ()
+
+review /r!'vjuː/ n. 评论（文章）
+
+()
+
+influence /'!nflu2ns/ v. 影响；作用于 ()
+
+sense /sens/ n. 道理；意义；合理性 ()
+
+ make sense 易理解；合情理；
+
+有意义
+
+()
+
+by the way 顺便提一下（用于在交
+
+谈中插入新话题、题外话或评论）()
+
+suppose /s2'p2%z/ v. 猜想；推测；相
+
+信；认为
+
+()
+
+well-known /;wel 'n2%n/ adj. 众所周
+
+知的；著名的
+
+()
+
+adventure /2d'vent12/ n. 冒险（经历）()
+
+get into trouble 遇上麻烦
+
+()
+
+run away 逃走；逃跑
+
+()
+
+escape /!'ske!p/ v. 逃离；逃脱
+
+()
+
+cave /ke!v/ n. 洞穴
+
+()
+
+dead /ded/ adj. 死的；去世的
+
+()
+
+for a time 一小段时间；一度；一时 ()
+
+neighbour /'ne!b2/ n. 邻居
+
+()
+
+funeral /'fjuːnr2l/ n. 葬礼
+
+()
+
+surprised /s2'pra!zd/ adj. 惊奇的；
+
+惊讶的
+
+()
+
+alive /2'la!v/ adj. 活着的
+
+()
+
+southern /'s7ðn/ adj. 南方的
+
+()
+
+state /ste!t/ n. 州；邦
+
+()
+
+pay for 为……付出代价
+
+()
+
+action /'æk1n/ n. 举止；行为；情节 ()
+
+everyday /'evride!/ adj. 日常的；
+
+普通的
+
+()
+
+dialogue /'da!2l=g/ n. 对话
+
+()
+
+Module 8
+
+stand for 是……的缩写；代表
+
+()
+
+memory /'mem2ri/ n. 记忆；回忆 ()
+
+point /p0!nt/ n. 比分
+
+()
+
+decision /d!'s!32n/ n. 决定
+
+()
+
+excuse /!k'skjuːs/ n.（辩解的）理由；
+
+借口
+
+()
+
+noon /nuːn/ n. 中午；正午
+
+()
+
+seat /siːt/ n. 座椅；座位
+
+()
+
+no way 决不；不可能
+
+()
+
+fair /fe2/ adj. 公平的；合理的
+
+()
+
+kick /k!k/ v. 踢
+
+()
+
+mad /mæd/ adj. 生气的；恼火的
+
+()
+
+sportsman /'sp0ːtsm2n/ n.（尤指职业
+
+的）运动员
+
+()
+
+high jump 跳高
+
+()
+
+ability /2'b!l2ti/ n. 能力
+
+()
+
+hurdling /'h^ːdl!9/ n. 跨栏赛跑
+
+()
+
+sportswoman /'sp0ːts;w%m2n/ n.（尤指
+
+职业的）女运动员
+
+()
+
+race /re!s/ n. 赛跑；比赛
+
+()
+
+record /r!'k0ːd/ v. 记录
+
+/'rek0ːd/ n. 最佳纪录
+
+()
+
+method /'me82d/ n. 方法；办法
+
+()
+
+hurdles /'h^ːdlz/ n. 跨栏赛跑
+
+()
+
+Japan /d32'pæn/ 日本
+
+()
+
+break /bre!k/ v. 打破（纪录）；打碎 ()
+
+sportsperson /'sp0ːts;p^ːs2n/ n. 运动员 ()
+
+Asian /'e!3n; 'e!1n/ adj. 亚洲的；
+
+亚洲人的
+
+()
+
+145
+
+suffer /'s7f2/ v. 患有（疾病等）；经受 ()
+
+ suffer from... 受（某种病痛）折
+
+磨；因……而受苦
+
+()
+
+first place 第一名；冠军
+
+()
+
+stop sb. (from) doing sth. 阻止某人做
+
+某事
+
+()
+
+courage /'k7r!d3/ n. 勇气；胆量
+
+()
+
+pride /pra!d/ n. 自豪感；骄傲
+
+()
+
+  take pride in 感到自豪
+
+()
+
+Module 9
+
+borrow /'b=r2%/ v. 借入；借来
+
+()
+
+put up 张贴；公布
+
+()
+
+website /'web;sa!t/ n. 网站
+
+()
+
+mail /me!l/ n. 邮件；信件
+
+()
+
+textbook /'tekst;b%k/ n. 教科书；课本 ()
+
+mainly /'me!nli/ adv. 大部分地；主要地()
+
+thousands of 好几千；成千上万 ()
+
+page /pe!d3/ n. 页；一页（纸）
+
+()
+
+electronic /;elek'tr=n!k/ adj. 电子的 ()
+
+technology /tek'n=l2d3i/ n. 科技；技术 ()
+
+powerful /'pa%2fl/ adj. 有影响力的；
+
+能控制他人的
+
+()
+
+memory /'mem2ri/ n. 存储器；存储量 ()
+
+full /f%l/ adj. 满的；充满的
+
+()
+
+fix /f!ks/ v. 修补；挽救
+
+()
+
+instructions /!n'str7k1nz/ n. [复数]
+
+说明书
+
+()
+
+lend /lend/ v. (lent /lent/, lent)（把某
+
+物）借出，借给（某人）
+
+()
+
+properly /'pr=p2li/ adv. 合适地；
+
+正确地
+
+()
+
+look through 快速阅读；浏览
+
+()
+
+printing /'pr!nt!9/ n. 印刷
+
+()
+
+at a time 每次；一次
+
+()
+
+by hand 用手；靠手做
+
+()
+
+development /d!'vel2pm2nt/ n. 发展；
+
+进步
+
+()
+
+trade /tre!d/ n. 买卖；交易
+
+()
+
+result /r!'z7lt/ v.（因……而）产生；
+
+发生
+
+()
+
+spread /spred/ v. (spread /spred/, spread)
+
+扩展；蔓延；传播
+
+()
+
+in a way 从某一角度；从某一点上看；
+
+在某种程度上
+
+()
+
+compare... to 把……比作
+
+()
+
+introduction /;!ntr2'd7k1n/ n. 引进；采
+
+用；推行
+
+()
+
+amount /2'ma%nt/ n. 量；数量
+
+()
+
+store /st0ː/ v. 存储；储藏
+
+()
+
+varied /'ve2r!d/ adj. 各种各样的；
+
+各不相同的
+
+()
+
+form /f0ːm/ n. 种类；类型；形态；
+
+存在形式
+
+()
+
+connection /k2'nek1n/ n. 电话连接；
+
+计算机网络连接
+
+()
+
+single /'s!9gl/ adj. 仅一个的；单个的 ()
+
+direction /d!'rek1n; da!'rek1n/ n. 方向 ()
+
+replace /r!'ple!s/ v. 替换；取代
+
+()
+
+wait and see 等等看；等着瞧
+
+()
+
+Module 10
+
+here we go 我们这就看看
+
+()
+
+central /'sentr2l/ adj. 中心的；在中
+
+间的
+
+()
+
+according to 根据；按照；据……所说 ()
+
+magical /'mæd3!kl/ adj. 神奇的；迷人的()
+
+height /ha!t/ n. 高度；身高
+
+()
+
+sailing boat 帆船
+
+()
+
+northeast /;n0ː8'iːst/ adj. 在东北的 ()
+
+* sheep /1iːp/ n. 羊；绵羊
+
+()
+
+hat /hæt/ n. 帽子
+
+()
+
+keep /kiːp/ v. (kept /kept/, kept) 使保持
+
+（某种状态）；记录；存储（信息）()
+
+  keep sb./sth. away（使）避开；
+
+（使）不靠近
+
+()
+
+* fly /fla!/ n. 苍蝇
+
+()
+
+scissors /'s!z2z/ n. [复数] 剪刀
+
+()
+
+146
+
+cut sth. off sth. 把某物从某物上剪掉 ()
+
+wool /w%l/ n. 羊毛
+
+()
+
+diary /'da!2ri/ n. 日记；日记簿
+
+()
+
+  keep a diary 写日记
+
+()
+
+hate /he!t/ v. 憎恨；讨厌
+
+()
+
+ant /ænt/ n. 蚂蚁
+
+()
+
+brush /br71/ v.（用刷子）刷
+
+()
+
+  brush sth. off sth. 把某物从某物上
+
+刷掉
+
+()
+
+at the time 那时；在那段时间
+
+()
+
+be surprised at 对……感到惊奇
+
+()
+
+period /'p!2ri2d/ n. 阶段；时期
+
+()
+
+spirit /'sp!r!t/ n. 精灵；神灵；精神 ()
+
+relationship /r!'le!1n1!p/ n. 关系
+
+()
+
+relative /'rel2t!v/ n. 亲戚
+
+()
+
+ham /hæm/ n. 火腿
+
+()
+
+salad /'sæl2d/ n. 色拉
+
+()
+
+grape /gre!p/ n. 葡萄
+
+()
+
+surf /s^ːf/ v. 冲浪
+
+()
+
+kangaroo /;kæ9g2'ruː/ n. 袋鼠
+
+()
+
+riding /'ra!d!9/ n. 骑马（运动）
+
+()
+
+lazy /'le!zi/ adj. 懒惰的；懒散的
+
+()
+
+ride /ra!d/ n. 骑马；乘车
+
+()
+
+Module 11
+
+bet /bet/ v. (bet, bet) 打赌；下赌注 ()
+
+you bet 的确；当然；一定
+
+()
+
+the thing is 答案是；问题是
+
+()
+
+general /'d3en2r2l/ adj. 整体的；普
+
+遍的
+
+()
+
+standard /'stænd2d/ n. 标准；水准 ()
+
+feeling /'fiːl!9/ n. 感觉；直觉看法 ()
+
+difficulty /'d!f!klti/ n. 困难；困境 ()
+
+* subject /'s7bd3!kt/ n. 主题
+
+()
+
+add /æd/ v. 添加
+
+()
+
+recently /'riːsntli/ adv. 最近；近来 ()
+
+menu /'menjuː/ n. 菜单
+
+()
+
+be in with a chance 有可能；有机会 ()
+
+tonight /t2'na!t/ adv.（在）今晚；（在）
+
+今夜
+
+()
+
+read out 朗读；宣读
+
+()
+
+winner /'w!n2/ n. 获胜者
+
+()
+
+compared with（与……）相比
+
+()
+
+even though 即使；尽管
+
+()
+
+rush /r71/ v. 冲；奔
+
+()
+
+blouse /bla%z/ n. 女衬衫
+
+()
+
+* skirt /sk^ːt/ n. 裙子
+
+()
+
+protect sth. against sth. 保护……
+
+免遭…… ；使……不受…… ()
+
+singer /'s!92/ n. 歌手；歌唱家
+
+()
+
+congratulations /k2n;græt1%'le!1nz/ n.
+
+[复数] 祝贺
+
+()
+
+headmaster /;hed'm4ːst2/ n. 男校长 ()
+
+present /pr!'zent/ v. 授予；呈递
+
+()
+
+Module 12
+
+factory /'fæktri/ n. 制造厂；工厂
+
+()
+
+pollute /p2'luːt/ v. 污染
+
+()
+
+recycle /riː'sa!kl/ v. 回收利用，再使用
+
+（废品）
+
+()
+
+waste /we!st/ n. 废料；废弃物
+
+()
+
+enemy /'en2mi/ n. 敌人；仇人
+
+()
+
+crop /kr=p/ n. 庄稼；作物
+
+()
+
+kill /k!l/ v. 杀死；弄死
+
+()
+
+oil /0!l/ n. 石油
+
+()
+
+less /les/ adj. 较小的；较少的
+
+n. 较少数；较少量
+
+()
+
+hopeless /'h2%pl2s/ adj. 无望的
+
+()
+
+china /'t1a!n2/ n. 瓷；瓷器
+
+()
+
+divide /d!'va!d/ v. 分开
+
+()
+
+plastic /'plæst!k/ n. 塑料
+
+adj. 塑料的
+
+()
+
+policy /'p=l2si/ n. 政策；方针
+
+()
+
+reuse /riː'juːz/ v. 再次使用；重复利用 ()
+
+bottle /'b=tl/ n. 瓶
+
+()
+
+throw away 扔掉；丢弃
+
+()
+
+repeat /r!'piːt/ v. 重说；重新做
+
+()
+
+147
+
+cloth /kl=8/ n. 布；布料
+
+()
+
+rapid /'ræp!d/ adj. 快速的；迅速的 ()
+
+ton /t7n/ n. 吨
+
+()
+
+step/step/ n. 步骤；措施
+
+()
+
+tons of 许多；很多
+
+()
+
+grandson /'græn;s7n/ n.（外）孙子 ()
+
+rubber /'r7b2/ n. 橡胶
+
+()
+
+granddaughter /'græn;d0ːt2/ n.（外）
+
+recycling /riː'sa!kl!9/ n. 回收利用
+
+()
+
+孙女
+
+()
+
+148
+
+P roper names
+
+Names of people
+
+Alex Rider /'ra!d2/ 亚历克斯·赖德 ()
+
+Alexander /ælig'z4ːnd2/ Graham /'gre!2m/
+
+Bell /bel/ 亚历山大· 格拉汉姆· 贝尔 ()
+
+Belinda /b2'l!nd2/ 比琳达（女名） ()
+
+Black 布莱克（姓）
+
+()
+
+Buzz /b7z/ Aldrin /'ældr!n/ 巴兹·奥尔
+
+德林
+
+()
+
+Carlson /'k4ːls2n/ 卡尔森（男名）
+
+()
+
+Cathy /'kæ8i/ Freeman /'friːm2n/ 凯茜·
+
+弗里曼
+
+()
+
+Charles Dickens /'d!k!nz/ 查尔斯·狄
+
+更斯
+
+()
+
+Christopher /'kr!st2f2/ Columbus
+
+/k2'l7mb2s/ 克里斯托弗·哥伦布 ()
+
+Confucius /k2n'fjuː12s/ 孔子
+
+()
+
+Daguerre 达盖尔
+
+()
+
+David Beckham /'bek2m/ 大卫·贝克
+
+汉姆
+
+()
+
+Dorando /d='rænd2%/ Pietri /p!'etri/ 道兰
+
+多·佩特里
+
+()
+
+Florence /'fl=r2ns/ Nightingale /'na!t!9ge!l/
+
+弗洛伦丝·南丁格尔
+
+()
+
+Harry /'hæri/ 哈里（男名）
+
+()
+
+Homer /'h2%m2/ 荷马
+
+()
+
+Jackie /'d3æki/ Chan /t1æn/ 成龙
+
+()
+
+John Logie /'l2%gi/ Baird /be2d/ 约翰·
+
+罗杰·贝尔德
+
+()
+
+Johnny /'d3=ni/ Hayes /he!z/ 约翰尼·
+
+海斯
+
+()
+
+Ken /ken/ 肯（姓）
+
+()
+
+Leonardo /;liː2'n4ːd2%/ da Vinci
+
+/da'v!nt1i/ 利奥纳多·达·芬奇 ()
+
+Ludwig /'l%dv!g/ Guttmann /'g7tm2n/
+
+路德维希·格特曼
+
+()
+
+Marie /m4ː'riː/ Curie /'kju2ri; kjuː'riː/ 玛
+
+丽·居里
+
+()
+
+Marv /m4ːv/ 马弗（男名）
+
+()
+
+May 梅（女名）
+
+()
+
+McAlister /m2'kæl!st2/ 麦卡利斯特（姓）()
+
+Michael /'ma!k2l/ 迈克尔（男名） ()
+
+Niépce 涅普斯
+
+()
+
+Norman /'n0ːm2n/ Bethune /be'8juːn/ 诺
+
+曼·白求恩
+
+()
+
+Penny /'peni/ 彭妮（女名）
+
+()
+
+Pierre /p!'e2/ Curie 皮埃尔·居里
+
+()
+
+Plato /'ple!t2%/ 柏拉图
+
+()
+
+Polly /'p=li/ 波莉（女名）
+
+()
+
+Southern 萨瑟恩（姓）
+
+()
+
+Stan /stæn/ Lee /liː/ 斯坦·李
+
+()
+
+Susan /'suːz2n/ 苏珊（女名）
+
+()
+
+Tim /t!m/ Berners-Lee /'b^ːn2z'liː/
+
+蒂姆·伯纳斯 - 李
+
+()
+
+Tina /'tiːn2/ 蒂娜（女名）
+
+()
+
+West 韦斯特（姓）
+
+()
+
+William Anders /'ænd2s/ 威廉·安德斯 ()
+
+Wright /ra!t/ Brothers 莱特兄弟
+
+()
+
+Yury /'juːri/ Gagarin /g4ː'g4ːr!n/ 尤里·
+
+加加林
+
+()
+
+Names of places
+
+Athens /'æ8!nz; 'æ82nz/ 雅典
+
+()
+
+Caribbean /;kær2'biː2n/ 加勒比
+
+()
+
+Changjiang River 长江
+
+()
+
+Colorado /;k=l2'r4ːd2%/ River 科罗拉多河 ()
+
+149
+
+Giza /'giːz2/ 吉萨
+
+(8)
+
+Lhasa /'l4ːs2/ 拉萨
+
+(26)
+
+Li River 漓江
+
+(55)
+
+Mississippi /;m!s!'s!pi/ River 密西西比河 (58)
+
+Mount Tai 泰山
+
+(81)
+
+New York City 纽约市
+
+(12)
+
+Northern Ireland /'a!2l2nd/ 北爱尔兰 (2)
+
+People’s Republic /r!'p7bl!k/ of China
+
+中华人民共和国
+
+(10)
+
+Poland /'p2%l2nd/ 波兰
+
+(51)
+
+Port /p0ːt/ Augusta /0ː'g7st2/ 奥古斯
+
+塔港
+
+(108)
+
+Rome /r2%m/ 罗马
+
+(71)
+
+South Australia 南澳大利亚州
+
+(108)
+
+Soviet /'s2%vi2t/ Union 苏联
+
+(22)
+
+St /se!nt/ Petersburg /'piːt2zb^ːg/ 圣彼德
+
+斯堡
+
+(58)
+
+Troy /tr0!/ 特洛伊
+
+(24)
+
+Others
+
+Aborigine /;æb2'r!d32ni/ 澳大利亚土著
+
+居民 (Aboriginal /;æb2'r!d3n2l/ adj.) (82)
+
+Apollo /2'p=l2%/ 8 阿波罗 8 号
+
+(95)
+
+Ayers /e2z/ Rock 艾尔斯岩
+
+(80)
+
+Beijing Shichahai Sports School
+
+北京市什刹海体育运动学校
+
+(67)
+
+Bondi /'b=nda!/ Beach 邦迪海滩
+
+(84)
+
+British Library 大英图书馆
+
+(77)
+
+Cambridge University 剑桥大学
+
+(18)
+
+Chinese People’s War of Resistance
+
+/r!'z!st2ns/against Japanese Aggression
+
+/2'gre12n/ 抗日战争
+
+(20)
+
+Columbus Day 哥伦布日
+
+(17)
+
+Du Fu’s Thatched /8æt1t/ Cottage
+
+/'k=t!d3/ 杜甫草堂
+
+(55)
+
+Father Christmas 圣诞老人
+
+(15)
+
+First World War 第一次世界大战
+
+(51)
+
+Giant’s /'d3a!2nts/ Causeway /'k0ːzwe!/
+
+巨人之路
+
+(2)
+
+Golden Gate Bridge 金门大桥
+
+(103)
+
+Grand Canyon /'kænj2n/ 大峡谷（指科罗
+
+拉多河的大峡谷）
+
+(4)
+
+Great Barrier /'bæri2/ Reef /riːf/ 大堡礁 (80)
+
+Great Pyramid 大金字塔（指胡夫金
+
+字塔）
+
+(8)
+
+Harry Potter /'p0ːt2/ and the Philosopher’s
+
+/f!'l=s2f2z/ Stone《哈利·波特与魔
+
+法石》
+
+(59)
+
+Heal the World《拯救世界》（歌曲名） (50)
+
+Home Alone《小鬼当家》
+
+(32)
+
+Huck /h7k/ Finn /f!n/ 哈克·芬恩
+
+（《汤姆·索耶历险记》中的角色） (58)
+
+Independence /;!nd!'pend2ns/ Day 美国独
+
+立纪念日
+
+(10)
+
+Injun /'!nd32n/ Joe /d32%/ 印第安人乔
+
+（《汤姆·索耶历险记》中的角色） (58)
+
+Kodak /'k2%dæk/ 柯达
+
+(94)
+
+Launchpad /'l0ːnt1;pæd/ 发射台（伦敦
+
+科学博物馆的展厅之一）
+
+(36)
+
+Macy’s /'me!siz/ 梅西百货公司
+
+(12)
+
+Macy’s Thanksgiving /'8æ9ks;g!v!9/ Day
+
+Parade /p2're!d/ 梅西感恩节大游行 (12)
+
+Martin Luther /'luː82/ King Day 马丁·
+
+路德·金日
+
+(17)
+
+Mid-Autumn Festival 中秋节
+
+(11)
+
+Mount Elm /elm/ Sheep Station 艾尔姆
+
+山大牧羊场
+
+(108)
+
+National Day 国庆节
+
+(10)
+
+Native /'ne!t!v/ American（美洲）印第
+
+安人
+
+(12)
+
+150
+
+Nobel /n2%'bel/ Prize 诺贝尔奖
+
+(51)
+
+Odysseus /2'd!sjuːs; 2u'd!s!2s/ 奥德修斯
+
+（《荷马史诗》中的角色）
+
+(24)
+
+Oliver Twist /tw!st/《雾都孤儿》
+
+(106)
+
+Paralympic /;pær2'l!mp!k/ Games
+
+( 或 Paralympics /;pær2'l!mp!ks/ )
+
+奥林匹克残疾人运动会；残奥会 (71)
+
+School of the Air（澳大利亚针对远离
+
+城市的儿童而设的）远程学校 (108)
+
+Science Museum（伦敦）科学博物馆 (36)
+
+Sorbonne /s0ː'b=n/ University 索邦大学 (51)
+
+South Sydney High School 南悉尼高中 (109)
+
+Southwest Agricultural /;ægr!'k7lt12r2l/
+
+College 西南农学院
+
+(21)
+
+Sports School of Putuo District of Shanghai
+
+上海普陀区青少年体育运动学校 (66)
+
+Stonehenge /;st2%n'hend3/ 巨石阵
+
+(9)
+
+Sui and Tang Dynasties /'d!n2st!z/ 隋唐
+
+时期
+
+(74)
+
+Summer Palace 颐和园
+
+(88)
+
+Sydney Opera House 悉尼歌剧院
+
+(80)
+
+Terracotta /;ter2'k=t2/ Army 秦始皇兵
+
+马俑
+
+(2)
+
+Thanksgiving 感恩节
+
+(12)
+
+The Adventures of Tom Sawyer /'s0ːj2/
+
+《汤姆·索耶历险记》
+
+(56)
+
+The Arabian /2're!b!2n/ Nights
+
+《一千零一夜》（又译《天方夜谭》）(62)
+
+The Odyssey /'=d!si/《奥德赛》
+
+(24)
+
+The Republic《理想国》
+
+(63)
+
+Three Gorges /g0ːd3!z/ Dam /dæm/
+
+三峡大坝
+
+(2)
+
+Tsinghua University 清华大学
+
+(18)
+
+Victoria Falls /f0ːlz/ 维多利亚瀑布
+
+(2)
+
+Vostok I 东方一号（苏联宇宙飞船） (22)
+
+World Food Prize 世界粮食奖
+
+(21)
+
+World Wide Web 万维网
+
+(78)
+
+Xiangshan Park 香山公园
+
+(90)
+
+151
+
+V ocabulary
+
+  A
+
+ability /2'b!l2ti/ n. 能力
+
+()
+
+abroad /2'br0ːd/ adv. 在国外；到国外 ()
+
+according to 根据；按照；据……所说 ()
+
+action /'æk1n/ n. 举止；行为；情节 ()
+
+actually /'ækt1u2li/ adv. 事实上
+
+()
+
+add /æd/ v. 添加
+
+()
+
+address /2'dres/ n. 地址
+
+()
+
+adventure /2d'vent12/ n. 冒险（经历）()
+
+alive /2'la!v/ adj. 活着的
+
+()
+
+all day long 整天
+
+()
+
+all kinds of 各种各样的
+
+()
+
+amazing /2'me!z!9/ adj. 惊人的；
+
+极好的
+
+()
+
+among /2'm79/ prep. 在……之中 ()
+
+amount /2'ma%nt/ n. 量；数量
+
+()
+
+* angry /'æ9gri/ adj. 愤怒的；生气的 ()
+
+  be angry with sb. 生某人的气
+
+()
+
+ant /ænt/ n. 蚂蚁
+
+()
+
+anybody /'eni;b=di/ pron. 任何人
+
+()
+
+apologise /2'p=l2;d3a!z/ v. 认错；道歉 ()
+
+as soon as 一……就……
+
+()
+
+Asian /'e!3n; 'e!1n/ adj. 亚洲的；
+
+亚洲人的 ()
+
+at a time 每次；一次
+
+()
+
+at that time 那时候
+
+()
+
+at the time 那时；在那段时间
+
+()
+
+attend /2'tend/ v. 上（学）；出席，参
+
+加（事件或活动）
+
+()
+
+  B
+
+band /bænd/ n. 乐队
+
+()
+
+be in with a chance 有可能；有机会 ()
+
+be surprised at 对……感到惊奇
+
+()
+
+be worried about 担心
+
+()
+
+below /b!'l2%/ prep. 在下面；在……
+
+以下
+
+()
+
+* beside /b!'sa!d/ prep. 在……旁边；
+
+在……附近
+
+()
+
+bet /bet/ v. (bet, bet) 打赌；下赌注 ()
+
+  you bet 的确；当然；一定
+
+()
+
+bill /b!l/ n. 账单；账款
+
+()
+
+blouse /bla%z/ n. 女衬衫
+
+()
+
+borrow /'b=r2%/ v. 借入；借来
+
+()
+
+bottle /'b=tl/ n. 瓶
+
+()
+
+break /bre!k/ v. 打破（纪录）；打碎 ()
+
+brush /br71/ v.（用刷子）刷
+
+()
+
+  brush sth. off sth. 把某物从某物上
+
+刷掉
+
+()
+
+burn /b^ːn/ v. (burned /b^ːnd/, burned;
+
+burnt /b^ːnt/, burnt)（使）烧焦；
+
+（使）烤糊
+
+()
+
+business /'b!zn2s/ n. 工作
+
+()
+
+  on business 出差
+
+()
+
+* by /ba!/ prep. 在……旁边；靠近
+
+()
+
+by hand 用手；靠手做
+
+()
+
+by the way 顺便提一下（用于在交
+
+谈中插入新话题、题外话或评论）()
+
+  C
+
+Canada /'kæn2d2/ 加拿大
+
+()
+
+Canadian /k2'ne!di2n/ adj. 加拿大的；
+
+加拿大人的
+
+()
+
+canyon /'kænj2n/ n. 峡谷
+
+()
+
+care /ke2/ n. 照顾；照料
+
+()
+
+  take care of 照顾；护理
+
+()
+
+cave /ke!v/ n. 洞穴
+
+()
+
+central /'sentr2l/ adj. 中心的；在中
+
+间的
+
+()
+
+chemistry /'kem!stri/ n. 化学
+
+()
+
+china /'t1a!n2/ n. 瓷；瓷器
+
+()
+
+注：黑体的单词要求掌握；加 * 的单词表示复习强化；白体的单词只要求理解。
+
+152
+
+clear /kl!2/ v.（烟雾等）开始消失
+
+(4)
+
+* clock /kl=k/ n. 钟；时钟
+
+(26)
+
+cloth /kl=8/ n. 布；布料
+
+(98)
+
+coal /k2%l/ n. 煤
+
+(36)
+
+come round 拜访（某人的家）
+
+(44)
+
+communications /k2;mjuːn!'ke!1nz/ n.
+
+[ 复数] 通信
+
+(36)
+
+community /k2'mjuːn2ti/ n. 社区；
+
+社会
+
+(42)
+
+compare... to 把……比作
+
+(74)
+
+compare... with... 比较……与…… (36)
+
+compared with（与……）相比
+
+(90)
+
+congratulations /k2n;græt1%'le!1nz/ n.
+
+[复数] 祝贺
+
+(90)
+
+connection /k2'nek1n/ n. 电话连接；
+
+计算机网络连接
+
+(74)
+
+consider /k2n's!d2/ v. 考虑；斟酌 (42)
+
+continue /k2n't!njuː/ v.（使）继续 (20)
+
+control /k2n'tr2%l/ v. 操作；操纵 (36)
+
+corn /k0ːn/ n. 谷物；玉米
+
+(12)
+
+couple /'k7pl/ n. 一对；两个
+
+(26)
+
+   a couple of 两个
+
+(26)
+
+courage /'k7r!d3/ n. 勇气；胆量
+
+(66)
+
+crop /kr=p/ n. 庄稼；作物
+
+(96)
+
+cup /k7p/ n. 杯子；一杯饮料
+
+(28)
+
+cut sth. off sth. 把某物从某物上剪掉 (80)
+
+  D
+
+dead /ded/ adj. 死的；去世的
+
+(58)
+
+deal /diːl/ n. 协议
+
+(42)
+
+decision /d!'s!32n/ n. 决定
+
+(64)
+
+degree /d!'griː/ n. 课程；学位
+
+(18)
+
+development /d!'vel2pm2nt/ n. 发展；
+
+进步
+
+(74)
+
+dialogue /'da!2l=g/ n. 对话
+
+(58)
+
+diary /'da!2ri/ n. 日记；日记簿
+
+(80)
+
+  keep a diary 写日记
+
+(80)
+
+die for 为……而死
+
+(20)
+
+die of 死于……
+
+(20)
+
+difficulty /'d!f!klti/ n. 困难；困境 (88)
+
+dig /d!g/ v. (dug /d7g/, dug) 挖掘；
+
+掘（洞）
+
+(36)
+
+direction /d!'rek1n; da!'rek1n/ n. 方向 (74)
+
+discuss /d!'sk7s/ v. 讨论；谈论
+
+(56)
+
+discussion /d!'sk71n/ n. 讨论；商讨 (2)
+
+dish /d!1/ n. 盘；碟
+
+(12)
+
+divide /d!'va!d/ v. 分开
+
+(98)
+
+downstairs /;da%n'ste2z/ adj. 位于楼下的
+
+adv. 往楼下；
+
+在楼下 (34)
+
+dying /'da!!9/ adj. 垂死的；即将死亡的 (20)
+
+  E
+
+eastern /'iːst2n/ adj. 在东边的；来自东
+
+边的
+
+(2)
+
+eighth /e!t8/ num. 第八
+
+(11)
+
+electricity /!;lek'tr!s2ti/ n. 电
+
+(2)
+
+electronic /;elek'tr=n!k/ adj. 电子的 (72)
+
+empty /'empti/ adj. 空的
+
+(28)
+
+enemy /'en2mi/ n. 敌人；仇人
+
+(96)
+
+energy /'en2d3i/ n. 能量；能源
+
+(36)
+
+entry /'entri/ n. 进入权；进入许可 (34)
+
+  No entry. 禁止入内。
+
+(34)
+
+escape /!'ske!p/ v. 逃离；逃脱
+
+(58)
+
+even though 即使；尽管
+
+(90)
+
+everyday /'evride!/ adj. 日常的；
+
+普通的
+
+(58)
+
+exam /!g'zæm/ n. 考试
+
+(42)
+
+excuse /!k'skjuːs/ n.（辩解的）理由；
+
+借口
+
+(64)
+
+exhibition /;eks!'b!1n/ n. 展览；展览会 (34)
+
+experiment /!k'sper!m2nt/ n. 实验 (36)
+
+  F
+
+factory /'fæktri/ n. 制造厂；工厂 (96)
+
+fail /fe!l/ v. 未能及格；未能达到 (42)
+
+fair /fe2/ adj. 公平的；合理的
+
+(64)
+
+fall away 突然向下倾斜
+
+(4)
+
+153
+
+feeling /'fiːl!9/ n. 感觉；直觉看法 ()
+
+first place 第一名；冠军
+
+()
+
+fix /f!ks/ v. 修补；挽救
+
+()
+
+flag /flæg/ n. 旗；旗帜
+
+()
+
+* fly /fla!/ n. 苍蝇
+
+()
+
+following /'f=l2%!9/ adj. 接着的；接
+
+下来的
+
+()
+
+for a time 一小段时间；一度；一时 ()
+
+form /f0ːm/ n. 种类；类型；形态；
+
+存在形式
+
+()
+
+found /fa%nd/ v. 创立；创建
+
+()
+
+fourth /f0ː8/ num. 第四
+
+()
+
+full /f%l/ adj. 满的；充满的
+
+()
+
+funeral /'fjuːnr2l/ n. 葬礼
+
+()
+
+  G
+
+general /'d3en2r2l/ adj. 整体的；普
+
+遍的
+
+()
+
+get into trouble 遇上麻烦
+
+()
+
+give up 放弃（努力）
+
+()
+
+go through 穿过
+
+()
+
+granddaughter /'græn;d0ːt2/ n.（外）
+
+孙女
+
+()
+
+grandson /'græn;s7n/ n.（外）孙子 ()
+
+grape /gre!p/ n. 葡萄
+
+()
+
+grey /gre!/ adj. 灰色的；（天气）阴沉的 ()
+
+grow /gr2%/ v. 种植，栽培（植物） ()
+
+guitar /g!'t4ː/ n. 吉他
+
+()
+
+  H
+
+habit /'hæb!t/ n. 习惯
+
+()
+
+  get into the habit of... 养成……的
+
+习惯
+
+()
+
+ham /hæm/ n. 火腿
+
+()
+
+hand in 提交；上交
+
+()
+
+hat /hæt/ n. 帽子
+
+()
+
+hate /he!t/ v. 憎恨；讨厌
+
+()
+
+have fun 玩得高兴；有乐趣
+
+()
+
+headmaster /;hed'm4ːst2/ n. 男校长 ()
+
+height /ha!t/ n. 高度；身高
+
+()
+
+here we go 我们这就看看
+
+()
+
+high jump 跳高
+
+()
+
+himself /h!m'self; !m'self/ pron. 他自己 ()
+
+honest /'=n!st/ adj. 诚实的；老实的 ()
+
+hopeless /'h2%pl2s/ adj. 无望的
+
+()
+
+hurdles /'h^ːdlz/ n. 跨栏赛跑
+
+()
+
+hurdling /'h^ːdl!9/ n. 跨栏赛跑
+
+()
+
+  I
+
+in a way 从某一角度；从某一点上看；
+
+在某种程度上
+
+()
+
+in trouble 遇上麻烦；处于困境
+
+()
+
+including /!n'kluːd!9/ prep. 包含；包括 ()
+
+influence /'!nflu2ns/ v. 影响；作用于 ()
+
+instead /!n'sted/ adv. 代替；而不是 ()
+
+instead of 而不是
+
+()
+
+instructions /!n'str7k1nz/ n. [复数]
+
+说明书
+
+()
+
+instrument /'!nstr%m2nt/ n. 乐器；仪器 ()
+
+introduction /;!ntr2'd7k1n/ n. 引进；采
+
+用；推行
+
+()
+
+invention /!n'ven12n/ n. 发明；发明物 ()
+
+J
+
+Japan /d32'pæn/ 日本
+
+()
+
+  K
+
+kangaroo /;kæ9g2'ruː/ n. 袋鼠
+
+()
+
+keep /kiːp/ v. (kept /kept/, kept) 使保持
+
+（某种状态）；记录；存储（信息）()
+
+  keep sb./sth. away（使）避开；
+
+（使）不靠近
+
+()
+
+kick /k!k/ v. 踢
+
+()
+
+* kid /k!d/ n. 小孩
+
+()
+
+kill /k!l/ v. 杀死；弄死
+
+()
+
+knowledge /'n=l!d3/ n. 知识；学识 ()
+
+154
+
+  L
+
+last word 最后一句话；最终决定 ()
+
+lay /le!/ v. (laid /le!d/, laid) 摆放（餐桌）()
+
+  lay the table 摆放餐桌
+
+()
+
+lazy /'le!zi/ adj. 懒惰的；懒散的
+
+()
+
+least /liːst/ pron. 最少；最小
+
+()
+
+  at least 至少；起码
+
+()
+
+lend /lend/ v. (lent /lent/, lent)（把某
+
+物）借出，借给（某人）
+
+()
+
+less /les/ adj. 较小的；较少的
+
+n. 较少数；较少量
+
+()
+
+lock /l=k/ v. 锁；锁住
+
+()
+
+look through 快速阅读；浏览
+
+()
+
+loud /la%d/ adj.（声音）响亮的
+
+()
+
+  M
+
+mad /mæd/ adj. 生气的；恼火的
+
+()
+
+magical /'mæd3!kl/ adj. 神奇的；迷人的()
+
+mail /me!l/ n. 邮件；信件
+
+()
+
+mainly /'me!nli/ adv. 大部分地；主要地()
+
+manage /'mæn!d3/ v. 做成；（尤指）设
+
+法完成
+
+()
+
+管理；支配 ()
+
+man-made /;mæn'me!d/ adj. 人造的 ()
+
+medal /'medl/ n. 奖牌；奖章
+
+()
+
+meeting /'miːt!9/ n. 会议；集会
+
+()
+
+memory /'mem2ri/ n. 记忆；回忆 ()
+
+n. 存储器；存储量 ()
+
+menu /'menjuː/ n. 菜单
+
+()
+
+method /'me82d/ n. 方法；办法
+
+()
+
+midnight /'m!d;na!t/ n. 午夜；子夜 ()
+
+millions of 大量的；无数的
+
+()
+
+miss /m!s/ v. 未出席；未出现
+
+()
+
+missing /'m!s!9/ adj. 找不到的；失
+
+踪的
+
+()
+
+more than 超过
+
+()
+
+musical /'mjuːz!kl/ adj. 音乐的
+
+()
+
+  N
+
+natural /'næt12r2l/ adj. 大自然的
+
+()
+
+nearly /'n!2li/ adv. 几乎；差不多
+
+()
+
+necessary /'nes2s2ri/ adj. 必要的；
+
+必需的
+
+()
+
+neighbour /'ne!b2/ n. 邻居
+
+()
+
+ninth /na!n8/ num. 第九
+
+()
+
+no good 不合适的；不方便的
+
+()
+
+no longer 不再
+
+()
+
+no way 决不；不可能
+
+()
+
+no wonder 难怪；不足为奇
+
+()
+
+noon /nuːn/ n. 中午；正午
+
+()
+
+northeast /;n0ː8'iːst/ adj. 在东北的 ()
+
+  O
+
+of all ages 所有年龄段的
+
+()
+
+off /=f/ adv. 不上课；休息；不工作 ()
+
+oil /0!l/ n. 石油
+
+()
+
+on one’s own 独自一人
+
+()
+
+on top of 在……上面；盖住
+
+()
+
+once again 再一次
+
+()
+
+operation /;=p2're!1n/ n. 手术
+
+()
+
+opinion /2'p!nj2n/ n. 看法；主张
+
+()
+
+  in one’s opinion 按某人的意见；据
+
+某人看来
+
+()
+
+order /'0ːd2/ n. 命令；指示
+
+()
+
+ourselves /a%2'selvz/ pron. 我们自己 ()
+
+over /'2%v2/ adj. 完了的；结束的 ()
+
+ P
+
+page /pe!d3/ n. 页；一页（纸）
+
+()
+
+parade /p2're!d/ n.（庆祝）游行
+
+()
+
+passenger /'pæs!nd32/ n. 乘客；旅客 ()
+
+pay for 为……付出代价
+
+()
+
+period /'p!2ri2d/ n. 阶段；时期
+
+()
+
+physics /'f!z!ks/ n. 物理学
+
+()
+
+pioneer /;pa!2'n!2/ n. 开拓者；先驱者 ()
+
+plastic /'plæst!k/ n. 塑料
+
+adj. 塑料的
+
+()
+
+155
+
+platform /'plæt;f0ːm/ n.（供上下火车
+
+用的）月台；站台
+
+()
+
+pocket money 零花钱
+
+()
+
+point /p0!nt/ n.（试图表达的）观点，
+
+看法
+
+()
+
+n. 比分
+
+()
+
+policy /'p=l2si/ n. 政策；方针
+
+()
+
+pollute /p2'luːt/ v. 污染
+
+()
+
+powerful /'pa%2fl/ adj. 有影响力的；
+
+能控制他人的
+
+()
+
+present /pr!'zent/ v. 授予；呈递
+
+()
+
+pride /pra!d/ n. 自豪感；骄傲
+
+()
+
+  take pride in 感到自豪
+
+()
+
+printing /'pr!nt!9/ n. 印刷
+
+()
+
+properly /'pr=p2li/ adv. 合适地；
+
+正确地
+
+()
+
+protect sth. against sth. 保护……
+
+免遭…… ；使……不受…… ()
+
+punish /'p7n!1/ v. 惩罚；惩处
+
+()
+
+put up 张贴；公布
+
+()
+
+  R
+
+race /re!s/ n. 赛跑；比赛
+
+()
+
+rapid /'ræp!d/ adj. 快速的；迅速的 ()
+
+read out 朗读；宣读
+
+()
+
+realise /'r!2la!z/ v. 了解；意识到
+
+()
+
+reason /'riːzn/ n. 原因；理由
+
+()
+
+recently /'riːsntli/ adv. 最近；近来 ()
+
+record /r!'k0ːd/ v. 记录
+
+/'rek0ːd/ n. 最佳纪录
+
+()
+
+recycle /riː'sa!kl/ v. 回收利用，再使用
+
+（废品）
+
+()
+
+recycling /riː'sa!kl!9/ n. 回收利用 ()
+
+relationship /r!'le!1n1!p/ n. 关系
+
+()
+
+relative /'rel2t!v/ n. 亲戚
+
+()
+
+remain /r!'me!n/ v. 逗留；留下
+
+()
+
+repair /r!'pe2/ n. 修理；修补
+
+v. 修理；修补
+
+()
+
+repeat /r!'piːt/ v. 重说；重新做
+
+()
+
+replace /r!'ple!s/ v. 替换；取代
+
+()
+
+reply /r!'pla!/ v. 回答；答复
+
+()
+
+rest /rest/ v. 休息；睡眠
+
+()
+
+result /r!'z7lt/ v.（因……而）产生；
+
+发生
+
+()
+
+reuse /riː'juːz/ v. 再次使用；重复利用 ()
+
+review /r!'vjuː/ n. 评论（文章）
+
+()
+
+ride /ra!d/ n. 骑马；乘车
+
+()
+
+riding /'ra!d!9/ n. 骑马（运动）
+
+()
+
+ring /r!9/ v. (rang /ræ9/, rung /r79/) 鸣
+
+响；发出铃声
+
+()
+
+rope /r2%p/ n. 粗绳；绳索
+
+()
+
+rubber /'r7b2/ n. 橡胶
+
+()
+
+rule/ruːl/ n. 规则；法则
+
+()
+
+  against the rules 违反规定
+
+()
+
+run away 逃走；逃跑
+
+()
+
+rush /r71/ v. 冲；奔
+
+()
+
+  S
+
+sailing boat 帆船
+
+()
+
+salad /'sæl2d/ n. 色拉
+
+()
+
+sand /sænd/ n. 沙；沙子
+
+()
+
+schoolwork /'skuːl;w^ːk/ n. 学生课业；
+
+功课
+
+()
+
+scissors /'s!z2z/ n. [复数] 剪刀
+
+()
+
+* season /'siːzn/ n. 度假旺季；节期 ()
+
+seat /siːt/ n. 座椅；座位
+
+()
+
+sense /sens/ n. 道理；意义；合理性 ()
+
+ make sense 易理解；合情理；
+
+有意义
+
+()
+
+seventh /'sevn8/ num. 第七
+
+()
+
+shame /1e!m/ n. 可惜；遗憾
+
+()
+
+* sheep /1iːp/ n. 羊；绵羊
+
+()
+
+shine /1a!n/ v. (shone /1=n/, shone; shined,
+
+shined) 照耀
+
+()
+
+shut /17t/ v. (shut, shut) 关上；合上 ()
+
+sick /s!k/ adj.（感觉）不适的，生病的 ()
+
+sign /sa!n/ n. 迹象；标志；招牌
+
+()
+
+silent /'sa!l2nt/ adj. 寂静的
+
+()
+
+silver /'s!lv2/ adj. 银灰色的；银制的 ()
+
+156
+
+simple /'s!mpl/ adj. 简单的；容易的 ()
+
+simply /'s!mpli/ adv. 实在；的确
+
+()
+
+since then 从那以后
+
+()
+
+singer /'s!92/ n. 歌手；歌唱家
+
+()
+
+single /'s!9gl/ adj. 仅一个的；单个的 ()
+
+sixth /s!ks8/ num. 第六
+
+()
+
+* skirt /sk^ːt/ n. 裙子
+
+()
+
+sky /ska!/ n. 天；天空
+
+()
+
+snack /snæk/ n. 点心；小吃
+
+()
+
+sofa /'s2%f2/ n.（长）沙发
+
+()
+
+soldier /'s2%ld32/ n. 军人；士兵
+
+()
+
+southern /'s7ðn/ adj. 南方的
+
+()
+
+speech /spiːt1/ n. 演说；讲演
+
+()
+
+spirit /'sp!r!t/ n. 精灵；神灵；精神 ()
+
+sportsman /'sp0ːtsm2n/ n.（尤指职业
+
+的）运动员
+
+()
+
+sportsperson /'sp0ːts;p^ːs2n/ n. 运动员 ()
+
+sportswoman /'sp0ːts;w%m2n/ n.（尤指
+
+职业的）女运动员
+
+()
+
+spread /spred/ v. (spread /spred/, spread)
+
+扩展；蔓延；传播
+
+()
+
+stand for 是……的缩写；代表
+
+()
+
+standard /'stænd2d/ n. 标准；水准 ()
+
+state /ste!t/ n. 州；邦
+
+()
+
+step/step/ n. 步骤；措施
+
+()
+
+stop sb. (from) doing sth. 阻止某人做
+
+某事
+
+()
+
+store /st0ː/ v. 存储；储藏
+
+()
+
+stream /striːm/ n. 小河；小溪
+
+()
+
+* subject /'s7bd3!kt/ n. 主题
+
+()
+
+suffer /'s7f2/ v. 患有（疾病等）；经受 ()
+
+ suffer from... 受（某种病痛）折
+
+磨；因……而受苦
+
+()
+
+suppose /s2'p2%z/ v. 猜想；推测；相
+
+信；认为
+
+()
+
+surf /s^ːf/ v. 冲浪
+
+()
+
+surprised /s2'pra!zd/ adj. 惊奇的；
+
+惊讶的
+
+()
+
+  T
+
+tail /te!l/ n. 尾；尾巴
+
+()
+
+task /t4ːsk/ n. 任务；工作
+
+()
+
+technology /tek'n=l2d3i/ n. 科技；技术 ()
+
+tenth /ten8/ num. 第十
+
+()
+
+text /tekst/ n. 文本；正文
+
+()
+
+  text message 短信
+
+()
+
+textbook /'tekst;b%k/ n. 教科书；课本 ()
+
+the thing is 答案是；问题是
+
+()
+
+thinker /'8!9k2/ n. 思想家
+
+()
+
+though /ð2%/ conj. 虽然；但是
+
+()
+
+thousands of 好几千；成千上万
+
+()
+
+throw away 扔掉；丢弃
+
+()
+
+ton /t7n/ n. 吨
+
+()
+
+tons of 许多；很多
+
+()
+
+tonight /t2'na!t/ adv.（在）今晚；（在）
+
+今夜
+
+()
+
+tool /tuːl/ n. 工具；器械
+
+()
+
+trade /tre!d/ n. 买卖；交易
+
+()
+
+treat /triːt/ v. 医治；治疗
+
+()
+
+truck /tr7k/ n. 卡车；货车
+
+()
+
+truth /truː8/ n. 事实；真相
+
+()
+
+try out 试用；试
+
+()
+
+turn off 关掉；关闭（设备）
+
+()
+
+twelfth /twelf 8/ num. 第十二
+
+()
+
+twentieth /'twenti28/ num. 第二十 ()
+
+  U
+
+UK /;juː'ke!/ 英国
+
+()
+
+unable /7n'e!bl/ adj. 不能做某事的 ()
+
+unhappy /7n'hæpi/ adj. 不高兴的
+
+()
+
+until /2n't!l/ prep. 直到……为止
+
+conj. 直到……为止
+
+()
+
+upstairs /7p'ste2z/ adj. 位于楼上的
+
+adv. 往楼上；在
+
+楼上
+
+()
+
+useful /'juːsfl/ adj. 有用的；有益的 ()
+
+157
+
+  V
+
+vacation /v2'ke!1n/ n. 假期；假日 ()
+
+  take a vacation 去度假
+
+()
+
+varied /'ve2r!d/ adj. 各种各样的；
+
+各不相同的
+
+()
+
+victory /'v!kt2ri/ n. 成功；胜利
+
+()
+
+volunteer /;v=l2n't!2/ n. 志愿者
+
+()
+
+  W
+
+wait and see 等等看；等着瞧
+
+()
+
+wake up 醒；醒来
+
+()
+
+war /w0ː/ n. 战争
+
+()
+
+waste /we!st/ n. 废料；废弃物
+
+()
+
+website /'web;sa!t/ n. 网站
+
+()
+
+well-known /;wel 'n2%n/ adj. 众所周
+
+知的；著名的
+
+()
+
+whatever /w=t'ev2/ pron. 无论什么；
+
+不管什么
+
+()
+
+wheel /wiːl/ n. 轮子；车轮
+
+()
+
+whole /h2%l/ adj. 全部的；整个的 ()
+
+will /w!l/ n. 意志；决心
+
+()
+
+winner /'w!n2/ n. 获胜者
+
+()
+
+wise /wa!z/ adj. 有判断力的；明智的 ()
+
+wonder /'w7nd2/ n. 奇观；奇迹
+
+()
+
+wool /w%l/ n. 羊毛
+
+()
+
+wound /wuːnd/ n. 伤；伤口
+
+()
+
+wounded /'wuːnd!d/ adj. 受伤的
+
+()
+
+wow /wa%/ int. 呀；哇（用于表示惊讶
+
+或赞叹）
+
+()
+
+  X
+
+X-ray /'eks;re!/ n. X 射线；X 光
+
+()
+
+158
+
+Infinitive
+am/is are beat become begin bet break bring build burn buy can catch choose come cost dig do draw dream drink drive eat fall
+
+I rregular verbs
+
+Past tense
+was /w=z; w2z/ were /w^ː; w2/ beat /biːt/ became /b! ke!m/ began /b! gæn/ bet /bet/ broke /br2%k/ brought /br0ːt/ built /b!lt/ burnt /b^ːnt/, burned bought /b0ːt/ could /k%d/ caught /k0ːt/ chose /t12%z/ came /ke!m/ cost /k=st/ dug /d7g/ did /d!d/ drew /druː/ dreamt /dremt/, dreamed drank /dræ9k/ drove /dr2%v/ ate /et; e!t/ fell /fel/
+
+Past participle
+been /biːn/ been beaten / bi:t2n/ become begun /b! g7n/ bet broken / br2%k2n/ brought built burnt, burned bought — caught chosen / t12%zn/ come cost dug done /d7n/ drawn /dr0ːn/ dreamt, dreamed drunk /dr79k/ driven / dr!vn/ eaten / iːtn/ fallen / f0ːl2n/
+
+159
+
+Infinitive
+feed feel fight find fly forget get give go grow have/has hear hide hit hold hurt keep know lay lead learn leave lend let
+
+Past tense
+fed /fed/ felt /felt/ fought /f0ːt/ found /fa%nd/ flew /fluː/ forgot /f2 g=t/ got /g=t/ gave /ge!v/ went /went/ grew /gruː/ had /hæd/ heard /h^ːd/ hid /h!d/ hit /h!t/ held /held/ hurt /h^ːt/ kept /kept/ knew /njuː/ laid /le!d/ led /led/ learnt /l^ːnt/, learned left /left/ lent /lent/ let /let/
+
+Past participle
+fed felt fought found flown /fl2%n/ forgotten /f2 g=tn/ got given / g!vn/ gone /g=n/ grown /gr2%n/ had heard hidden / h!dn/ hit held hurt kept known /n2%n/ laid led learnt, learned left lent let
+
+160
+
+Infinitive
+lie ( 躺 ) lose make may mean meet pay put read ride ring rise run say see sell send set shake shall shine shut sing sit
+
+Past tense
+lay /le!/ lost /l=st/ made /me!d/ might /ma!t/ meant /ment/ met /met/ paid /pe!d/ put /p%t/ read /red/ rode /r2%d/ rang /ræ9/ rose /r2%z/ ran /ræn/ said /sed/ saw /s0ː/ sold /s2%ld/ sent /sent/ set /set/ shook /1%k/ should /1%d/ shone /1=n/, shined shut /17t/ sang /sæ9/ sat /sæt/
+
+Past participle
+lain /le!n/ lost made — meant met paid put read /red/ ridden / r!dn/ rung /r79/ risen / r!zn/ run /r7n/ said seen /siːn/ sold sent set shaken / 1e!k2n/ — shone, shined shut sung /s79/ sat
+
+161
+
+Infinitive
+smell speak spell spend spread stand stick sweep swim take teach tell think throw understand wake wear will win write
+
+Past tense
+smelt /smelt/, smelled spoke /sp2%k/ spelt /spelt/, spelled spent /spent/ spread /spred/ stood /st%d/ stuck /st7k/ swept /swept/ swam /swæm/ took /t%k/ taught /t0ːt/ told /t2%ld/ thought /80ːt/ threw /8ruː/ understood /;7nd2 st%d/ woke /w2%k/ wore /w0ː/ would /w%d/ won /w7n/ wrote /r2%t/
+
+Past participle
+smelt, smelled spoken / sp2%k2n/ spelt, spelled spent spread stood stuck swept swum /sw7m/ taken / te!k2n/ taught told thought thrown /8r2%n/ understood woken / w2%k2n/ worn /w0ːn/ — won written / r!tn/
+
+162
+
+后记
+既名为“后记”，一般应该是本教材使用完毕后才看到的吧。 那么，同学们，你们喜欢这套教材吗？大明、玲玲以及他们的朋友们 是否让你们喜爱上了英语，并且掌握了初步运用英语的能力呢？如果回答 是肯定的，那就太好啦！希望你们在以后的英语学习中继续大胆地开口说 英语——课上说、课下说；继续积极地参与各项语言活动。一句话，你们 要尽量主动使用英语来表达意思和做事情，这样才能把英语学好。 可敬的老师们，感谢你们的辛勤劳动，以及你们为国家英语课程改革 付出的努力和做出的贡献。在修订本套教材的过程中，我们也充分考虑了 英语课程改革以及一线教学的需求。修订后的教材更加突出了英语课程工 具性和人文性的统一，优化了各册的结构设计和内容安排，以使教学脉络 更加清晰、梯度更加合理。 为了在最大程度上保证教材与课程标准的契合，便于一线教学使用， 所有参与本套教材编写的人员均付出了艰辛的努力。在此我想特别感谢我 的编写团队，没有他们的努力与付出，就没有本教材的问世。
+你们的
+二〇一二年春日
+
+

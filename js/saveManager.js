@@ -3,26 +3,13 @@
 // Protects player progress across game code updates.
 
 import { EQUIPMENT_CATALOG } from '../data/equipment.js';
+import UNIT_SPLIT_MAP from '../data/unit_split_map.js';
 
 /** Current save format version. Increment when Player data structure changes. */
-export const CURRENT_SAVE_VERSION = 2;
+export const CURRENT_SAVE_VERSION = 3;
 
 /**
  * Migration chain. Each function upgrades data from version (N-1) to N.
- *
- * When you add a new field to Player or change the data structure:
- * 1. Increment CURRENT_SAVE_VERSION above
- * 2. Add a migration function here keyed by the NEW version number
- * 3. The function receives the full save data object and must return the migrated object
- *
- * Example for v2 (when needed in the future):
- *   2: (data) => {
- *     // Add new field with sensible default
- *     data.player.dailyChallenge = { lastPlayed: null, streak: 0 };
- *     data.player.stats.dailyChallengesCompleted = 0;
- *     data.saveVersion = 2;
- *     return data;
- *   },
  */
 const MIGRATIONS = {
   // v1 → v2: Add textbookId for multi-textbook support
@@ -31,6 +18,71 @@ const MIGRATIONS = {
       data.player.textbookId = 'wy-7a';
     }
     data.saveVersion = 2;
+    return data;
+  },
+
+  // v2 → v3: Unit splitting — remap old unit IDs to new sub-unit IDs
+  3: (data) => {
+    const p = data.player;
+    if (!p) return data;
+
+    // Iterate through each textbook's split map
+    for (const [tbId, tbMap] of Object.entries(UNIT_SPLIT_MAP)) {
+      for (const [oldUnitId, newUnitIds] of Object.entries(tbMap)) {
+        if (!newUnitIds || newUnitIds.length === 0) continue;
+        const firstNewId = newUnitIds[0];
+
+        // 1. unitBattleProgress: copy defeatedWordIds to ALL new sub-units
+        //    This ensures words defeated in the old big unit are recognized in
+        //    whichever new sub-unit they now belong to (by alphabetical split).
+        if (p.unitBattleProgress && p.unitBattleProgress[oldUnitId]) {
+          const defeatedWordIds = p.unitBattleProgress[oldUnitId]?.defeatedWordIds || [];
+          for (const newId of newUnitIds) {
+            if (!p.unitBattleProgress[newId]) {
+              p.unitBattleProgress[newId] = { defeatedWordIds: [...defeatedWordIds] };
+            } else {
+              // Merge: keep existing + add old defeated IDs
+              const existing = new Set(p.unitBattleProgress[newId].defeatedWordIds || []);
+              defeatedWordIds.forEach(id => existing.add(id));
+              p.unitBattleProgress[newId].defeatedWordIds = Array.from(existing);
+            }
+          }
+          delete p.unitBattleProgress[oldUnitId];
+        }
+
+        // 2. unlockedUnits: replace old ID → first new sub-unit ID
+        if (Array.isArray(p.unlockedUnits)) {
+          const idx = p.unlockedUnits.indexOf(oldUnitId);
+          if (idx !== -1) {
+            p.unlockedUnits[idx] = firstNewId;
+          }
+        }
+
+        // 3. completedUnits: replace old ID → first new sub-unit ID
+        if (Array.isArray(p.completedUnits)) {
+          const idx = p.completedUnits.indexOf(oldUnitId);
+          if (idx !== -1) {
+            p.completedUnits[idx] = firstNewId;
+          }
+        }
+
+        // 4. currentUnit: replace old ID → first new sub-unit ID
+        if (p.currentUnit === oldUnitId) {
+          p.currentUnit = firstNewId;
+        }
+
+        // 5. bossDefeated: replace boss-{oldId} → boss-{firstNewId}
+        if (Array.isArray(p.bossDefeated)) {
+          const bossOldId = `boss-${oldUnitId}`;
+          const bossIdx = p.bossDefeated.indexOf(bossOldId);
+          if (bossIdx !== -1) {
+            p.bossDefeated[bossIdx] = `boss-${firstNewId}`;
+          }
+        }
+      }
+    }
+
+    data.saveVersion = 3;
     return data;
   },
 };

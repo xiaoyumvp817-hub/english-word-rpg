@@ -149,3 +149,75 @@
   background-size: 200px 100%;
   animation: shimmer 2s linear infinite;
 }
+
+/* === Card Hover Shine/Scan Effect === */
+@keyframes cardScan {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Apply to dungeon cards and menu buttons */
+.dungeon-unit-card.unlocked,
+.menu-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.dungeon-unit-card.unlocked::after,
+.menu-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.04) 45%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 55%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  background-position: 200% 0;
+  pointer-events: none;
+  transition: background-position 0.6s ease;
+}
+
+.dungeon-unit-card.unlocked:hover::after,
+.menu-btn:hover::after {
+  background-position: -200% 0;
+}
+
+/* === View Transitions API Animations === */
+/* Smooth crossfade between game screens */
+::view-transition-old(screen-transition) {
+  animation: vtFadeOut 0.2s ease-out forwards;
+}
+
+::view-transition-new(screen-transition) {
+  animation: vtFadeIn 0.25s ease-out forwards;
+}
+
+@keyframes vtFadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.98); }
+}
+
+@keyframes vtFadeIn {
+  from { opacity: 0; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(screen-transition),
+  ::view-transition-new(screen-transition) {
+    animation: none;
+  }
+  .dungeon-unit-card.unlocked::after,
+  .menu-btn::after {
+    display: none;
+  }
+}

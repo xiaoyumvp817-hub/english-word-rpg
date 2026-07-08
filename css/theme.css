@@ -84,7 +84,10 @@
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  transition: all 0.1s ease;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.15s ease,
+              border-color 0.15s ease,
+              background 0.15s ease;
   box-shadow: var(--shadow-button);
   user-select: none;
 }
@@ -92,14 +95,16 @@
 .btn:hover {
   background: linear-gradient(180deg, var(--bg-card-hover), var(--bg-card));
   border-color: var(--text-gold);
-  transform: translateY(-1px);
-  box-shadow: 0 5px 0 #0a0a1e;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 0 #0a0a1e, 0 0 16px rgba(255, 215, 0, 0.15);
 }
 
 .btn:active {
-  transform: translateY(2px);
+  transform: translateY(1px) scale(0.97);
   box-shadow: 0 2px 0 #0a0a1e;
   border-style: inset;
+  transition: transform 0.05s ease,
+              box-shadow 0.05s ease;
 }
 
 .btn:disabled {

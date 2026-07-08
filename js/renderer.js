@@ -35,6 +35,7 @@ let battleUpdateInterval = null;
 
 /**
  * Main render dispatch.
+ * Wraps DOM update in View Transitions API when available for smooth crossfades.
  */
 export function renderScreen(screenName, context = {}) {
   const container = getScreenContainer();
@@ -50,50 +51,64 @@ export function renderScreen(screenName, context = {}) {
     battleUpdateInterval = null;
   }
 
-  clearElement(container);
-  container.className = `screen-${screenName}`;
+  // Track current screen
+  gameState.currentScreen = screenName;
 
-  // Screen transition sound (skip for title and main menu)
-  if (screenName !== 'title' && screenName !== 'mainMenu') {
-    audio.transition();
-  }
+  // Use View Transitions API for smooth crossfade (progressive enhancement)
+  const doRender = () => {
+    clearElement(container);
+    container.className = `screen-${screenName}`;
+    container.style.viewTransitionName = 'screen-transition';
 
-  switch (screenName) {
-    case 'title':
-      renderTitleScreen(container);
-      break;
-    case 'mainMenu':
-      renderMainMenu(container);
-      break;
-    case 'dungeon':
-      renderDungeonMap(container);
-      break;
-    case 'unitOverview':
-      renderUnitOverview(container, context);
-      break;
-    case 'battle':
-      renderBattleScreen(container, context);
-      break;
-    case 'bossBattle':
-      renderBossBattleScreen(container, context);
-      break;
-    case 'victory':
-      renderVictoryScreen(container, context);
-      break;
-    case 'defeat':
-      renderDefeatScreen(container, context);
-      break;
-    case 'character':
-      renderCharacterScreen(container);
-      break;
-    case 'shop':
-      renderShopScreen(container);
-      break;
-    case 'inventory':
-      renderInventoryScreen(container);
-      break;
-    default:
-      renderTitleScreen(container);
+    // Screen transition sound (skip for title and main menu)
+    if (screenName !== 'title' && screenName !== 'mainMenu') {
+      audio.transition();
+    }
+
+    switch (screenName) {
+      case 'title':
+        renderTitleScreen(container);
+        break;
+      case 'mainMenu':
+        renderMainMenu(container);
+        break;
+      case 'dungeon':
+        renderDungeonMap(container);
+        break;
+      case 'unitOverview':
+        renderUnitOverview(container, context);
+        break;
+      case 'battle':
+        renderBattleScreen(container, context);
+        break;
+      case 'bossBattle':
+        renderBossBattleScreen(container, context);
+        break;
+      case 'victory':
+        renderVictoryScreen(container, context);
+        break;
+      case 'defeat':
+        renderDefeatScreen(container, context);
+        break;
+      case 'character':
+        renderCharacterScreen(container);
+        break;
+      case 'shop':
+        renderShopScreen(container);
+        break;
+      case 'inventory':
+        renderInventoryScreen(container);
+        break;
+      default:
+        renderTitleScreen(container);
+    }
+  };
+
+  // Progressive enhancement: use View Transitions if supported
+  if (document.startViewTransition) {
+    document.startViewTransition(() => doRender());
+  } else {
+    doRender();
   }
 }
 
@@ -105,7 +120,13 @@ function renderTitleScreen(container) {
   const html = `
     <div class="title-screen">
       <div class="title-logo">
-        <div class="title-icon">⚔️</div>
+        <div class="title-icon-wrapper">
+          <div class="title-icon">⚔️</div>
+          <div class="title-sparkle"></div>
+          <div class="title-sparkle"></div>
+          <div class="title-sparkle"></div>
+          <div class="title-sparkle"></div>
+        </div>
         <h1 class="title-main">英语单词大冒险</h1>
         <p class="title-sub">ENGLISH WORD QUEST RPG</p>
       </div>
