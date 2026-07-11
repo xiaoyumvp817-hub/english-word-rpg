@@ -1,40 +1,172 @@
-/* === Dungeon Map & Unit Overview Styles === */
+/* === Dungeon Map & Unit Overview — Pixel Clay Style === */
 
 .dungeon-screen {
   display: flex;
   flex-direction: column;
 }
 
+/* === Dungeon Path Map === */
+.dungeon-path {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md) 0;
+}
+
+/* Path segment — a horizontal row of nodes */
+.dungeon-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  padding: var(--spacing-xs) 0;
+  flex-wrap: wrap;
+}
+
+/* Connection line between nodes */
+.dungeon-connector {
+  width: 24px;
+  height: 3px;
+  background: var(--border-color);
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
+.dungeon-connector.completed {
+  background: var(--text-correct);
+}
+
+.dungeon-connector.current {
+  background: var(--text-gold);
+  animation: pulse 1.5s infinite;
+}
+
+/* Vertical connector between rows */
+.dungeon-connector-vertical {
+  width: 3px;
+  height: 16px;
+  background: var(--border-color);
+  margin-left: 20px;
+  border-radius: 2px;
+}
+
+/* === Unit Node — the clickable node === */
+.dungeon-node {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  position: relative;
+  cursor: default;
+  transition: transform 0.15s ease;
+}
+
+.dungeon-node.completed {
+  background: var(--text-correct);
+  color: #fff;
+  box-shadow: 0 3px 0 #388e3c, 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.dungeon-node.current {
+  background: var(--text-gold);
+  color: #fff;
+  box-shadow: 0 3px 0 #c06020, 0 4px 12px rgba(232,120,48,0.3);
+  animation: pulse 1.5s infinite;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+}
+
+.dungeon-node.unlocked {
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-clay-raised);
+  cursor: pointer;
+}
+
+.dungeon-node.unlocked:hover {
+  transform: scale(1.15);
+  border-color: var(--text-gold);
+}
+
+.dungeon-node.locked {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+/* Boss node — larger, dramatic */
+.dungeon-node.boss {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  background: #fff0f0;
+  border: 2px solid var(--text-accent);
+  box-shadow: 0 4px 0 #c03050, 0 0 16px rgba(212,69,106,0.25);
+}
+
+.dungeon-node.boss.current,
+.dungeon-node.boss.unlocked {
+  animation: bossPulse 2s ease-in-out infinite;
+}
+
+/* Node tooltip — unit name on hover */
+.dungeon-node[data-name]:hover::after {
+  content: attr(data-name);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 2px 8px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  box-shadow: var(--shadow-clay-raised);
+  z-index: 10;
+  margin-bottom: 4px;
+}
+
+/* === Legacy Card Mode (fallback for textbooks with many units) === */
 .dungeon-units {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
 }
 
-/* Unit Card */
 .dungeon-unit-card {
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
   padding: var(--spacing-md);
-  background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+  background: var(--bg-card);
   border: 2px solid var(--border-color);
   border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-clay-raised);
   transition: all 0.2s ease;
 }
 
 .dungeon-unit-card.current {
   border-color: var(--text-gold);
-  box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
+  box-shadow: 0 0 0 3px rgba(232,120,48,0.2), var(--shadow-clay-raised);
 }
 
 .dungeon-unit-card.completed {
-  border-color: var(--correct);
+  border-color: var(--text-correct);
   opacity: 0.85;
 }
 
 .dungeon-unit-card.unlocked:hover {
-  border-color: var(--border-glow);
+  border-color: var(--text-gold);
   transform: translateX(4px);
   cursor: pointer;
 }
@@ -44,35 +176,70 @@
   cursor: not-allowed;
 }
 
+/* === Status Dots — CSS-based, no emoji === */
 .unit-status-icon {
-  font-size: 1.8rem;
-  min-width: 40px;
-  text-align: center;
+  min-width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.unit-info {
-  flex: 1;
+.status-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
-.unit-name {
-  font-family: var(--font-display);
-  font-weight: bold;
-  font-size: 1rem;
-  margin-bottom: 2px;
+.status-locked {
+  background: var(--text-muted);
+  opacity: 0.5;
+  position: relative;
+}
+.status-locked::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 3px;
+  width: 8px;
+  height: 6px;
+  border: 2px solid var(--text-muted);
+  border-radius: 3px 3px 0 0;
+  border-bottom: none;
 }
 
-.unit-desc {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  margin-bottom: 4px;
+.status-done {
+  background: var(--text-correct);
+  box-shadow: 0 0 6px rgba(76,175,80,0.4);
+  position: relative;
+}
+.status-done::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 4px;
+  height: 7px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
-.unit-progress {
-  font-size: 0.75rem;
-  color: var(--text-muted);
+.status-current {
+  background: var(--text-gold);
+  box-shadow: 0 0 10px rgba(232,120,48,0.5);
+  animation: pulse 1.5s infinite;
+  width: 18px;
+  height: 18px;
 }
 
-/* Unit Overview / Word-Monster List */
+.status-open {
+  background: #f0a030;
+  box-shadow: 0 0 4px rgba(240,160,48,0.3);
+}
+
+/* === Unit Overview / Word-Monster List === */
 .overview-screen {
   display: flex;
   flex-direction: column;
@@ -89,45 +256,72 @@
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-sm) var(--spacing-md);
-  background: var(--bg-secondary);
+  background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 
 .word-monster-item.mastered {
   opacity: 0.6;
-  background: rgba(68, 255, 68, 0.05);
+  background: rgba(76,175,80,0.06);
+}
+
+.word-monster-item.defeated {
+  border-color: #f0a030;
 }
 
 .word-monster-item.boss-item {
   border-color: var(--text-accent);
-  background: rgba(233, 69, 96, 0.1);
+  background: rgba(212,69,106,0.06);
   font-weight: bold;
 }
 
 .monster-emoji {
-  font-size: 1.3rem;
-  width: 30px;
+  font-size: 1rem;
+  width: 28px;
   text-align: center;
 }
 
 .word-english {
   font-family: var(--font-mono);
-  font-weight: bold;
+  font-size: 0.8rem;
+  font-weight: normal;
   min-width: 100px;
 }
 
 .word-chinese {
   color: var(--text-secondary);
   flex: 1;
+  font-size: 1rem;
 }
 
 .word-difficulty {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
 }
 
 .word-mastered-tag {
-  font-size: 0.7rem;
-  color: var(--correct);
+  font-size: 0.8rem;
+  color: var(--text-correct);
 }
+
+/* Mini monster type indicators — CSS shapes */
+.monster-mini-goblin,
+.monster-mini-slime,
+.monster-mini-skeleton,
+.monster-mini-ghost,
+.monster-mini-dragon {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.monster-mini-goblin   { background: #5cb85c; box-shadow: 0 0 4px rgba(92,184,92,0.5); }
+.monster-mini-slime    { background: #2ecc2e; border-radius: 50%; box-shadow: 0 0 4px rgba(46,204,46,0.5); }
+.monster-mini-skeleton { background: #e8dcc8; box-shadow: 0 0 4px rgba(232,220,200,0.6); }
+.monster-mini-ghost    { background: #b4c8f0; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 6px rgba(180,200,240,0.6); }
+.monster-mini-dragon   { background: #3a9a3a; clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%); box-shadow: 0 0 6px rgba(58,154,58,0.6); }
+.monster-mini-boss     { width: 14px; height: 14px; background: #fff0f0; border: 2px solid #d4456a; border-radius: 2px; box-shadow: 0 0 8px rgba(212,69,106,0.6), inset 0 0 4px rgba(212,69,106,0.2); animation: pulse 1s infinite; }

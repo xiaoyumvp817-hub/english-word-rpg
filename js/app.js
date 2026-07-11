@@ -3,18 +3,11 @@
 
 import { gameState } from './state.js';
 import { renderScreen } from './renderer.js';
-import { getStarfield } from './particles.js';
 
 /**
  * Initialize the application.
  */
 function init() {
-  // Start ambient starfield background
-  const starCanvas = document.getElementById('starfield-canvas');
-  if (starCanvas) {
-    getStarfield().start(starCanvas);
-  }
-
   // Check for existing save
   const hasSave = gameState.hasSave();
 

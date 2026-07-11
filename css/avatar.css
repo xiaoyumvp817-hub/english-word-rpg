@@ -76,6 +76,7 @@
   background: #FFD5B8;
   border: 2px solid #E8B898;
   z-index: 5;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
 
 /* Face - simple eyes */

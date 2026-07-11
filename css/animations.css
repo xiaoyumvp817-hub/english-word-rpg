@@ -1,15 +1,9 @@
-/* === Keyframe Animations === */
+/* === Keyframe Animations — Pixel Clay Edition === */
 
 /* Float up (damage numbers, rewards) */
 @keyframes floatUp {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -60px);
-  }
+  0% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -60px); }
 }
 
 /* Shake (monster hit reaction) */
@@ -38,68 +32,67 @@
   80% { transform: translateX(3px); }
 }
 
-/* Pulse (timer warning, streak indicator) */
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+/* Clay button squish — press effect */
+@keyframes claySquish {
+  0% { transform: scale(1); }
+  40% { transform: scale(0.92); }
+  70% { transform: scale(1.03); }
+  100% { transform: scale(1); }
 }
 
-/* Flash effects */
+/* Pulse (node indicator, timer warning) */
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.08); }
+}
+
+/* Flash effects — warm tone */
 @keyframes flashGreen {
   0%, 100% { box-shadow: inset 0 0 0 transparent; }
-  50% { box-shadow: inset 0 0 60px rgba(68, 255, 68, 0.2); }
+  50% { box-shadow: inset 0 0 60px rgba(76, 175, 80, 0.15); }
 }
 
 @keyframes flashRed {
   0%, 100% { box-shadow: inset 0 0 0 transparent; }
-  50% { box-shadow: inset 0 0 60px rgba(255, 68, 68, 0.2); }
+  50% { box-shadow: inset 0 0 60px rgba(232, 85, 69, 0.15); }
 }
 
 @keyframes flashGold {
   0%, 100% { box-shadow: inset 0 0 0 transparent; }
-  50% { box-shadow: inset 0 0 80px rgba(255, 215, 0, 0.3); }
+  50% { box-shadow: inset 0 0 80px rgba(255, 183, 77, 0.25); }
 }
 
-/* Speed-based godlike crit flash — golden burst */
 @keyframes flashGodlike {
   0% { box-shadow: inset 0 0 0 transparent; }
-  50% { box-shadow: inset 0 0 120px rgba(255, 215, 0, 0.5); }
+  50% { box-shadow: inset 0 0 120px rgba(255, 152, 0, 0.4); }
   100% { box-shadow: inset 0 0 0 transparent; }
 }
 
-/* Speed-based fast answer flash — blue tint */
 @keyframes flashFast {
   0% { box-shadow: inset 0 0 0 transparent; }
-  50% { box-shadow: inset 0 0 50px rgba(100, 180, 255, 0.25); }
+  50% { box-shadow: inset 0 0 50px rgba(100, 180, 255, 0.2); }
   100% { box-shadow: inset 0 0 0 transparent; }
 }
 
-/* Speed floating text float-up (larger, wider arc) */
+/* Speed floating text float-up */
 @keyframes speedFloatUp {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, 0) scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: translate(-50%, -40px) scale(1.2);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -80px) scale(1.0);
-  }
+  0% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  50% { opacity: 0.8; transform: translate(-50%, -40px) scale(1.2); }
+  100% { opacity: 0; transform: translate(-50%, -80px) scale(1.0); }
 }
 
-/* Float/bob (title icon) */
+/* Float/bob (title icon, victory icon) */
 @keyframes floatIcon {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-8px); }
 }
 
-/* Fade in */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Pixel bounce — playful */
+@keyframes pixelBounce {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-14px); }
+  50% { transform: translateY(0); }
+  70% { transform: translateY(-6px); }
 }
 
 /* Toast notification */
@@ -111,7 +104,7 @@
   padding: var(--spacing-sm) var(--spacing-lg);
   background: var(--bg-card);
   color: var(--text-primary);
-  border: 2px solid var(--border-glow);
+  border: 2px solid var(--border-color);
   border-radius: var(--border-radius);
   font-weight: bold;
   font-size: 0.9rem;
@@ -119,7 +112,7 @@
   opacity: 0;
   transition: all 0.3s ease;
   pointer-events: none;
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-clay-raised);
 }
 
 .toast-visible {
@@ -127,15 +120,15 @@
   transform: translateX(-50%) translateY(0);
 }
 
-.toast-success { border-color: var(--correct); }
-.toast-error { border-color: var(--wrong); }
+.toast-success { border-color: var(--text-correct); }
+.toast-error { border-color: var(--text-wrong); }
 .toast-warning { border-color: var(--text-gold); }
 .toast-info { border-color: var(--text-secondary); }
 
 /* Boss pulse */
 @keyframes bossPulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  50% { transform: scale(1.06); }
 }
 
 /* XP bar shimmer */
@@ -145,53 +138,28 @@
 }
 
 .progress-bar-fill.xp {
-  background: linear-gradient(90deg, var(--xp-bar-fill), #5fd9ef, var(--xp-bar-fill));
+  background: linear-gradient(90deg, var(--xp-bar-fill), #ffcc80, var(--xp-bar-fill));
   background-size: 200px 100%;
   animation: shimmer 2s linear infinite;
 }
 
-/* === Card Hover Shine/Scan Effect === */
-@keyframes cardScan {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+/* === Victory Star Burst === */
+@keyframes starBurst {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--sx), var(--sy)) scale(0); opacity: 0; }
 }
 
-/* Apply to dungeon cards and menu buttons */
-.dungeon-unit-card.unlocked,
-.menu-btn {
-  position: relative;
-  overflow: hidden;
-}
-
-.dungeon-unit-card.unlocked::after,
-.menu-btn::after {
-  content: '';
+.victory-star {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    105deg,
-    transparent 40%,
-    rgba(255, 255, 255, 0.04) 45%,
-    rgba(255, 255, 255, 0.08) 50%,
-    rgba(255, 255, 255, 0.04) 55%,
-    transparent 60%
-  );
-  background-size: 200% 100%;
-  background-position: 200% 0;
+  width: 8px;
+  height: 8px;
+  background: var(--text-gold);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  animation: starBurst 0.8s ease-out forwards;
   pointer-events: none;
-  transition: background-position 0.6s ease;
-}
-
-.dungeon-unit-card.unlocked:hover::after,
-.menu-btn:hover::after {
-  background-position: -200% 0;
 }
 
 /* === View Transitions API Animations === */
-/* Smooth crossfade between game screens */
 ::view-transition-old(screen-transition) {
   animation: vtFadeOut 0.2s ease-out forwards;
 }
@@ -210,14 +178,79 @@
   to { opacity: 1; transform: scale(1); }
 }
 
-/* Accessibility: respect reduced motion */
+/* === Card Hover Shine === */
+@keyframes cardScan {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.dungeon-unit-card.unlocked,
+.menu-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.dungeon-unit-card.unlocked::after,
+.menu-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.15) 45%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.15) 55%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  background-position: 200% 0;
+  pointer-events: none;
+  transition: background-position 0.6s ease;
+}
+
+.dungeon-unit-card.unlocked:hover::after,
+.menu-btn:hover::after {
+  background-position: -200% 0;
+}
+
+/* === Pixel Cloud Float === */
+@keyframes cloudDrift {
+  0% { transform: translateX(-100px); }
+  100% { transform: translateX(calc(100vw + 100px)); }
+}
+
+.pixel-cloud {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.5;
+  animation: cloudDrift linear infinite;
+}
+
+/* === Accessibility: reduced motion === */
 @media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .dungeon-unit-card.unlocked::after,
+  .menu-btn::after {
+    display: none !important;
+  }
+
   ::view-transition-old(screen-transition),
   ::view-transition-new(screen-transition) {
     animation: none;
   }
-  .dungeon-unit-card.unlocked::after,
-  .menu-btn::after {
-    display: none;
+
+  .boss-aura-outer, .boss-aura-inner,
+  .dragon-fire,
+  .monster-sprite, .avatar-aura {
+    animation: none !important;
   }
 }

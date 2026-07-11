@@ -1,4 +1,4 @@
-/* === Main Menu Styles === */
+/* === Main Menu — Pixel Clay Style === */
 
 .menu-screen {
   display: flex;
@@ -6,6 +6,7 @@
   gap: var(--spacing-lg);
 }
 
+/* === Player Summary Card === */
 .player-summary {
   padding: var(--spacing-md);
 }
@@ -22,7 +23,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 110px;
+  min-width: 100px;
 }
 
 .player-summary-right {
@@ -38,21 +39,20 @@
 }
 
 .player-level {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
   color: var(--text-gold);
-  font-weight: bold;
 }
 
 .player-name-display {
   font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: bold;
+  font-size: 0.85rem;
 }
 
 .player-gold {
   color: var(--text-gold);
-  font-weight: bold;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
 }
 
 .player-hp-row {
@@ -65,19 +65,21 @@
 .player-quick-stats {
   display: flex;
   gap: var(--spacing-md);
-  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
   color: var(--text-secondary);
   margin-top: var(--spacing-sm);
 }
 
 .player-progress-text {
-  font-size: 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
   color: var(--text-muted);
   margin-top: var(--spacing-sm);
   text-align: center;
 }
 
-/* Menu Grid */
+/* === Menu Grid — 2x2 clay cards === */
 .menu-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -90,26 +92,32 @@
   align-items: center;
   justify-content: center;
   padding: var(--spacing-lg) var(--spacing-md);
-  background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
-  border: 2px ridge var(--border-color);
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
   border-radius: var(--border-radius-lg);
   cursor: pointer;
   transition: all 0.2s ease;
   color: var(--text-primary);
   font-family: var(--font-body);
-  box-shadow: var(--shadow-card);
-  min-height: 100px;
+  box-shadow: var(--shadow-clay-raised), var(--shadow-clay-inner);
+  min-height: 110px;
 }
+
+/* Each menu card has a subtle pastel tint */
+.menu-btn:nth-child(1) { border-top: 3px solid #81c784; } /* Dungeon — green */
+.menu-btn:nth-child(2) { border-top: 3px solid #64b5f6; } /* Shop — blue */
+.menu-btn:nth-child(3) { border-top: 3px solid #ffb74d; } /* Character — orange */
+.menu-btn:nth-child(4) { border-top: 3px solid #ba68c8; } /* Inventory — purple */
 
 .menu-btn:hover {
   border-color: var(--text-gold);
-  background: linear-gradient(135deg, var(--bg-card-hover), var(--bg-card));
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 0 #d4c4b0, 0 10px 24px rgba(0,0,0,0.1), var(--shadow-clay-inner);
 }
 
 .menu-btn:active {
   transform: translateY(0);
+  box-shadow: var(--shadow-clay-pressed);
 }
 
 .menu-btn-icon {
@@ -119,16 +127,17 @@
 
 .menu-btn-label {
   font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 0.8rem;
   margin-bottom: 2px;
 }
 
 .menu-btn-desc {
-  font-size: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
   color: var(--text-secondary);
 }
 
+/* === Bottom Controls === */
 .menu-bottom {
   margin-top: var(--spacing-sm);
 }
@@ -141,12 +150,13 @@
   gap: var(--spacing-md);
   margin-top: var(--spacing-sm);
   padding: var(--spacing-sm);
-  background: rgba(0, 0, 0, 0.15);
+  background: var(--bg-secondary);
   border-radius: var(--border-radius);
 }
 
 .volume-label {
-  font-size: 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
   color: var(--text-secondary);
   display: flex;
   align-items: center;
@@ -166,18 +176,17 @@
   gap: var(--spacing-sm);
   margin-top: var(--spacing-sm);
   padding: var(--spacing-sm);
-  background: rgba(0, 0, 0, 0.15);
+  background: var(--bg-secondary);
   border-radius: var(--border-radius);
   flex-wrap: wrap;
 }
 
 .save-control .btn-sm {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   padding: 6px 12px;
 }
 
-/* ========== Textbook Selection ========== */
-
+/* === Textbook Selection === */
 .textbook-options {
   display: flex;
   flex-direction: column;
@@ -193,16 +202,17 @@
   padding: var(--spacing-md);
   cursor: pointer;
   transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 
 .textbook-option-card:hover {
   border-color: var(--text-accent);
-  background: var(--bg-secondary);
+  background: #fff5f5;
 }
 
 .textbook-option-card.selected {
   border-color: var(--text-gold);
-  box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 0 0 2px rgba(232,120,48,0.2);
 }
 
 .textbook-option-card.current {
@@ -217,13 +227,13 @@
 }
 
 .tb-card-name {
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: bold;
   color: var(--text-primary);
 }
 
 .tb-card-info {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--text-secondary);
 }
 
@@ -233,7 +243,7 @@
   background: var(--rarity-rare);
   color: #fff;
   border-radius: 4px;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   margin-top: 4px;
 }
 
@@ -243,7 +253,7 @@
 
 .tb-card-warning {
   margin-top: 8px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--text-accent);
 }
 

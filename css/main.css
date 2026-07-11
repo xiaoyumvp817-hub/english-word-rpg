@@ -20,37 +20,15 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  /* Ambient gradient animation */
-  background: linear-gradient(270deg, #0a0a1e, #111133, #0d1b2a, #0a0a1e);
-  background-size: 400% 400%;
-  animation: ambientShift 20s ease infinite;
-}
-
-@keyframes ambientShift {
-  0% { background-position: 0% 50%; }
-  25% { background-position: 100% 0%; }
-  50% { background-position: 100% 100%; }
-  75% { background-position: 0% 100%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* === Starfield Canvas Layer === */
-#starfield-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.85;
+  /* Warm parchment with subtle texture-like gradient */
+  background: linear-gradient(180deg, #faf3e8 0%, #f5ead8 50%, #f0e3cc 100%);
 }
 
 #app-root {
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
   height: 100vh;
-  max-height: 700px;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -75,16 +53,21 @@ body {
   z-index: 1000;
 }
 
-/* === Scrollbar Styling === */
+/* === Scrollbar Styling — warm tones === */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-secondary);
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--border-color);
-  border-radius: 3px;
+  border-radius: 4px;
+  border: 2px solid var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b8a088;
 }
 
 /* === Focus Styles === */
@@ -95,6 +78,6 @@ input:focus, button:focus {
 
 /* === Selection === */
 ::selection {
-  background: var(--text-accent);
-  color: white;
+  background: var(--text-gold);
+  color: #fff;
 }

@@ -1,4 +1,4 @@
-/* === Title Screen Styles === */
+/* === Title Screen — Pixel Clay Style === */
 
 .title-screen {
   display: flex;
@@ -12,40 +12,41 @@
 }
 
 .title-logo {
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: var(--spacing-lg);
   position: relative;
 }
 
-.title-icon {
-  font-size: 4.5rem;
-  animation: titleFloat 3s ease-in-out infinite;
-  margin-bottom: var(--spacing-md);
-  filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5))
-          drop-shadow(0 0 40px rgba(233, 69, 96, 0.3));
-  display: inline-block;
-}
-
-@keyframes titleFloat {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  25% { transform: translateY(-8px) rotate(2deg); }
-  75% { transform: translateY(-4px) rotate(-2deg); }
-}
-
-/* Orbiting sparkles around the title icon */
 .title-icon-wrapper {
   position: relative;
   display: inline-block;
+  margin-bottom: var(--spacing-sm);
 }
 
+.title-icon {
+  animation: pixelBounce 3s ease-in-out infinite;
+  display: inline-block;
+  width: 72px;
+  height: 72px;
+  filter: drop-shadow(0 4px 0 #d4c4b0)
+          drop-shadow(0 6px 12px rgba(0,0,0,0.1));
+}
+
+.title-icon-svg {
+  width: 100%;
+  height: 100%;
+  color: var(--text-gold);
+}
+
+/* Orbiting sparkles */
 .title-sparkle {
   position: absolute;
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
   background: var(--text-gold);
-  border-radius: 50%;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
   pointer-events: none;
   animation: sparkleOrbit 4s linear infinite;
-  box-shadow: 0 0 6px var(--text-gold), 0 0 12px rgba(255, 215, 0, 0.5);
+  box-shadow: 0 0 6px rgba(232, 120, 48, 0.5);
 }
 
 .title-sparkle:nth-child(1) { animation-delay: 0s; }
@@ -54,40 +55,41 @@
 .title-sparkle:nth-child(4) { animation-delay: -3s; }
 
 @keyframes sparkleOrbit {
-  0% {
-    transform: rotate(0deg) translateX(50px) scale(1);
-    opacity: 0.8;
-  }
-  50% {
-    transform: rotate(180deg) translateX(50px) scale(0.5);
-    opacity: 0.3;
-  }
-  100% {
-    transform: rotate(360deg) translateX(50px) scale(1);
-    opacity: 0.8;
-  }
+  0% { transform: rotate(0deg) translateX(50px) scale(1); opacity: 0.8; }
+  50% { transform: rotate(180deg) translateX(50px) scale(0.4); opacity: 0.3; }
+  100% { transform: rotate(360deg) translateX(50px) scale(1); opacity: 0.8; }
+}
+
+/* Pixel clouds drifting across title */
+.title-clouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
 }
 
 .title-main {
   font-family: var(--font-display);
-  font-size: 2.4rem;
-  color: var(--text-gold);
+  font-size: 1.4rem;
+  color: var(--text-primary);
   text-shadow:
-    0 0 20px rgba(255, 215, 0, 0.5),
-    0 0 40px rgba(255, 215, 0, 0.25),
-    0 2px 4px rgba(0, 0, 0, 0.5),
-    0 0 80px rgba(233, 69, 96, 0.2);
+    2px 2px 0 rgba(0, 0, 0, 0.06),
+    0 0 20px rgba(232, 120, 48, 0.15);
   margin-bottom: var(--spacing-sm);
-  letter-spacing: 4px;
+  letter-spacing: 2px;
+  line-height: 1.8;
 }
 
 .title-sub {
-  font-family: var(--font-display);
-  font-size: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
   color: var(--text-secondary);
-  letter-spacing: 6px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 .title-actions {
@@ -95,18 +97,16 @@
   flex-direction: column;
   gap: var(--spacing-md);
   width: 100%;
-  max-width: 340px;
+  max-width: 360px;
   margin-bottom: var(--spacing-xl);
 }
 
 .title-actions .btn {
-  font-size: 1.05rem;
-  padding: 14px 24px;
-  position: relative;
-  overflow: hidden;
+  font-size: 0.85rem;
+  padding: 16px 24px;
 }
 
-/* Gold shimmer on primary title button */
+/* Warm shimmer on primary button */
 .title-actions .btn-primary::before {
   content: '';
   position: absolute;
@@ -117,7 +117,7 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.2) 50%,
     transparent 100%
   );
   animation: btnShimmer 3s ease-in-out infinite;
@@ -131,12 +131,13 @@
 .title-name-input {
   margin-bottom: var(--spacing-xl);
   width: 100%;
-  max-width: 320px;
+  max-width: 360px;
 }
 
 .title-name-input p {
   color: var(--text-secondary);
   margin-bottom: var(--spacing-sm);
+  font-size: 0.95rem;
 }
 
 .title-name-input .btn {
@@ -145,7 +146,7 @@
 
 .title-footer {
   color: var(--text-muted);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   opacity: 0.5;
   margin-top: var(--spacing-lg);
 }
@@ -156,27 +157,30 @@
 
 .title-hint {
   color: var(--text-secondary);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   opacity: 0.4;
 }
 
-/* === RPG Input === */
+/* === RPG Input — pixel style === */
 .input-rpg {
   width: 100%;
   padding: var(--spacing-sm) var(--spacing-md);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 1.1rem;
   background: var(--bg-input);
   color: var(--text-primary);
   border: 2px solid var(--border-color);
   border-radius: var(--border-radius);
   transition: border-color 0.2s;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
 }
 
 .input-rpg:focus {
   border-color: var(--text-gold);
   outline: none;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+  box-shadow:
+    inset 0 1px 3px rgba(0,0,0,0.06),
+    0 0 0 3px rgba(232, 120, 48, 0.15);
 }
 
 .input-rpg::placeholder {

@@ -121,7 +121,9 @@ function renderTitleScreen(container) {
     <div class="title-screen">
       <div class="title-logo">
         <div class="title-icon-wrapper">
-          <div class="title-icon">⚔️</div>
+          <div class="title-icon">
+            <img src="assets/icon-sword.svg" alt="Sword" class="title-icon-svg" />
+          </div>
           <div class="title-sparkle"></div>
           <div class="title-sparkle"></div>
           <div class="title-sparkle"></div>
@@ -538,16 +540,16 @@ function renderDungeonMap(container) {
     const isUnlocked = p.unlockedUnits.includes(unit.id);
     const isCurrent = p.currentUnit === unit.id;
 
-    let statusIcon = '🔒';
+    let statusIcon = '<span class="status-dot status-locked"></span>';
     let statusClass = 'locked';
     if (isCompleted) {
-      statusIcon = '✅';
+      statusIcon = '<span class="status-dot status-done"></span>';
       statusClass = 'completed';
     } else if (isCurrent) {
-      statusIcon = '⚔️';
+      statusIcon = '<span class="status-dot status-current"></span>';
       statusClass = 'current';
     } else if (isUnlocked) {
-      statusIcon = '🟡';
+      statusIcon = '<span class="status-dot status-open"></span>';
       statusClass = 'unlocked';
     }
 
@@ -610,13 +612,13 @@ function renderUnitOverview(container, { unit, unitWords }) {
 
       <div class="word-monster-list" style="max-height: 300px; overflow-y: auto; margin-bottom: 20px;">
         ${unitWords.map(w => {
-          const emoji = ['👾', '🟢', '💀', '👻', '🐉'][Math.min(4, w.difficulty - 1)] || '👾';
+          const monsterCSS = ['monster-mini-goblin', 'monster-mini-slime', 'monster-mini-skeleton', 'monster-mini-ghost', 'monster-mini-dragon'][Math.min(4, w.difficulty - 1)] || 'monster-mini-goblin';
           const stars = '⭐'.repeat(w.difficulty);
           const isMastered = p.wordsMastered.includes(w.id);
           const isDefeated = defeatedSet.has(w.id);
           return `
             <div class="word-monster-item ${isMastered ? 'mastered' : ''} ${isDefeated ? 'defeated' : ''}">
-              <span class="monster-emoji">${emoji}</span>
+              <span class="monster-emoji"><span class="${monsterCSS}"></span></span>
               <span class="word-english">${w.english}</span>
               <span class="word-chinese">${w.chinese}</span>
               <span class="word-difficulty">${stars}</span>
@@ -626,7 +628,7 @@ function renderUnitOverview(container, { unit, unitWords }) {
           `;
         }).join('')}
         <div class="word-monster-item boss-item">
-          <span class="monster-emoji">👹</span>
+          <span class="monster-emoji"><span class="monster-mini-boss"></span></span>
           <span class="word-english">BOSS</span>
           <span class="word-chinese">${bossName}</span>
           <span class="word-difficulty">💀</span>
@@ -831,7 +833,7 @@ function renderBattleScreen(container, { monster, unit }) {
         <span>${unit ? unit.name : ''} — ${monster.type === 'boss' ? '👑 Boss 战' : `第 ${currentIndex}/${totalMonsters} 战`}</span>
       </div>
 
-      <div class="battle-monster-area" id="monster-area">
+      <div class="battle-monster-area monster-scene-${monster.sprite || 'goblin'}" id="monster-area">
         <div class="monster-sprite ${monster.sprite || ''}" id="monster-sprite">${getMonsterSpriteHTML(monster.sprite)}</div>
         <div class="monster-name">${monster.displayName}</div>
         <div class="monster-english-name">${monster.englishName}</div>

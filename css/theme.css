@@ -1,47 +1,50 @@
-/* === RPG Dark Theme — Design Tokens === */
+/* === Pixel Clay Theme — Design Tokens ===
+ * Warm fairy-tale palette with claymorphism shadows.
+ * Inspired by Stardew Valley UI — cream base + pastel accents + pixel charm.
+ */
 :root {
-  /* Background Colors */
-  --bg-primary: #1a1a2e;
-  --bg-secondary: #16213e;
-  --bg-card: #0f3460;
-  --bg-card-hover: #14407a;
-  --bg-input: #0d0d1a;
-  --border-color: #2a2a4a;
-  --border-glow: #4a4a8a;
+  /* Background Colors — warm parchment family */
+  --bg-primary: #faf3e8;      /* warm cream parchment */
+  --bg-secondary: #f0e6d8;    /* light beige */
+  --bg-card: #ffffff;         /* white card with clay shadow */
+  --bg-card-hover: #fff8f0;   /* warm white hover */
+  --bg-input: #fefcf8;        /* off-white input */
+  --border-color: #d4c4b0;    /* warm tan border */
+  --border-glow: #c8a882;     /* clay edge highlight */
 
-  /* Text Colors */
-  --text-primary: #e8e8e8;
-  --text-secondary: #a0a0b0;
-  --text-muted: #6a6a7a;
-  --text-accent: #e94560;
-  --text-gold: #ffd700;
-  --text-correct: #44ff44;
-  --text-wrong: #ff4444;
+  /* Text Colors — warm brown family */
+  --text-primary: #3d2b1f;    /* deep brown — main text */
+  --text-secondary: #7a6652;  /* warm brown — secondary */
+  --text-muted: #b0a090;      /* light tan — muted */
+  --text-accent: #d4456a;     /* soft coral red */
+  --text-gold: #e87830;       /* warm orange accent */
+  --text-correct: #4caf50;    /* soft green */
+  --text-wrong: #e85545;      /* warm red */
 
-  /* RPG Element Colors */
-  --hp-bar-fill: #e94560;
-  --hp-bar-bg: #3a0a1a;
-  --mp-bar-fill: #4d80e4;
-  --mp-bar-bg: #0a1a3a;
-  --xp-bar-fill: #46b5d1;
-  --xp-bar-bg: #0a1a2a;
+  /* RPG Element Colors — vibrant pastels */
+  --hp-bar-fill: #ff6b6b;
+  --hp-bar-bg: #fce4e4;
+  --mp-bar-fill: #64b5f6;
+  --mp-bar-bg: #e3f2fd;
+  --xp-bar-fill: #ffb74d;
+  --xp-bar-bg: #fff3e0;
 
-  /* Rarity Colors */
-  --rarity-common: #9d9d9d;
-  --rarity-rare: #4d80e4;
-  --rarity-epic: #a855f7;
-  --rarity-legendary: #ffd700;
+  /* Rarity Colors — softened for clay aesthetic */
+  --rarity-common: #9e9e9e;
+  --rarity-rare: #64b5f6;
+  --rarity-epic: #ba68c8;
+  --rarity-legendary: #ffb74d;
 
   /* Feedback Colors */
-  --correct-bg: rgba(68, 255, 68, 0.15);
-  --wrong-bg: rgba(255, 68, 68, 0.15);
-  --damage-color: #ff4444;
-  --heal-color: #44ff44;
+  --correct-bg: rgba(76, 175, 80, 0.12);
+  --wrong-bg: rgba(232, 85, 69, 0.12);
+  --damage-color: #e85545;
+  --heal-color: #4caf50;
 
-  /* Fonts */
-  --font-display: 'Georgia', 'SimSun', serif;
+  /* Fonts — Press Start 2P pixel + soft CJK fallbacks */
+  --font-display: 'Press Start 2P', 'ZCOOL KuaiLe', 'SimSun', serif;
   --font-body: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans SC', sans-serif;
-  --font-mono: 'Consolas', 'Courier New', 'Lucida Console', monospace;
+  --font-mono: 'Press Start 2P', 'Consolas', monospace;
 
   /* Spacing */
   --spacing-xs: 4px;
@@ -51,60 +54,78 @@
   --spacing-xl: 32px;
   --spacing-2xl: 48px;
 
-  /* Borders & Shadows */
-  --border-radius: 6px;
-  --border-radius-lg: 12px;
-  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-button: 0 4px 0 #0a0a1e;
-  --shadow-glow: 0 0 20px rgba(233, 69, 96, 0.3);
+  /* Borders & Shadows — Claymorphism system */
+  --border-radius: 8px;
+  --border-radius-lg: 16px;
+
+  /* Clay raised: outer solid shadow + soft ambient */
+  --shadow-clay-raised:
+    0 5px 0 #d4c4b0,
+    0 8px 20px rgba(0, 0, 0, 0.08);
+
+  /* Clay pressed: inset shadow + reduced outer */
+  --shadow-clay-pressed:
+    0 2px 0 #d4c4b0,
+    0 3px 8px rgba(0, 0, 0, 0.06),
+    inset 0 3px 8px rgba(0, 0, 0, 0.08);
+
+  /* Inner glow — subtle top highlight */
+  --shadow-clay-inner:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+  /* Legacy compatibility aliases */
+  --shadow-card: var(--shadow-clay-raised);
+  --shadow-button: 0 4px 0 #d4c4b0;
+  --shadow-glow: 0 0 20px rgba(232, 120, 48, 0.25);
 }
 
-/* === Common UI Patterns === */
+/* === Common UI Patterns — Pixel Clay Style === */
 
 /* Card / Panel */
 .panel {
-  background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
-  border: 3px ridge var(--border-color);
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-lg);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-clay-raised), var(--shadow-clay-inner);
 }
 
-/* Buttons */
+/* Buttons — chunky clay with pixel font */
 .btn {
   display: inline-block;
   padding: var(--spacing-sm) var(--spacing-lg);
   font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 0.85rem;
+  font-weight: normal;
   color: var(--text-primary);
-  background: linear-gradient(180deg, var(--bg-card), var(--bg-secondary));
-  border: 2px outset var(--border-glow);
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
   border-radius: var(--border-radius);
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.15s ease,
-              border-color 0.15s ease,
-              background 0.15s ease;
-  box-shadow: var(--shadow-button);
+  transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.12s ease,
+              border-color 0.12s ease;
+  box-shadow: var(--shadow-button), var(--shadow-clay-inner);
   user-select: none;
+  letter-spacing: 0.5px;
+  min-height: 40px;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn:hover {
-  background: linear-gradient(180deg, var(--bg-card-hover), var(--bg-card));
   border-color: var(--text-gold);
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 6px 0 #0a0a1e, 0 0 16px rgba(255, 215, 0, 0.15);
+  box-shadow: 0 6px 0 #d4c4b0, 0 8px 20px rgba(0,0,0,0.1), var(--shadow-clay-inner);
 }
 
 .btn:active {
-  transform: translateY(1px) scale(0.97);
-  box-shadow: 0 2px 0 #0a0a1e;
-  border-style: inset;
-  transition: transform 0.05s ease,
-              box-shadow 0.05s ease;
+  transform: translateY(3px) scale(0.97);
+  box-shadow: var(--shadow-clay-pressed);
+  transition: transform 0.04s ease,
+              box-shadow 0.04s ease;
 }
 
 .btn:disabled {
@@ -115,48 +136,53 @@
 }
 
 .btn-primary {
-  background: linear-gradient(180deg, #c0392b, #96281b);
-  border-color: #e74c3c;
-  color: white;
+  background: linear-gradient(180deg, #ff8c42, #e87830);
+  border-color: #d06520;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(180deg, #e74c3c, #c0392b);
+  background: linear-gradient(180deg, #ffa064, #ff8c42);
+  border-color: #e87830;
 }
 
 .btn-success {
-  background: linear-gradient(180deg, #27ae60, #1e8449);
-  border-color: #2ecc71;
+  background: linear-gradient(180deg, #66bb6a, #4caf50);
+  border-color: #388e3c;
+  color: #fff;
 }
 
 .btn-success:hover {
-  background: linear-gradient(180deg, #2ecc71, #27ae60);
+  background: linear-gradient(180deg, #81c784, #66bb6a);
 }
 
 .btn-danger {
-  background: linear-gradient(180deg, #c0392b, #96281b);
-  border-color: #e74c3c;
-  color: white;
+  background: linear-gradient(180deg, #ef5350, #e85545);
+  border-color: #c62828;
+  color: #fff;
 }
 
 .btn-danger:hover {
-  background: linear-gradient(180deg, #e74c3c, #c0392b);
+  background: linear-gradient(180deg, #e57373, #ef5350);
 }
 
 .btn-gold {
-  background: linear-gradient(180deg, #d4a017, #b8860b);
-  border-color: #ffd700;
-  color: #1a1a2e;
+  background: linear-gradient(180deg, #ffe0a0, #ffb74d);
+  border-color: #e87830;
+  color: #5d3a1a;
 }
 
 .btn-sm {
   padding: var(--spacing-xs) var(--spacing-sm);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
+  min-height: 32px;
 }
 
 .btn-lg {
   padding: var(--spacing-md) var(--spacing-xl);
-  font-size: 1.2rem;
+  font-size: 0.95rem;
+  min-height: 50px;
 }
 
 .btn-block {
@@ -164,15 +190,16 @@
   width: 100%;
 }
 
-/* Progress Bars */
+/* Progress Bars — pixel-chunky style */
 .progress-bar {
   width: 100%;
-  height: 16px;
-  background: var(--bg-input);
-  border: 1px solid var(--border-color);
-  border-radius: 3px;
+  height: 18px;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
   overflow: hidden;
   position: relative;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .progress-bar-fill {
@@ -181,9 +208,9 @@
   border-radius: 2px;
 }
 
-.progress-bar-fill.hp { background: linear-gradient(90deg, #c0392b, var(--hp-bar-fill)); }
-.progress-bar-fill.mp { background: linear-gradient(90deg, #2471a3, var(--mp-bar-fill)); }
-.progress-bar-fill.xp { background: linear-gradient(90deg, #1a7a8a, var(--xp-bar-fill)); }
+.progress-bar-fill.hp { background: linear-gradient(90deg, #e85545, var(--hp-bar-fill)); }
+.progress-bar-fill.mp { background: linear-gradient(90deg, #42a5f5, var(--mp-bar-fill)); }
+.progress-bar-fill.xp { background: linear-gradient(90deg, #ff9800, var(--xp-bar-fill)); }
 
 .progress-bar-label {
   position: absolute;
@@ -194,9 +221,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: var(--font-mono);
   font-size: 0.7rem;
-  font-weight: bold;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  font-weight: normal;
+  color: var(--text-primary);
+  text-shadow: none;
 }
 
 /* Stats Row */
@@ -205,7 +234,7 @@
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-xs) 0;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .stat-icon {
@@ -221,6 +250,7 @@
 .stat-value {
   font-weight: bold;
   font-family: var(--font-mono);
+  font-size: 0.8rem;
 }
 
 .stat-bonus {
@@ -237,16 +267,17 @@
   color: var(--text-gold);
   font-weight: bold;
   font-family: var(--font-mono);
+  font-size: 0.8rem;
 }
 
 /* Badge / Tag */
 .badge {
   display: inline-block;
   padding: 2px 8px;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: bold;
-  border-radius: 10px;
-  background: var(--bg-card);
+  border-radius: 4px;
+  background: var(--bg-secondary);
   border: 1px solid var(--border-color);
 }
 
@@ -255,19 +286,20 @@
 .badge-epic { color: var(--rarity-epic); border-color: var(--rarity-epic); }
 .badge-legendary { color: var(--rarity-legendary); border-color: var(--rarity-legendary); }
 
-/* Screen Title */
+/* Screen Title — pixel font for impact */
 .screen-title {
   font-family: var(--font-display);
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   text-align: center;
-  color: var(--text-gold);
+  color: var(--text-primary);
   margin-bottom: var(--spacing-lg);
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.06);
 }
 
 .screen-subtitle {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
   text-align: center;
   color: var(--text-secondary);
   margin-bottom: var(--spacing-lg);
