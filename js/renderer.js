@@ -537,20 +537,16 @@ function renderDungeonMap(container) {
 
   _tb().units.forEach((unit, index) => {
     const isCompleted = p.completedUnits.includes(unit.id);
-    const isUnlocked = p.unlockedUnits.includes(unit.id);
     const isCurrent = p.currentUnit === unit.id;
 
-    let statusIcon = '<span class="status-dot status-locked"></span>';
-    let statusClass = 'locked';
+    let statusIcon = '<span class="status-dot status-open"></span>';
+    let statusClass = 'unlocked';
     if (isCompleted) {
       statusIcon = '<span class="status-dot status-done"></span>';
       statusClass = 'completed';
     } else if (isCurrent) {
       statusIcon = '<span class="status-dot status-current"></span>';
       statusClass = 'current';
-    } else if (isUnlocked) {
-      statusIcon = '<span class="status-dot status-open"></span>';
-      statusClass = 'unlocked';
     }
 
     const unitWords = _tb().words.filter(w => w.unitId === unit.id);
@@ -575,13 +571,11 @@ function renderDungeonMap(container) {
       </div>
     `;
 
-    if (isUnlocked) {
-      card.style.cursor = 'pointer';
-      card.addEventListener('click', () => {
-        gameState.dungeonContext = { unit, unitWords };
-        renderScreen('unitOverview', { unit, unitWords });
-      });
-    }
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => {
+      gameState.dungeonContext = { unit, unitWords };
+      renderScreen('unitOverview', { unit, unitWords });
+    });
 
     unitsContainer.appendChild(card);
   });
@@ -1095,12 +1089,6 @@ function renderBattleScreen(container, { monster, unit }) {
         p.defeatBoss(unit.id);
         p.completeUnit(unit.id);
         p.clearUnitProgress(unit.id); // Clean up battle progress
-
-        // Unlock next unit
-        const nextUnit = _tb().units.find(u => u.order === unit.order + 1);
-        if (nextUnit) {
-          p.unlockUnit(nextUnit.id);
-        }
       }
     }
 

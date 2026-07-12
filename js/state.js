@@ -40,7 +40,7 @@ class GameState {
       const units = getUnits(textbookId);
       if (units.length > 0) {
         const firstUnit = units.reduce((min, u) => u.order < min.order ? u : min);
-        this.player.unlockedUnits = [firstUnit.id];
+        this.player.unlockedUnits = units.map(u => u.id);
         this.player.currentUnit = firstUnit.id;
       } else {
         // Empty textbook (no words yet) — reset progress
