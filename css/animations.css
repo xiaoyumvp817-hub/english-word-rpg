@@ -32,14 +32,6 @@
   80% { transform: translateX(3px); }
 }
 
-/* Clay button squish — press effect */
-@keyframes claySquish {
-  0% { transform: scale(1); }
-  40% { transform: scale(0.92); }
-  70% { transform: scale(1.03); }
-  100% { transform: scale(1); }
-}
-
 /* Pulse (node indicator, timer warning) */
 @keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
@@ -178,20 +170,13 @@
   to { opacity: 1; transform: scale(1); }
 }
 
-/* === Card Hover Shine === */
-@keyframes cardScan {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.dungeon-unit-card.unlocked,
-.menu-btn {
+/* === Card Hover Shine — utility class === */
+.card-shine {
   position: relative;
   overflow: hidden;
 }
 
-.dungeon-unit-card.unlocked::after,
-.menu-btn::after {
+.card-shine::after {
   content: '';
   position: absolute;
   top: 0;
@@ -212,8 +197,7 @@
   transition: background-position 0.6s ease;
 }
 
-.dungeon-unit-card.unlocked:hover::after,
-.menu-btn:hover::after {
+.card-shine:hover::after {
   background-position: -200% 0;
 }
 
@@ -238,8 +222,7 @@
     transition-duration: 0.01ms !important;
   }
 
-  .dungeon-unit-card.unlocked::after,
-  .menu-btn::after {
+  .card-shine::after {
     display: none !important;
   }
 

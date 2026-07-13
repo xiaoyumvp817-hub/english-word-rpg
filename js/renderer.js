@@ -19,7 +19,7 @@ import { exportSave, importSave, getSaveSummary, CURRENT_SAVE_VERSION } from './
 import { Player } from './player.js';
 
 // Helper: resolve the active textbook's data from the player's current textbookId
-function _tb() {
+function getTextbook() {
   const id = gameState.player?.textbookId || 'wy-7a';
   return {
     id,
@@ -28,6 +28,25 @@ function _tb() {
     meta: getTextbookMeta(id) || { id, name: '未知教材', shortName: '未知', unitCount: 0, totalWords: 0 }
   };
 }
+
+// Screen renderer registry — one map replaces both the switch and the transition-skip list
+const SCREEN_RENDERERS = {
+  title:            (c) => renderTitleScreen(c),
+  mainMenu:         (c) => renderMainMenu(c),
+  dungeon:          (c) => renderDungeonMap(c),
+  unitOverview:     (c, ctx) => renderUnitOverview(c, ctx),
+  battle:           (c, ctx) => renderBattleScreen(c, ctx),
+  bossBattle:       (c, ctx) => renderBossBattleScreen(c, ctx),
+  victory:          (c, ctx) => renderVictoryScreen(c, ctx),
+  defeat:           (c, ctx) => renderDefeatScreen(c, ctx),
+  character:        (c) => renderCharacterScreen(c),
+  shop:             (c) => renderShopScreen(c),
+  inventory:        (c) => renderInventoryScreen(c),
+  textbookSwitch:   (c, ctx) => renderTextbookSwitchScreen(c, ctx),
+};
+
+// Screens that should NOT play the transition sound
+const NO_TRANSITION_SCREENS = new Set(['title', 'mainMenu']);
 
 // Track current battle controller for rendering updates
 let currentBattle = null;
@@ -60,48 +79,13 @@ export function renderScreen(screenName, context = {}) {
     container.className = `screen-${screenName}`;
     container.style.viewTransitionName = 'screen-transition';
 
-    // Screen transition sound (skip for title and main menu)
-    if (screenName !== 'title' && screenName !== 'mainMenu') {
+    // Screen transition sound
+    if (!NO_TRANSITION_SCREENS.has(screenName)) {
       audio.transition();
     }
 
-    switch (screenName) {
-      case 'title':
-        renderTitleScreen(container);
-        break;
-      case 'mainMenu':
-        renderMainMenu(container);
-        break;
-      case 'dungeon':
-        renderDungeonMap(container);
-        break;
-      case 'unitOverview':
-        renderUnitOverview(container, context);
-        break;
-      case 'battle':
-        renderBattleScreen(container, context);
-        break;
-      case 'bossBattle':
-        renderBossBattleScreen(container, context);
-        break;
-      case 'victory':
-        renderVictoryScreen(container, context);
-        break;
-      case 'defeat':
-        renderDefeatScreen(container, context);
-        break;
-      case 'character':
-        renderCharacterScreen(container);
-        break;
-      case 'shop':
-        renderShopScreen(container);
-        break;
-      case 'inventory':
-        renderInventoryScreen(container);
-        break;
-      default:
-        renderTitleScreen(container);
-    }
+    const renderer = SCREEN_RENDERERS[screenName] || SCREEN_RENDERERS.title;
+    renderer(container, context);
   };
 
   // Progressive enhancement: use View Transitions if supported
@@ -162,7 +146,7 @@ function renderTitleScreen(container) {
       </div>
 
       <div class="title-footer">
-        <p>v2.0 | ${_tb().meta.name} | ${_tb().words.length} 词</p>
+        <p>v2.0 | ${getTextbook().meta.name} | ${getTextbook().words.length} 词</p>
         <p class="title-hint">按 Enter 确认 · 支持键盘操作</p>
       </div>
     </div>
@@ -310,28 +294,28 @@ function renderMainMenu(container) {
             <span>💥CRIT:${Math.round(p.criticalChance * 100)}%</span>
           </div>
           <div class="player-progress-text">
-            掌握单词: ${p.wordsMastered.length}/${_tb().words.length} | Boss击败: ${p.bossDefeated.length}
+            掌握单词: ${p.wordsMastered.length}/${getTextbook().words.length} | Boss击败: ${p.bossDefeated.length}
           </div>
         </div>
       </div>
 
       <div class="menu-grid">
-        <button id="btn-dungeon" class="menu-btn">
+        <button id="btn-dungeon" class="menu-btn card-shine">
           <span class="menu-btn-icon">🏰</span>
           <span class="menu-btn-label">地牢探险</span>
           <span class="menu-btn-desc">挑战单词怪物</span>
         </button>
-        <button id="btn-shop" class="menu-btn">
+        <button id="btn-shop" class="menu-btn card-shine">
           <span class="menu-btn-icon">🛒</span>
           <span class="menu-btn-label">装备商店</span>
           <span class="menu-btn-desc">购买武器防具</span>
         </button>
-        <button id="btn-character" class="menu-btn">
+        <button id="btn-character" class="menu-btn card-shine">
           <span class="menu-btn-icon">👤</span>
           <span class="menu-btn-label">角色属性</span>
           <span class="menu-btn-desc">查看详细信息</span>
         </button>
-        <button id="btn-inventory" class="menu-btn">
+        <button id="btn-inventory" class="menu-btn card-shine">
           <span class="menu-btn-icon">🎒</span>
           <span class="menu-btn-label">背包道具</span>
           <span class="menu-btn-desc">管理装备</span>
@@ -341,7 +325,7 @@ function renderMainMenu(container) {
       <div class="menu-bottom">
         <div class="textbook-switch-area" style="margin-bottom: 12px;">
           <button id="btn-switch-textbook" class="btn btn-block" style="background: var(--bg-card);">
-            📚 当前教材：${_tb().meta.shortName} — 点击切换
+            📚 当前教材：${getTextbook().meta.shortName} — 点击切换
           </button>
         </div>
         <button id="btn-rest" class="btn btn-success btn-block">
@@ -520,10 +504,10 @@ function renderDungeonMap(container) {
 
   const html = `
     <div class="dungeon-screen">
-      <h2 class="screen-title">🗺️ 地牢地图 — ${_tb().meta.name}</h2>
+      <h2 class="screen-title">🗺️ 地牢地图 — ${getTextbook().meta.name}</h2>
       <div class="dungeon-units" id="dungeon-units"></div>
       <div style="margin-top: 16px; text-align: center; color: var(--text-secondary); font-size: 0.85rem;">
-        单词掌握: ${p.wordsMastered.length}/${_tb().words.length} | 已完成: ${p.completedUnits.length}/${_tb().units.length} 个单元
+        单词掌握: ${p.wordsMastered.length}/${getTextbook().words.length} | 已完成: ${p.completedUnits.length}/${getTextbook().units.length} 个单元
       </div>
       <div style="margin-top: 24px; text-align: center;">
         <button id="btn-back-menu" class="btn">返回主菜单</button>
@@ -535,7 +519,7 @@ function renderDungeonMap(container) {
 
   const unitsContainer = document.getElementById('dungeon-units');
 
-  _tb().units.forEach((unit, index) => {
+  getTextbook().units.forEach((unit, index) => {
     const isCompleted = p.completedUnits.includes(unit.id);
     const isCurrent = p.currentUnit === unit.id;
 
@@ -549,12 +533,12 @@ function renderDungeonMap(container) {
       statusClass = 'current';
     }
 
-    const unitWords = _tb().words.filter(w => w.unitId === unit.id);
+    const unitWords = getTextbook().words.filter(w => w.unitId === unit.id);
     const completedWords = unitWords.filter(w => p.wordsMastered.includes(w.id)).length;
     const battleDefeated = p.getUnitDefeatedCount(unit.id);
 
     const card = createElement('div', {
-      className: `dungeon-unit-card ${statusClass}`,
+      className: `dungeon-unit-card ${statusClass} card-shine`,
       dataset: { unitId: unit.id }
     });
 
@@ -1342,7 +1326,7 @@ function renderVictoryScreen(container, { rewards, levelUp, word, monster, unit,
   const btnBoss = document.getElementById('btn-boss-battle');
   if (btnBoss) {
     btnBoss.addEventListener('click', () => {
-      const unitWords = _tb().words.filter(w => w.unitId === unit.id);
+      const unitWords = getTextbook().words.filter(w => w.unitId === unit.id);
       startBossBattle(unit, unitWords);
     });
   }
@@ -1441,7 +1425,7 @@ function renderCharacterScreen(container) {
         <div>胜利: ${p.stats.battlesWon} | 失败: ${p.stats.battlesLost}</div>
         <div>胜率: ${p.getWinRate()}%</div>
         <div>暴击次数: ${p.stats.totalCriticalHits}</div>
-        <div>掌握单词: ${p.wordsMastered.length}/${_tb().words.length}</div>
+        <div>掌握单词: ${p.wordsMastered.length}/${getTextbook().words.length}</div>
         <div>Boss击败: ${p.bossDefeated.length}</div>
       </div>
 

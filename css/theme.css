@@ -90,6 +90,11 @@
   box-shadow: var(--shadow-clay-raised), var(--shadow-clay-inner);
 }
 
+/* Clay shadow utility — apply to any element that needs the clay raised look */
+.panel-clay {
+  box-shadow: var(--shadow-clay-raised), var(--shadow-clay-inner);
+}
+
 /* Buttons — chunky clay with pixel font */
 .btn {
   display: inline-block;
