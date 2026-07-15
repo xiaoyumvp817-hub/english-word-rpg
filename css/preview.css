@@ -92,6 +92,13 @@
   color: var(--text-muted);
 }
 
+.preview-slot.wrong {
+  border-color: var(--text-accent);
+  background: rgba(212, 69, 106, 0.1);
+  color: var(--text-accent);
+  animation: shake 0.3s ease;
+}
+
 /* Spacer slot (for spaces between words) */
 .preview-spacer {
   width: 16px;

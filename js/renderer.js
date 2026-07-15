@@ -706,8 +706,9 @@ function renderPreviewScreen(container, { unit, unitWords, retryWords }) {
     // Track which pool letters have been used and which answer slots are filled
     const usedIndices = new Set();
     const slotValues = new Array(letters.length).fill(null);
+    const slotPoolMap = new Array(letters.length).fill(null);  // which pool index each slot uses
 
-    // Build slot HTML (spaces and hyphens auto-placed between letter slots)
+    // Build slot HTML — letters get clickable slots; everything else auto-placed
     function buildSlotsHTML() {
       const english = word.english;
       let html = '';
@@ -717,11 +718,14 @@ function renderPreviewScreen(container, { unit, unitWords, retryWords }) {
           html += '<div class="preview-spacer"></div>';
         } else if (ch === '-') {
           html += '<div class="preview-hyphen">-</div>';
-        } else {
+        } else if (/[a-zA-Z]/.test(ch)) {
           const val = slotValues[letterIdx] || '';
           const filledCls = val ? ' filled' : '';
           html += `<div class="preview-slot${filledCls}" data-slot="${letterIdx}">${val}</div>`;
           letterIdx++;
+        } else {
+          // Punctuation, apostrophes, etc. — display as static separators
+          html += `<div class="preview-hyphen">${ch}</div>`;
         }
       }
       return html;
@@ -757,48 +761,62 @@ function renderPreviewScreen(container, { unit, unitWords, retryWords }) {
       // Click letter in pool → fill first empty slot
       document.querySelectorAll('.preview-letter:not(.used)').forEach(el => {
         el.addEventListener('click', () => {
-          const poolIdx = parseInt(el.dataset.pool);
-          const emptySlotIdx = slotValues.findIndex(v => v === null);
-          if (emptySlotIdx === -1) return;
+          try {
+            const poolIdx = parseInt(el.dataset.pool);
+            const emptySlotIdx = slotValues.findIndex(v => v === null);
+            if (emptySlotIdx === -1) return;
 
-          usedIndices.add(poolIdx);
-          slotValues[emptySlotIdx] = pool[poolIdx];
+            usedIndices.add(poolIdx);
+            slotValues[emptySlotIdx] = pool[poolIdx];
+            slotPoolMap[emptySlotIdx] = poolIdx;
 
-          // Check if word is complete
-          if (slotValues.every(v => v !== null)) {
-            const spelled = slotValues.join('');
-            const expected = word.english.toLowerCase().replace(/[^a-z]/g, '');
-            if (spelled === expected) {
-              // Correct!
-              results.push({ wordId: word.id, status: 'correct' });
-              highlightCorrect(() => {
-                currentIndex++;
-                renderWord();
-              });
-              return;
+            // Check if word is complete
+            if (slotValues.every(v => v !== null)) {
+              const spelled = slotValues.join('');
+              const expected = word.english.toLowerCase().replace(/[^a-z]/g, '');
+              if (spelled === expected) {
+                // Correct!
+                results.push({ wordId: word.id, status: 'correct' });
+                highlightCorrect(() => {
+                  currentIndex++;
+                  renderWord();
+                });
+                return;
+              } else {
+                // Wrong answer — flash red briefly, then let user adjust
+                highlightWrong();
+                return;
+              }
             }
-          }
 
-          render();
+            render();
+          } catch (e) {
+            console.error('Preview letter click error:', e);
+            render();
+          }
         });
       });
 
       // Click filled slot → return letter to pool
       document.querySelectorAll('.preview-slot.filled').forEach(el => {
         el.addEventListener('click', () => {
-          const slotIdx = parseInt(el.dataset.slot);
-          const letter = slotValues[slotIdx];
-          if (!letter) return;
+          try {
+            const slotIdx = parseInt(el.dataset.slot);
+            const letter = slotValues[slotIdx];
+            if (!letter) return;
 
-          // Find which pool index this letter came from
-          for (const poolIdx of usedIndices) {
-            if (pool[poolIdx] === letter) {
+            // Return the exact pool index that was used for this slot
+            const poolIdx = slotPoolMap[slotIdx];
+            if (poolIdx !== null) {
               usedIndices.delete(poolIdx);
-              break;
             }
+            slotValues[slotIdx] = null;
+            slotPoolMap[slotIdx] = null;
+            render();
+          } catch (e) {
+            console.error('Preview slot click error:', e);
+            render();
           }
-          slotValues[slotIdx] = null;
-          render();
         });
       });
 
@@ -806,11 +824,17 @@ function renderPreviewScreen(container, { unit, unitWords, retryWords }) {
       const btnShow = document.getElementById('btn-show-answer');
       if (btnShow) {
         btnShow.addEventListener('click', () => {
-          const expected = word.english.toLowerCase().replace(/[^a-z]/g, '');
-          slotValues.splice(0, slotValues.length, ...expected.split(''));
-          usedIndices.clear();
-          results.push({ wordId: word.id, status: 'shown' });
-          showAnswerRender();
+          try {
+            const expected = word.english.toLowerCase().replace(/[^a-z]/g, '');
+            slotValues.splice(0, slotValues.length, ...expected.split(''));
+            slotPoolMap.fill(null);
+            usedIndices.clear();
+            results.push({ wordId: word.id, status: 'shown' });
+            showAnswerRender();
+          } catch (e) {
+            console.error('Preview show answer error:', e);
+            render();
+          }
         });
       }
 
@@ -818,9 +842,15 @@ function renderPreviewScreen(container, { unit, unitWords, retryWords }) {
       const btnSkip = document.getElementById('btn-skip');
       if (btnSkip) {
         btnSkip.addEventListener('click', () => {
-          results.push({ wordId: word.id, status: 'skipped' });
-          currentIndex++;
-          renderWord();
+          try {
+            results.push({ wordId: word.id, status: 'skipped' });
+            currentIndex++;
+            renderWord();
+          } catch (e) {
+            console.error('Preview skip error:', e);
+            currentIndex++;
+            renderWord();
+          }
         });
       }
     }
@@ -831,6 +861,14 @@ function renderPreviewScreen(container, { unit, unitWords, retryWords }) {
       slots.forEach(s => s.classList.add('correct'));
       audio.correct();
       setTimeout(callback, 800);
+    }
+
+    function highlightWrong() {
+      // Flash all slots red briefly, then re-render so user can adjust
+      const slots = document.querySelectorAll('.preview-slot');
+      slots.forEach(s => s.classList.add('wrong'));
+      audio.error();
+      setTimeout(() => render(), 400);
     }
 
     function showAnswerRender() {
@@ -852,8 +890,11 @@ function renderPreviewScreen(container, { unit, unitWords, retryWords }) {
                   html += '<div class="preview-spacer"></div>';
                 } else if (ch === '-') {
                   html += '<div class="preview-hyphen">-</div>';
-                } else {
+                } else if (/[a-zA-Z]/.test(ch)) {
                   html += `<div class="preview-slot filled shown-answer">${letters[letterIdx++]}</div>`;
+                } else {
+                  // Punctuation, apostrophes, etc. — display static
+                  html += `<div class="preview-hyphen">${ch}</div>`;
                 }
               }
               return html;
