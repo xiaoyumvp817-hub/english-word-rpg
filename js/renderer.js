@@ -43,6 +43,8 @@ const SCREEN_RENDERERS = {
   shop:             (c) => renderShopScreen(c),
   inventory:        (c) => renderInventoryScreen(c),
   textbookSwitch:   (c, ctx) => renderTextbookSwitchScreen(c, ctx),
+  preview:          (c, ctx) => renderPreviewScreen(c, ctx),
+  previewEnd:       (c, ctx) => renderPreviewEndScreen(c, ctx),
 };
 
 // Screens that should NOT play the transition sound
@@ -85,7 +87,12 @@ export function renderScreen(screenName, context = {}) {
     }
 
     const renderer = SCREEN_RENDERERS[screenName] || SCREEN_RENDERERS.title;
-    renderer(container, context);
+    try {
+      renderer(container, context);
+    } catch (e) {
+      console.error('Render error for', screenName, ':', e);
+      container.innerHTML = `<div style="padding:40px;text-align:center;"><h2>渲染错误</h2><p>${e.message}</p><pre style="font-size:0.7rem;text-align:left;">${e.stack}</pre></div>`;
+    }
   };
 
   // Progressive enhancement: use View Transitions if supported
@@ -614,6 +621,7 @@ function renderUnitOverview(container, { unit, unitWords }) {
       </div>
 
       <div style="text-align: center; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <button id="btn-preview" class="btn btn-lg" style="background: linear-gradient(180deg, #64b5f6, #42a5f5); border-color: #1e88e5; color: #fff;">📖 预习本单元</button>
         <button id="btn-start-battle" class="btn btn-primary btn-lg">
           ${hasProgress ? '⚔️ 继续战斗' : '⚔️ 开始战斗'}
         </button>
@@ -626,6 +634,9 @@ function renderUnitOverview(container, { unit, unitWords }) {
   container.innerHTML = html;
 
   document.getElementById('btn-back-dungeon').addEventListener('click', () => renderScreen('dungeon'));
+  document.getElementById('btn-preview').addEventListener('click', () => {
+    renderScreen('preview', { unit, unitWords });
+  });
   document.getElementById('btn-start-battle').addEventListener('click', () => {
     startUnitBattle(unit, unitWords);
   });
@@ -639,6 +650,298 @@ function renderUnitOverview(container, { unit, unitWords }) {
       renderScreen('unitOverview', { unit, unitWords });
     });
   }
+}
+
+// ==================== PREVIEW MODULE ====================
+
+/** Generate random extra letters for the scramble pool. */
+function generateExtraLetters(word, count) {
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  const wordLetters = new Set(word.toLowerCase().replace(/[^a-z]/g, ''));
+  const candidates = alphabet.split('').filter(l => !wordLetters.has(l));
+  const result = [];
+  for (let i = 0; i < count; i++) {
+    result.push(candidates[Math.floor(Math.random() * candidates.length)]);
+  }
+  return result;
+}
+
+/** Shuffle an array (Fisher-Yates). */
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/**
+ * Preview screen — letter scramble game.
+ * User sees Chinese + phonetic, clicks scrambled letters to spell the word.
+ */
+function renderPreviewScreen(container, { unit, unitWords, retryWords }) {
+  const p = gameState.player;
+  const words = retryWords || unitWords;
+  let currentIndex = 0;
+  // Track results: { wordId, status: 'correct'|'skipped'|'shown' }
+  const results = [];
+
+  function renderWord() {
+    if (currentIndex >= words.length) {
+      // All done — save and go to end screen
+      results.forEach(r => {
+        if (r.status === 'correct') p.previewWord(unit.id, r.wordId);
+      });
+      gameState.saveGame();
+      renderScreen('previewEnd', { unit, unitWords, results });
+      return;
+    }
+
+    const word = words[currentIndex];
+    const letters = word.english.toLowerCase().replace(/[^a-z]/g, '').split('');
+    const extras = generateExtraLetters(word.english, 3);
+    const pool = shuffleArray([...letters, ...extras]);
+
+    // Track which pool letters have been used and which answer slots are filled
+    const usedIndices = new Set();
+    const slotValues = new Array(letters.length).fill(null);
+
+    // Build slot HTML (spaces and hyphens auto-placed between letter slots)
+    function buildSlotsHTML() {
+      const english = word.english;
+      let html = '';
+      let letterIdx = 0;
+      for (const ch of english) {
+        if (ch === ' ') {
+          html += '<div class="preview-spacer"></div>';
+        } else if (ch === '-') {
+          html += '<div class="preview-hyphen">-</div>';
+        } else {
+          const val = slotValues[letterIdx] || '';
+          const filledCls = val ? ' filled' : '';
+          html += `<div class="preview-slot${filledCls}" data-slot="${letterIdx}">${val}</div>`;
+          letterIdx++;
+        }
+      }
+      return html;
+    }
+
+    function render() {
+      const progress = `第 ${currentIndex + 1}/${words.length} 词`;
+      container.innerHTML = `
+        <div class="preview-screen">
+          <div class="preview-progress">${progress}</div>
+          <div class="preview-word-display">
+            <div class="preview-word-chinese">${word.chinese}</div>
+            <div class="preview-word-phonetic">${word.phonetic || ''}</div>
+          </div>
+          <div class="preview-answer-row" id="answer-row">
+            ${buildSlotsHTML()}
+          </div>
+          <div class="preview-letter-pool" id="letter-pool">
+            ${pool.map((l, i) =>
+              `<div class="preview-letter${usedIndices.has(i) ? ' used' : ''}" data-pool="${i}">${l}</div>`
+            ).join('')}
+          </div>
+          <div class="preview-actions">
+            <button id="btn-show-answer" class="btn btn-sm">💡 显示答案</button>
+            <button id="btn-skip" class="btn btn-sm">⏭️ 跳过</button>
+          </div>
+        </div>
+      `;
+      bindEvents();
+    }
+
+    function bindEvents() {
+      // Click letter in pool → fill first empty slot
+      document.querySelectorAll('.preview-letter:not(.used)').forEach(el => {
+        el.addEventListener('click', () => {
+          const poolIdx = parseInt(el.dataset.pool);
+          const emptySlotIdx = slotValues.findIndex(v => v === null);
+          if (emptySlotIdx === -1) return;
+
+          usedIndices.add(poolIdx);
+          slotValues[emptySlotIdx] = pool[poolIdx];
+
+          // Check if word is complete
+          if (slotValues.every(v => v !== null)) {
+            const spelled = slotValues.join('');
+            const expected = word.english.toLowerCase().replace(/[^a-z]/g, '');
+            if (spelled === expected) {
+              // Correct!
+              results.push({ wordId: word.id, status: 'correct' });
+              highlightCorrect(() => {
+                currentIndex++;
+                renderWord();
+              });
+              return;
+            }
+          }
+
+          render();
+        });
+      });
+
+      // Click filled slot → return letter to pool
+      document.querySelectorAll('.preview-slot.filled').forEach(el => {
+        el.addEventListener('click', () => {
+          const slotIdx = parseInt(el.dataset.slot);
+          const letter = slotValues[slotIdx];
+          if (!letter) return;
+
+          // Find which pool index this letter came from
+          for (const poolIdx of usedIndices) {
+            if (pool[poolIdx] === letter) {
+              usedIndices.delete(poolIdx);
+              break;
+            }
+          }
+          slotValues[slotIdx] = null;
+          render();
+        });
+      });
+
+      // Show answer
+      const btnShow = document.getElementById('btn-show-answer');
+      if (btnShow) {
+        btnShow.addEventListener('click', () => {
+          const expected = word.english.toLowerCase().replace(/[^a-z]/g, '');
+          slotValues.splice(0, slotValues.length, ...expected.split(''));
+          usedIndices.clear();
+          results.push({ wordId: word.id, status: 'shown' });
+          showAnswerRender();
+        });
+      }
+
+      // Skip
+      const btnSkip = document.getElementById('btn-skip');
+      if (btnSkip) {
+        btnSkip.addEventListener('click', () => {
+          results.push({ wordId: word.id, status: 'skipped' });
+          currentIndex++;
+          renderWord();
+        });
+      }
+    }
+
+    function highlightCorrect(callback) {
+      // Flash all slots green
+      const slots = document.querySelectorAll('.preview-slot');
+      slots.forEach(s => s.classList.add('correct'));
+      audio.correct();
+      setTimeout(callback, 800);
+    }
+
+    function showAnswerRender() {
+      const letters = word.english.toLowerCase().replace(/[^a-z]/g, '').split('');
+      // Re-render with shown-answer class
+      container.innerHTML = `
+        <div class="preview-screen">
+          <div class="preview-progress">第 ${currentIndex + 1}/${words.length} 词</div>
+          <div class="preview-word-display">
+            <div class="preview-word-chinese">${word.chinese}</div>
+            <div class="preview-word-phonetic">${word.phonetic || ''}</div>
+          </div>
+          <div class="preview-answer-row">
+            ${(() => {
+              let html = '';
+              let letterIdx = 0;
+              for (const ch of word.english) {
+                if (ch === ' ') {
+                  html += '<div class="preview-spacer"></div>';
+                } else if (ch === '-') {
+                  html += '<div class="preview-hyphen">-</div>';
+                } else {
+                  html += `<div class="preview-slot filled shown-answer">${letters[letterIdx++]}</div>`;
+                }
+              }
+              return html;
+            })()}
+          </div>
+          <div class="preview-letter-pool"></div>
+          <div class="preview-actions">
+            <button id="btn-next-word" class="btn btn-primary btn-sm">▶ 下一词</button>
+          </div>
+        </div>
+      `;
+      document.getElementById('btn-next-word').addEventListener('click', () => {
+        currentIndex++;
+        renderWord();
+      });
+    }
+
+    render();
+  }
+
+  renderWord();
+}
+
+/**
+ * Preview end screen — summary + retry.
+ */
+function renderPreviewEndScreen(container, { unit, unitWords, results }) {
+  const correct = results.filter(r => r.status === 'correct').length;
+  const skipped = results.filter(r => r.status === 'skipped').length;
+  const shown = results.filter(r => r.status === 'shown').length;
+  const total = results.length;
+
+  const wordMap = {};
+  unitWords.forEach(w => { wordMap[w.id] = w; });
+
+  const statusIcon = { correct: '✅', skipped: '⏭️', shown: '👁️' };
+  const statusLabel = { correct: '拼对', skipped: '跳过', shown: '查看' };
+
+  const missedWords = results.filter(r => r.status !== 'correct').map(r => wordMap[r.wordId]).filter(Boolean);
+
+  container.innerHTML = `
+    <div class="preview-end-screen">
+      <h2 class="screen-title">预习完成！</h2>
+      <div class="preview-end-stats">
+        <div class="preview-stat correct">
+          <div class="preview-stat-value">${correct}</div>
+          <div class="preview-stat-label">✅ 拼对</div>
+        </div>
+        <div class="preview-stat skipped">
+          <div class="preview-stat-value">${skipped}</div>
+          <div class="preview-stat-label">⏭️ 跳过</div>
+        </div>
+        <div class="preview-stat shown">
+          <div class="preview-stat-value">${shown}</div>
+          <div class="preview-stat-label">👁️ 查看</div>
+        </div>
+      </div>
+      <p class="preview-end-summary">正确 ${correct}/${total} 个单词</p>
+
+      <div class="preview-result-list">
+        ${results.map(r => {
+          const w = wordMap[r.wordId];
+          if (!w) return '';
+          return `
+            <div class="preview-result-item">
+              <span class="preview-result-status">${statusIcon[r.status]}</span>
+              <span class="preview-result-english">${w.english}</span>
+              <span class="preview-result-chinese">${w.chinese}</span>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <div class="preview-actions">
+        ${missedWords.length > 0 ? `<button id="btn-retry-missed" class="btn btn-primary btn-lg">🔄 重试未拼对的单词 (${missedWords.length})</button>` : ''}
+        <button id="btn-back-overview" class="btn btn-lg">🗺️ 返回单词列表</button>
+      </div>
+    </div>
+  `;
+
+  if (missedWords.length > 0) {
+    document.getElementById('btn-retry-missed').addEventListener('click', () => {
+      renderScreen('preview', { unit, unitWords, retryWords: missedWords });
+    });
+  }
+  document.getElementById('btn-back-overview').addEventListener('click', () => {
+    renderScreen('unitOverview', { unit, unitWords });
+  });
 }
 
 // ==================== START BATTLE ====================

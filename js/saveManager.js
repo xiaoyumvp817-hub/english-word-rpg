@@ -6,7 +6,7 @@ import { EQUIPMENT_CATALOG } from '../data/equipment.js';
 import UNIT_SPLIT_MAP from '../data/unit_split_map.js';
 
 /** Current save format version. Increment when Player data structure changes. */
-export const CURRENT_SAVE_VERSION = 3;
+export const CURRENT_SAVE_VERSION = 4;
 
 /**
  * Migration chain. Each function upgrades data from version (N-1) to N.
@@ -83,6 +83,17 @@ const MIGRATIONS = {
     }
 
     data.saveVersion = 3;
+    return data;
+  },
+
+  /**
+   * v3 → v4: Add previewedUnits field.
+   */
+  4: (data) => {
+    if (data.player && !data.player.previewedUnits) {
+      data.player.previewedUnits = {};
+    }
+    data.saveVersion = 4;
     return data;
   },
 };

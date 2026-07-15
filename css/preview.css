@@ -1,0 +1,266 @@
+/* === Preview Screen — Letter Scramble Game === */
+
+.preview-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  min-height: 100%;
+}
+
+/* Progress indicator */
+.preview-progress {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Chinese word + phonetic */
+.preview-word-display {
+  text-align: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.preview-word-chinese {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+}
+
+.preview-word-phonetic {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Answer slots */
+.preview-answer-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-height: 52px;
+  padding: var(--spacing-sm);
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-clay-pressed);
+  margin-bottom: var(--spacing-md);
+  width: 100%;
+  max-width: 500px;
+}
+
+.preview-slot {
+  width: 44px;
+  height: 44px;
+  border: 2px dashed var(--border-color);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-transform: lowercase;
+}
+
+.preview-slot:hover {
+  border-color: var(--text-gold);
+  transform: scale(1.08);
+}
+
+.preview-slot.filled {
+  border-style: solid;
+  border-color: var(--border-color);
+  box-shadow: var(--shadow-clay-raised);
+}
+
+.preview-slot.correct {
+  border-color: var(--text-correct);
+  background: rgba(76, 175, 80, 0.1);
+  color: var(--text-correct);
+  animation: pulse 0.3s ease;
+}
+
+.preview-slot.shown-answer {
+  border-color: var(--text-muted);
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+}
+
+/* Spacer slot (for spaces between words) */
+.preview-spacer {
+  width: 16px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hyphen slot (auto-placed) */
+.preview-hyphen {
+  width: 20px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+/* Scrambled letter pool */
+.preview-letter-pool {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: var(--spacing-lg);
+}
+
+.preview-letter {
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-clay-raised), var(--shadow-clay-inner);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  text-transform: lowercase;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.preview-letter:hover {
+  border-color: var(--text-gold);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #d4c4b0, 0 8px 16px rgba(0,0,0,0.1), var(--shadow-clay-inner);
+}
+
+.preview-letter:active {
+  transform: translateY(2px);
+  box-shadow: var(--shadow-clay-pressed);
+}
+
+.preview-letter.used {
+  opacity: 0.25;
+  pointer-events: none;
+  transform: scale(0.9);
+}
+
+/* Preview actions */
+.preview-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* === Preview End Screen === */
+.preview-end-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.preview-end-summary {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.preview-end-stats {
+  display: flex;
+  gap: var(--spacing-lg);
+  justify-content: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.preview-stat {
+  text-align: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-clay-raised);
+}
+
+.preview-stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.preview-stat-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.preview-stat.correct .preview-stat-value { color: var(--text-correct); }
+.preview-stat.skipped .preview-stat-value { color: var(--text-gold); }
+.preview-stat.shown .preview-stat-value { color: var(--text-muted); }
+
+/* Result word list */
+.preview-result-list {
+  width: 100%;
+  max-width: 450px;
+  max-height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.preview-result-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+}
+
+.preview-result-status {
+  width: 24px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.preview-result-english {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  flex: 1;
+}
+
+.preview-result-chinese {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Correct pop — slot wobble */
+@keyframes slotPop {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.25); }
+  60% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.preview-slot.pop {
+  animation: slotPop 0.4s ease;
+}

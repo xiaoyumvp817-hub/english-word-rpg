@@ -39,6 +39,7 @@ export class Player {
     this.unlockedUnits = ['wy-7a-starter1'];
     this.completedUnits = [];
     this.bossDefeated = [];
+    this.previewedUnits = {};
 
     this.stats = {
       totalBattles: 0, battlesWon: 0, battlesLost: 0,
@@ -345,6 +346,25 @@ export class Player {
     }
   }
 
+  /**
+   * Record a word as previewed.
+   */
+  previewWord(unitId, wordId) {
+    if (!this.previewedUnits[unitId]) {
+      this.previewedUnits[unitId] = [];
+    }
+    if (!this.previewedUnits[unitId].includes(wordId)) {
+      this.previewedUnits[unitId].push(wordId);
+    }
+  }
+
+  /**
+   * Get previewed word IDs for a unit.
+   */
+  getPreviewedWords(unitId) {
+    return this.previewedUnits[unitId] || [];
+  }
+
   // ========== Battle Stats ==========
 
   recordBattle(won) {
@@ -464,6 +484,7 @@ export class Player {
       unlockedUnits: [...this.unlockedUnits],
       completedUnits: [...this.completedUnits],
       bossDefeated: [...this.bossDefeated],
+      previewedUnits: JSON.parse(JSON.stringify(this.previewedUnits)),
       textbookId: this.textbookId,
       unitBattleProgress: JSON.parse(JSON.stringify(this.unitBattleProgress)),
       stats: { ...this.stats },
@@ -528,6 +549,11 @@ export class Player {
     this.bossDefeated = Array.isArray(data.bossDefeated)
       ? [...data.bossDefeated]
       : [];
+
+    // Preview progress
+    this.previewedUnits = (data.previewedUnits && typeof data.previewedUnits === 'object')
+      ? JSON.parse(JSON.stringify(data.previewedUnits))
+      : {};
 
     // Stats — merge with defaults for forward compatibility (new stat fields get defaults)
     this.stats = {
